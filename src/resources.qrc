@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>electronics_de.qm</file>
+        <file>electronics_en.qm</file>
+    </qresource>
+</RCC>
