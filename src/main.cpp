@@ -73,7 +73,8 @@ int main(int argc, char** argv)
 
 		QSettings s;
 
-		QString lang = s.value("main/lang", QLocale::system().name()).toString();
+		//QString lang = s.value("main/lang", QLocale::system().name()).toString();
+		QString lang = sys->getActiveLanguage();
 
 		QTranslator qtTrans;
 

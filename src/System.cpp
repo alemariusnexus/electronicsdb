@@ -26,6 +26,8 @@
 #include <QtGui/QMessageBox>
 #include <QtCore/QSettings>
 #include <QtCore/QFileInfo>
+#include <QtCore/QDir>
+#include <QtCore/QTranslator>
 #include <nxcommon/sql/sql.h>
 
 
@@ -473,6 +475,46 @@ void System::createTables()
 		PartCategory* cat = *it;
 		cat->createTables();
 	}
+}
+
+
+QStringList System::getInstalledLanguages() const
+{
+	QStringList res;
+
+	QStringList qmFiles = QDir(":/").entryList(QStringList() << "electronics_*.qm", QDir::Files, QDir::NoSort);
+
+	for (QString qmFile : qmFiles) {
+		QRegExp langRegex("electronics_(.*).qm", Qt::CaseSensitive, QRegExp::RegExp);
+		langRegex.exactMatch(qmFile);
+		QString langCode = langRegex.cap(1);
+		res << langCode;
+	}
+
+	return res;
+}
+
+
+QString System::getLanguageName(const QString& langCode) const
+{
+	QTranslator ttrans;
+	ttrans.load(QString(":/electronics_%1.qm").arg(langCode));
+	return ttrans.translate("Global", "ThisLanguage");
+}
+
+
+QString System::getActiveLanguage() const
+{
+	QSettings s;
+
+	QString lang = s.value("main/lang", QLocale::system().name()).toString();
+
+	QStringList langs = getInstalledLanguages();
+	if (!langs.contains(lang, Qt::CaseInsensitive)) {
+		lang = "en";
+	}
+
+	return lang;
 }
 
 

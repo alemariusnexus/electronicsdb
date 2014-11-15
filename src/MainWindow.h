@@ -95,6 +95,9 @@ private slots:
 	void nextContainerRequested();
 	void previousPartRequested();
 	void nextPartRequested();
+	void aboutRequested();
+	void aboutQtRequested();
+	void langChangeRequested();
 
 private:
 	Ui_MainWindow ui;

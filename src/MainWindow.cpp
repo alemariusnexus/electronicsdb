@@ -31,6 +31,8 @@
 #include <QtCore/QSettings>
 #include <QtCore/QTimer>
 #include <QtCore/QRegExp>
+#include <QtCore/QDir>
+#include <QtCore/QTranslator>
 #include <QtGui/QInputDialog>
 #include <QtGui/QTableView>
 #include <QtGui/QSplitter>
@@ -321,6 +323,47 @@ MainWindow::MainWindow()
 
 	connect(ui.undoAction, SIGNAL(triggered()), editStack, SLOT(undo()));
 	connect(ui.redoAction, SIGNAL(triggered()), editStack, SLOT(redo()));
+
+	connect(ui.aboutAction, SIGNAL(triggered()), this, SLOT(aboutRequested()));
+	connect(ui.aboutQtAction, SIGNAL(triggered()), this, SLOT(aboutQtRequested()));
+
+	/*QDir resDir(":/");
+
+	QStringList qmFiles = resDir.entryList(QStringList() << "electronics_*.qm", QDir::Files, QDir::NoSort);
+
+	for (QString qmFile : qmFiles) {
+		QTranslator ttrans;
+		ttrans.load(QString(":/%1").arg(qmFile));
+
+		QRegExp langRegex("electronics_(.*).qm", Qt::CaseSensitive, QRegExp::RegExp);
+		langRegex.exactMatch(qmFile);
+		QString langCode = langRegex.cap(1);
+		QString langName = ttrans.translate("Global", "ThisLanguage");
+
+		QAction* langAction = new QAction(langName, this);
+		langAction->setCheckable(true);
+		ui.menuLanguage->addAction(langAction);
+
+		printf("Found: %s (%s, %s)\n", qmFile.toLocal8Bit().constData(), langCode.toLocal8Bit().constData(),
+				langName.toLocal8Bit().constData());
+	}*/
+
+	QActionGroup* langGroup = new QActionGroup(this);
+
+	for (QString langCode : sys->getInstalledLanguages()) {
+		QString langName = sys->getLanguageName(langCode);
+
+		QAction* langAction = new QAction(langName, this);
+		connect(langAction, SIGNAL(triggered()), this, SLOT(langChangeRequested()));
+		langAction->setData(langCode);
+		langGroup->addAction(langAction);
+		langAction->setCheckable(true);
+		ui.menuLanguage->addAction(langAction);
+
+		if (langCode == sys->getActiveLanguage()) {
+			langAction->setChecked(true);
+		}
+	}
 
 
     // Must be executed before restoreGeometry(), because some stupid X11 window managers don't restore the maximized
@@ -696,5 +739,32 @@ void MainWindow::jumpToContainer(unsigned int cid)
 		ContainerWidget* cw = (ContainerWidget*) dw->widget();
 		cw->jumpToContainer(cid);
 	}
+}
+
+
+void MainWindow::aboutRequested()
+{
+	QString aboutText = QString(tr("AboutText")).arg(EDB_GIT_SHA1).arg(EDB_GIT_REFSPEC);
+	QMessageBox::about(this, tr("About Electronics Database"), aboutText);
+}
+
+
+void MainWindow::aboutQtRequested()
+{
+	QMessageBox::aboutQt(this, tr("About Qt"));
+}
+
+
+void MainWindow::langChangeRequested()
+{
+	QAction* action = (QAction*) sender();
+
+	QString langCode = action->data().toString();
+
+	QSettings s;
+
+	s.setValue("main/lang", langCode);
+
+	QMessageBox::information(this, tr("Restart Needed"), tr("You need to restart the program for the new language to become active!"));
 }
 

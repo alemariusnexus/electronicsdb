@@ -103,6 +103,10 @@ public:
 
 	void jumpToContainer(unsigned int cid);
 
+	QStringList getInstalledLanguages() const;
+	QString getLanguageName(const QString& langCode) const;
+	QString getActiveLanguage() const;
+
 public slots:
 	void quit();
 	void forceQuit();

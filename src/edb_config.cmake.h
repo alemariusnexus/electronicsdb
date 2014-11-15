@@ -17,38 +17,10 @@
 	along with electronicsdb.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef GLOBAL_H_
-#define GLOBAL_H_
+#ifndef CONFIG_CMAKE_H_
+#define CONFIG_CMAKE_H_
 
-// Always include xapian.h before any Qt headers, because Xapian uses identifiers such as "slots", which
-// clashes with Qt's signals and slots system #defines.
-#include <xapian.h>
-#include <stdint.h>
+#define EDB_GIT_SHA1 "${GIT_SHA1}"
+#define EDB_GIT_REFSPEC "${GIT_REFSPEC}"
 
-#include <edb_config.h>
-
-
-#define INVALID_PART_ID 0
-#define INVALID_CONTAINER_ID 0
-
-#define MAX_PART_CATEGORY_TABLE_NAME 64
-#define MAX_CONTAINER_NAME 128
-#define MAX_FILE_PROPERTY_PATH_LEN 512
-
-typedef uint32_t flags_t;
-
-
-enum DisplayWidgetState
-{
-	Enabled,
-	Disabled,
-	ReadOnly
-};
-
-enum DisplayWidgetFlags
-{
-	ChoosePart = 1 << 0
-};
-
-
-#endif /* GLOBAL_H_ */
+#endif /* CONFIG_CMAKE_H_ */
