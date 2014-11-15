@@ -30,7 +30,6 @@
 #include "PartCategory.h"
 #include "System.h"
 #include <nxcommon/exception/Exception.h>
-#include "sqlite3.h"
 #include "MainApplication.h"
 #include <mysql/mysql.h>
 #include <cstdio>
