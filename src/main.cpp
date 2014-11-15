@@ -31,7 +31,6 @@
 #include "System.h"
 #include <nxcommon/exception/Exception.h>
 #include "MainApplication.h"
-#include <mysql/mysql.h>
 #include <cstdio>
 #include <fstream>
 #include <QtGui/QVBoxLayout>
@@ -48,12 +47,6 @@
 
 using std::ifstream;
 
-
-const char* TestRecords[] = {
-		"'avr', 'AVR', 'ATmega128', 16e6, 24, 4096, 1024, 512, 75.0, 1.8, 6.0, 'PDIP-32', 'Atmel', 3, 'This is an ATmega128', 15",
-		"'avr', 'AVR', 'ATmega2550', 20e6, 40, 16384, 8192, 2048, 85.0, 3.3, 5.0, 'TQFP-54', 'Atmel', 4, 'This is an ATmega2550', 4",
-		"'arm', 'Cortex-A8', 'TMS1337', 700e6, 120, 0, 1048576000, 0, 75.0, 3.3, 3.3, 'TBGA-160', 'Texas Instruments', 5, 'This is powerful!', 2"
-};
 
 
 
@@ -94,36 +87,7 @@ int main(int argc, char** argv)
 		app.installTranslator(&trans);
 
 
-#if 0
-		srand(time(NULL));
-
-		unsigned int numMax = 50;
-		unsigned int numBlock = 1000;
-
-		for (unsigned int i = 0 ; i < numMax ; i++) {
-			printf("Inserting %u+%u / %u...\n", i*numBlock, numBlock, numMax*numBlock);
-
-			QString query = QString(
-					"INSERT INTO microcontroller (arch, processor, model, freqmax, iocount, progmemsize, ramsize, eepromsize, "
-					"tempmax, vmin, vmax, package, vendor, datasheet, notes, numstock) VALUES "
-					);
-
-			for (unsigned int j = 0 ; j < numBlock ; j++) {
-				if (j != 0)
-					query += ", ";
-				query += QString("(%1)").arg(TestRecords[rand() % (sizeof(TestRecords)/sizeof(const char*))]);
-			}
-
-			if (mysql_query(mysql, query.toUtf8().constData())  !=  0) {
-				printf("ERROR: %s\n", mysql_error(mysql));
-				return 1;
-			}
-		}
-
-		return 0;
-#else
 		w = new MainWindow;
-#endif
 
 		int retval = app.exec();
 

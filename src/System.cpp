@@ -23,6 +23,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <cstdio>
+#include <cassert>
 #include <QtGui/QMessageBox>
 #include <QtCore/QSettings>
 #include <QtCore/QFileInfo>
@@ -145,6 +146,7 @@ bool System::connectDatabase(DatabaseConnection* conn, const QString& pw, bool d
 
 	try {
 		if (conn->getType() == DatabaseConnection::MySQL) {
+#ifdef EDB_MYSQL_ENABLED
 			currentSqlDb = MySQLDriver::getInstance()->openDatabase (
 					conn->getMySQLHost().toUtf8().constData(),
 					conn->getMySQLUser().toUtf8().constData(),
@@ -152,6 +154,9 @@ bool System::connectDatabase(DatabaseConnection* conn, const QString& pw, bool d
 					conn->getMySQLDatabaseName().toUtf8().constData(),
 					conn->getMySQLPort()
 					);
+#else
+			return false;
+#endif
 		} else {
 			currentSqlDb = SQLiteDriver::getInstance()->openDatabase (
 					File(conn->getSQLiteFilePath().toUtf8().constData()), SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE);

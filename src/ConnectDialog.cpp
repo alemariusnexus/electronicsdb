@@ -30,7 +30,10 @@ ConnectDialog::ConnectDialog(QWidget* parent)
 	ui.setupUi(this);
 
 	ui.typeBox->addItem(tr("SQLite"), "sqlite");
+
+#ifdef EDB_MYSQL_ENABLED
 	ui.typeBox->addItem(tr("MySQL"), "mysql");
+#endif
 
 	connect(ui.connectButton, SIGNAL(clicked()), this, SLOT(connectRequested()));
 	connect(ui.cancelButton, SIGNAL(clicked()), this, SLOT(reject()));

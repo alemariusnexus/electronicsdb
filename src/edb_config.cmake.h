@@ -20,7 +20,15 @@
 #ifndef CONFIG_CMAKE_H_
 #define CONFIG_CMAKE_H_
 
+#include <nxcommon/config.h>
+
+
 #define EDB_GIT_SHA1 "${GIT_SHA1}"
 #define EDB_GIT_REFSPEC "${GIT_REFSPEC}"
+
+
+#ifdef NXCOMMON_MYSQL_ENABLED
+#define EDB_MYSQL_ENABLED
+#endif
 
 #endif /* CONFIG_CMAKE_H_ */

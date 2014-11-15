@@ -18,8 +18,11 @@
  */
 
 #include "sqlutils.h"
-#include <nxcommon/sql/driver/MySQLDatabaseImpl.h>
 #include <nxcommon/sql/driver/SQLiteDatabaseImpl.h>
+
+#ifdef EDB_MYSQL_ENABLED
+#include <nxcommon/sql/driver/MySQLDatabaseImpl.h>
+#endif
 
 
 
@@ -29,6 +32,7 @@ QList<QMap<QString, QString> > SQLListColumns(SQLDatabase db, const QString& tab
 {
 	SQLDatabaseImpl* impl = db.getImplementation();
 
+#ifdef EDB_MYSQL_ENABLED
 	if (dynamic_cast<MySQLDatabaseImpl*>(impl) != NULL) {
 		QList<QMap<QString, QString> >colData;
 
@@ -43,7 +47,9 @@ QList<QMap<QString, QString> > SQLListColumns(SQLDatabase db, const QString& tab
 		}
 
 		return colData;
-	} else if (dynamic_cast<SQLiteDatabaseImpl*>(impl) != NULL) {
+	} else
+#endif
+	if (dynamic_cast<SQLiteDatabaseImpl*>(impl) != NULL) {
 		QList<QMap<QString, QString> > colData;
 
 		SQLResult res = db.sendQuery(QString("PRAGMA table_info(%1)").arg(table));

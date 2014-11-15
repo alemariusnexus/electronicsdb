@@ -109,17 +109,18 @@ MainWindow::MainWindow()
 
 		QString type = s.value("type", "sqlite").toString();
 
-		DatabaseConnection* conn;
+		DatabaseConnection* conn = NULL;
 
 		if (type == "mysql") {
-			conn = new DatabaseConnection(DatabaseConnection::MySQL);
-
 			QString host = s.value("host", "localhost").toString();
 			unsigned int port = s.value("port", 3306).toUInt();
 			QString user = s.value("user", "electronics").toString();
 			QString db = s.value("db", "electronics").toString();
 			QString connName = s.value("connname", QString("%1@%2:%3").arg(user).arg(host).arg(port)).toString();
 			QString fileRoot = s.value("fileroot", QString()).toString();
+
+#ifdef EDB_MYSQL_ENABLED
+			conn = new DatabaseConnection(DatabaseConnection::MySQL);
 
 			conn->setType(DatabaseConnection::MySQL);
 			conn->setMySQLHost(host);
@@ -128,6 +129,10 @@ MainWindow::MainWindow()
 			conn->setMySQLDatabaseName(db);
 			conn->setName(connName);
 			conn->setFileRoot(fileRoot);
+#else
+			QMessageBox::warning(this, tr("MySQL Support Disabled"), tr("The program was compiled without MySQL support. The "
+					"MySQL connection '%1' will be disabled!").arg(connName));
+#endif
 		} else {
 			conn = new DatabaseConnection(DatabaseConnection::SQLite);
 
@@ -141,7 +146,9 @@ MainWindow::MainWindow()
 			conn->setFileRoot(fileRoot);
 		}
 
-		sys->addPermanentDatabaseConnection(conn);
+		if (conn) {
+			sys->addPermanentDatabaseConnection(conn);
+		}
 
 		s.endGroup();
 	}

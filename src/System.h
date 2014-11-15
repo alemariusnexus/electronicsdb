@@ -29,8 +29,8 @@
 #include "EditStack.h"
 #include "Task.h"
 #include "PartCategory.h"
-#include <mysql/mysql.h>
 #include <nxcommon/sql/sql.h>
+#include <nxcommon/exception/Exception.h>
 
 
 class System : public QObject

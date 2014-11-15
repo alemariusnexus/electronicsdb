@@ -23,7 +23,6 @@
 #include "global.h"
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <mysql/mysql.h>
 
 
 class DatabaseConnection : public QObject

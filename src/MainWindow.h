@@ -34,7 +34,6 @@
 #include <QtCore/QLinkedList>
 #include <QtCore/QMap>
 #include <ui_MainWindow.h>
-#include <mysql/mysql.h>
 #include "DatabaseConnection.h"
 #include "FilterWidget.h"
 #include "PartCategory.h"

@@ -46,7 +46,10 @@ SettingsDialog::SettingsDialog(QWidget* parent)
 	}
 
 	ui.connTypeBox->addItem(tr("SQLite"), "sqlite");
+
+#ifdef EDB_MYSQL_ENABLED
 	ui.connTypeBox->addItem(tr("MySQL"), "mysql");
+#endif
 
 
 	connect(ui.connList, SIGNAL(currentRowChanged(int)), this, SLOT(connListRowChanged(int)));
