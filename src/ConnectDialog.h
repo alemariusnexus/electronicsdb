@@ -35,8 +35,6 @@ public:
 
 private slots:
 	void connectRequested();
-	void typeBoxActivated(int idx);
-	void sqliteFileChosen();
 
 private:
 	Ui_ConnectDialog ui;

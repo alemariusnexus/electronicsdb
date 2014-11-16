@@ -61,12 +61,12 @@ PropertyMultiValueWidget::PropertyMultiValueWidget(PartProperty* prop, QWidget* 
 	buttonLayout->addStretch(1);
 
 	listAddButton = new QPushButton("", buttonWidget);
-	listAddButton->setIcon(QIcon::fromTheme("list-add"));
+	listAddButton->setIcon(QIcon::fromTheme("list-add", QIcon(":/icons/list-add.png")));
 	connect(listAddButton, SIGNAL(clicked()), this, SLOT(addRequested()));
 	buttonLayout->addWidget(listAddButton);
 
 	listRemoveButton = new QPushButton("", buttonWidget);
-	listRemoveButton->setIcon(QIcon::fromTheme("list-remove"));
+	listRemoveButton->setIcon(QIcon::fromTheme("list-remove", QIcon(":/icons/list-remove.png")));
 	connect(listRemoveButton, SIGNAL(clicked()), this, SLOT(removeRequested()));
 	buttonLayout->addWidget(listRemoveButton);
 

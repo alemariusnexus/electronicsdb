@@ -18,11 +18,15 @@
 
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
-PROJECT(electronics C CXX)
+PROJECT(electronicsdb C CXX)
 
 SET(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR})
 
-FIND_PACKAGE(Qt4 4.8.0 COMPONENTS QtCore QtGui qtmain REQUIRED)
+IF(WIN32 AND NOT MINGW)
+	FIND_PACKAGE(Qt4 4.8.0 COMPONENTS QtCore QtGui qtmain REQUIRED)
+ELSE(WIN32 AND NOT MINGW)
+	FIND_PACKAGE(Qt4 4.8.0 COMPONENTS QtCore QtGui REQUIRED)
+ENDIF(WIN32 AND NOT MINGW)
 
 FIND_PACKAGE(Nxcommon REQUIRED CONFIG)
 
@@ -55,7 +59,7 @@ SET(SRCS
     PropertyLinkEditWidget.cpp PropertyTextEdit.cpp PropertyFileWidget.cpp ContainerWidget.cpp
     ContainerTableModel.cpp ContainerEditCommand.cpp ContainerPartTableModel.cpp
     CompoundEditCommand.cpp PartCategoryProvider.cpp ContainerTableItemDelegate.cpp
-    MainApplication.cpp
+    MainApplication.cpp ConnectionEditWidget.cpp
     )
 SET(MOC_SRCS
     MainWindow.h ConnectDialog.h System.h SettingsDialog.h DatabaseConnection.h PartTableModel.h
@@ -64,10 +68,10 @@ SET(MOC_SRCS
     PartProperty.h PropertyComboBox.h
     PropertyLineEdit.h PropertyMultiValueWidget.h PropertyLinkEditWidget.h PropertyTextEdit.h
     PropertyFileWidget.h ContainerWidget.h ContainerTableModel.h ContainerPartTableModel.h
-    PartCategoryProvider.h ContainerTableItemDelegate.h MainApplication.h
+    PartCategoryProvider.h ContainerTableItemDelegate.h MainApplication.h ConnectionEditWidget.h
     )
 SET(UIC_SRCS
-    MainWindow.ui ConnectDialog.ui SettingsDialog.ui ContainerWidget.ui
+    MainWindow.ui ConnectDialog.ui SettingsDialog.ui ContainerWidget.ui ConnectionEditWidget.ui
     )
 
 
@@ -84,7 +88,8 @@ FOREACH(VAR ${LIBNXCOMMON_INCLUDE_DIRS})
     MESSAGE("${VAR}")
 ENDFOREACH(VAR)
 
-INCLUDE_DIRECTORIES(${LIBMYSQLCLIENT_INCLUDE_DIR} ${XAPIAN_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR} "${ICU_INCLUDE_PATH}")
+INCLUDE_DIRECTORIES(${LIBMYSQLCLIENT_INCLUDE_DIR} ${XAPIAN_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}
+        "${ICU_INCLUDE_PATH}")
 
 ADD_COMPILE_OPTIONS(--std=c++11)
 ADD_EXECUTABLE(electronicsdb ${SRCS} ${MOC_COMPILED_SRCS} ${UIC_COMPILED_SRCS} ${QM_FILES} ${QT_RESOURCE_FILES})

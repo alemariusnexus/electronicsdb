@@ -62,12 +62,12 @@ PropertyLinkEditWidget::PropertyLinkEditWidget(PartProperty* prop, bool compactM
 
 	if (compactMode) {
 		linkGotoButton = new QPushButton(tr("Open"), valueWidget);
-		linkGotoButton->setIcon(QIcon::fromTheme("go-jump"));
+		linkGotoButton->setIcon(QIcon::fromTheme("go-jump", QIcon(":/icons/go-jump.png")));
 		connect(linkGotoButton, SIGNAL(clicked()), this, SLOT(gotoButtonClicked()));
 		valueLayout->addWidget(linkGotoButton, 0, Qt::AlignLeft);
 	} else {
 		linkGotoButton = new QPushButton(tr("Open"), valueLineWidget);
-		linkGotoButton->setIcon(QIcon::fromTheme("go-jump"));
+		linkGotoButton->setIcon(QIcon::fromTheme("go-jump", QIcon(":/icons/go-jump.png")));
 		connect(linkGotoButton, SIGNAL(clicked()), this, SLOT(gotoButtonClicked()));
 		valueLineLayout->addWidget(linkGotoButton);
 	}

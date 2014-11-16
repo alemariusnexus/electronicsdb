@@ -55,9 +55,7 @@ private slots:
 	void buttonBoxClicked(QAbstractButton* b);
 	void connAddRequested();
 	void connRemoveRequested();
-	void connTypeBoxActivated(int idx);
-	void connSqliteFileChooseButtonClicked();
-	void connFileRootChosen();
+	void connNameChanged(const QString& name);
 
 private:
 	Ui_SettingsDialog ui;

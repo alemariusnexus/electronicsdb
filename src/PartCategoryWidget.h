@@ -58,6 +58,7 @@ private slots:
 	void recordRemoveRequested();
 	void recordChosenSlot(unsigned int id);
 	void displayWidgetDefocusRequested();
+	void populateDatabaseDependentUI();
 
 signals:
 	void recordChosen(unsigned int id);

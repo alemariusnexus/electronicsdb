@@ -21,6 +21,7 @@
 #include "DatabaseConnection.h"
 #include <QtGui/QMessageBox>
 #include <QtGui/QFileDialog>
+#include <QtGui/QInputDialog>
 #include <cstdio>
 
 
@@ -29,17 +30,8 @@ ConnectDialog::ConnectDialog(QWidget* parent)
 {
 	ui.setupUi(this);
 
-	ui.typeBox->addItem(tr("SQLite"), "sqlite");
-
-#ifdef EDB_MYSQL_ENABLED
-	ui.typeBox->addItem(tr("MySQL"), "mysql");
-#endif
-
 	connect(ui.connectButton, SIGNAL(clicked()), this, SLOT(connectRequested()));
 	connect(ui.cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-	connect(ui.profileBox, SIGNAL(toggled(bool)), ui.nameField, SLOT(setEnabled(bool)));
-	connect(ui.typeBox, SIGNAL(activated(int)), this, SLOT(typeBoxActivated(int)));
-	connect(ui.sqliteChooseButton, SIGNAL(clicked()), this, SLOT(sqliteFileChosen()));
 }
 
 
@@ -47,35 +39,46 @@ void ConnectDialog::connectRequested()
 {
 	System* sys = System::getInstance();
 
-	QString typeStr = ui.typeBox->itemData(ui.typeBox->currentIndex(), Qt::UserRole).toString();
+	//QString typeStr = ui.typeBox->itemData(ui.typeBox->currentIndex(), Qt::UserRole).toString();
+	DatabaseConnection::Type type = ui.connEditor->getConnectionType();
 
 	DatabaseConnection* conn;
 
-	if (typeStr == "mysql") {
-		conn = new DatabaseConnection(DatabaseConnection::MySQL);
+	conn = new DatabaseConnection(type);
 
-		conn->setMySQLHost(ui.serverField->text());
-		conn->setMySQLPort(ui.portBox->value());
-		conn->setMySQLUser(ui.userField->text());
-		conn->setMySQLDatabaseName(ui.dbField->text());
+	if (type == DatabaseConnection::MySQL) {
+		conn->setMySQLHost(ui.connEditor->getMySQLHost());
+		conn->setMySQLPort(ui.connEditor->getMySQLPort());
+		conn->setMySQLUser(ui.connEditor->getMySQLUser());
+		conn->setMySQLDatabaseName(ui.connEditor->getMySQLDatabaseName());
 	} else {
-		conn = new DatabaseConnection(DatabaseConnection::SQLite);
-
-		conn->setSQLiteFilePath(ui.sqliteFileField->text());
+		conn->setSQLiteFilePath(ui.connEditor->getSQLiteFilePath());
 	}
 
-	if (ui.profileBox->isChecked()) {
-		conn->setName(ui.nameField->text());
-	}
+	conn->setName(ui.connEditor->getConnectionName());
+	conn->setFileRoot(ui.connEditor->getFileRootPath());
 
 	ui.connectButton->setEnabled(false);
 	ui.cancelButton->setEnabled(false);
 
-	if (sys->connectDatabase(conn, ui.pwField->text())) {
-		if (ui.profileBox->isChecked()) {
-			sys->addPermanentDatabaseConnection(conn);
-			sys->savePermanentDatabaseConnectionSettings();
+	QString pw;
+
+	if (type == DatabaseConnection::MySQL) {
+		bool ok;
+
+		pw = QInputDialog::getText(this, tr("Enter Password"),
+					QString(tr("Enter password for connection '%1':")).arg(conn->getName()),
+					QLineEdit::Password, QString(), &ok);
+
+		if (!ok) {
+			delete conn;
+			return;
 		}
+	}
+
+	if (sys->connectDatabase(conn, pw)) {
+		sys->addPermanentDatabaseConnection(conn);
+		sys->savePermanentDatabaseConnectionSettings();
 
 		accept();
 	} else {
@@ -86,26 +89,3 @@ void ConnectDialog::connectRequested()
 	}
 }
 
-
-void ConnectDialog::typeBoxActivated(int idx)
-{
-	QString typeStr = ui.typeBox->itemData(idx, Qt::UserRole).toString();
-
-	if (typeStr == "mysql") {
-		ui.stackedWidget->setCurrentIndex(0);
-	} else {
-		ui.stackedWidget->setCurrentIndex(1);
-	}
-}
-
-
-void ConnectDialog::sqliteFileChosen()
-{
-	QString fpath = QFileDialog::getOpenFileName(this, tr("Choose a database file"), ui.sqliteFileField->text(),
-			tr("SQLite Databases (*.db)"));
-
-	if (fpath.isNull())
-		return;
-
-	ui.sqliteFileField->setText(fpath);
-}

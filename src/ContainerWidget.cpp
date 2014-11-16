@@ -85,7 +85,8 @@ ContainerWidget::ContainerWidget(QWidget* parent)
 	ui.partTableView->installEventFilter(this);
 
 
-	removePartsAction = new QAction(QIcon::fromTheme("edit-delete"), tr("Remove"), this);
+	removePartsAction = new QAction(QIcon::fromTheme("edit-delete", QIcon(":/icons/edit-delete.png")),
+			tr("Remove"), this);
 	connect(removePartsAction, SIGNAL(triggered()), this, SLOT(removeSelectedPartsRequested()));
 
 

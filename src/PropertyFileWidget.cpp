@@ -62,11 +62,13 @@ PropertyFileWidget::PropertyFileWidget(PartProperty* prop, QWidget* parent, QObj
 	buttonWidget->setLayout(buttonLayout);
 	topLayout->addWidget(buttonWidget);
 
-	openButton = new QPushButton(QIcon::fromTheme("document-open"), tr("Open"), buttonWidget);
+	openButton = new QPushButton(QIcon::fromTheme("document-open", QIcon(":/icons/document-open.png")),
+			tr("Open"), buttonWidget);
 	connect(openButton, SIGNAL(clicked()), this, SLOT(openRequested()));
 	buttonLayout->addWidget(openButton);
 
-	clipboardButton = new QPushButton(QIcon::fromTheme("edit-copy"), tr("Copy Path To Clipboard"), buttonWidget);
+	clipboardButton = new QPushButton(QIcon::fromTheme("edit-copy", QIcon(":/icons/edit-copy.png")),
+			tr("Copy Path To Clipboard"), buttonWidget);
 	connect(clipboardButton, SIGNAL(clicked()), this, SLOT(copyClipboardRequested()));
 	buttonLayout->addWidget(clipboardButton);
 
@@ -215,7 +217,7 @@ void PropertyFileWidget::openRequested()
 	if (fpath.isNull())
 		return;
 
-	QDesktopServices::openUrl(QUrl(QString("file://%1").arg(fpath)));
+	QDesktopServices::openUrl(QUrl(QString("file:///%1").arg(fpath)));
 }
 
 

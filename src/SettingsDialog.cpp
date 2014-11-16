@@ -45,35 +45,20 @@ SettingsDialog::SettingsDialog(QWidget* parent)
 		ui.connList->addItem(conn->getName());
 	}
 
-	ui.connTypeBox->addItem(tr("SQLite"), "sqlite");
-
-#ifdef EDB_MYSQL_ENABLED
-	ui.connTypeBox->addItem(tr("MySQL"), "mysql");
-#endif
-
 
 	connect(ui.connList, SIGNAL(currentRowChanged(int)), this, SLOT(connListRowChanged(int)));
 	connect(ui.connAddButton, SIGNAL(clicked()), this, SLOT(connAddRequested()));
 	connect(ui.connRemoveButton, SIGNAL(clicked()), this, SLOT(connRemoveRequested()));
 
-	connect(ui.connTypeBox, SIGNAL(activated(int)), this, SLOT(connTypeBoxActivated(int)));
-	connect(ui.connSqliteChooseButton, SIGNAL(clicked(bool)), this, SLOT(connSqliteFileChooseButtonClicked()));
-
-	connect(ui.connFileRootChooseButton, SIGNAL(clicked()), this, SLOT(connFileRootChosen()));
-
 	connect(ui.buttonBox, SIGNAL(clicked(QAbstractButton*)), this, SLOT(buttonBoxClicked(QAbstractButton*)));
 
+	connect(ui.connEditor, SIGNAL(connectionNameChanged(const QString&)), this, SLOT(connNameChanged(const QString&)));
+
+	ui.connAddButton->setIcon(QIcon::fromTheme("list-add", QIcon(":/icons/list-add.png")));
+	ui.connRemoveButton->setIcon(QIcon::fromTheme("list-remove", QIcon(":/icons/list-remove.png")));
+
 	if (localPermDbConns.empty()) {
-		ui.connNameField->setEnabled(false);
-		ui.connTypeBox->setEnabled(false);
-
-		ui.connServerField->setEnabled(false);
-		ui.connPortField->setEnabled(false);
-		ui.connUserField->setEnabled(false);
-		ui.connDbField->setEnabled(false);
-
-		ui.connSqliteFileField->setEnabled(false);
-		ui.connSqliteChooseButton->setEnabled(false);
+		ui.connEditor->setEnabled(false);
 	} else {
 		ui.connList->setCurrentRow(0);
 	}
@@ -115,21 +100,22 @@ SettingsDialog::~SettingsDialog()
 void SettingsDialog::applyCurrentConnectionChanges()
 {
 	if (curEdConn) {
-		QString dbType = ui.connTypeBox->itemData(ui.connTypeBox->currentIndex(), Qt::UserRole).toString();
+		//QString dbType = ui.connTypeBox->itemData(ui.connTypeBox->currentIndex(), Qt::UserRole).toString();
+		DatabaseConnection::Type dbType = ui.connEditor->getConnectionType();
 
-		if (dbType == "mysql") {
+		if (dbType == DatabaseConnection::MySQL) {
 			curEdConn->localConn->setType(DatabaseConnection::MySQL);
-			curEdConn->localConn->setMySQLHost(ui.connServerField->text());
-			curEdConn->localConn->setMySQLUser(ui.connUserField->text());
-			curEdConn->localConn->setMySQLPort(ui.connPortField->value());
-			curEdConn->localConn->setMySQLDatabaseName(ui.connDbField->text());
+			curEdConn->localConn->setMySQLHost(ui.connEditor->getMySQLHost());
+			curEdConn->localConn->setMySQLUser(ui.connEditor->getMySQLUser());
+			curEdConn->localConn->setMySQLPort(ui.connEditor->getMySQLPort());
+			curEdConn->localConn->setMySQLDatabaseName(ui.connEditor->getMySQLDatabaseName());
 		} else {
-			curEdConn->localConn->setSQLiteFilePath(ui.connSqliteFileField->text());
+			curEdConn->localConn->setSQLiteFilePath(ui.connEditor->getSQLiteFilePath());
 		}
 
-		curEdConn->localConn->setName(ui.connNameField->text());
+		curEdConn->localConn->setName(ui.connEditor->getConnectionName());
 
-		curEdConn->localConn->setFileRoot(ui.connFileRootField->text());
+		curEdConn->localConn->setFileRoot(ui.connEditor->getFileRootPath());
 
 		ui.connList->item(localPermDbConns.indexOf(curEdConn))->setText(curEdConn->localConn->getName());
 
@@ -152,77 +138,29 @@ void SettingsDialog::connListRowChanged(int row)
 
 		curEdConn = lconn;
 
-		ui.connNameField->setText(conn->getName());
+		ui.connEditor->setConnectionName(conn->getName());
+		ui.connEditor->setConnectionType(conn->getType());
 
-		ui.connFileRootField->setText(conn->getFileRoot());
+		ui.connEditor->setFileRootPath(conn->getFileRoot());
 
-		ui.connNameField->setEnabled(true);
-		ui.connTypeBox->setEnabled(true);
-
-		ui.connServerField->setEnabled(true);
-		ui.connUserField->setEnabled(true);
-		ui.connPortField->setEnabled(true);
-		ui.connDbField->setEnabled(true);
-
-		ui.connSqliteFileField->setEnabled(true);
-		ui.connSqliteChooseButton->setEnabled(true);
-
-		ui.connFileRootField->setEnabled(true);
-		ui.connFileRootChooseButton->setEnabled(true);
-
-		QString typeStr;
+		ui.connEditor->setEnabled(true);
 
 		if (conn->getType() == DatabaseConnection::MySQL) {
-			typeStr = "mysql";
 
-			ui.connServerField->setText(conn->getMySQLHost());
-			ui.connPortField->setValue(conn->getMySQLPort());
-			ui.connUserField->setText(conn->getMySQLUser());
-			ui.connDbField->setText(conn->getMySQLDatabaseName());
-
-			ui.connStackWidget->setCurrentIndex(0);
+			ui.connEditor->setMySQLHost(conn->getMySQLHost());
+			ui.connEditor->setMySQLPort(conn->getMySQLPort());
+			ui.connEditor->setMySQLUser(conn->getMySQLUser());
+			ui.connEditor->setMySQLDatabaseName(conn->getMySQLDatabaseName());
 		} else {
-			typeStr = "sqlite";
-
-			ui.connSqliteFileField->setText(conn->getSQLiteFilePath());
-
-			ui.connStackWidget->setCurrentIndex(1);
-		}
-
-		for (unsigned int i = 0 ; i < ui.connTypeBox->count() ; i++) {
-			if (ui.connTypeBox->itemData(i, Qt::UserRole).toString() == typeStr) {
-				ui.connTypeBox->setCurrentIndex(i);
-				break;
-			}
+			ui.connEditor->setSQLiteFilePath(conn->getSQLiteFilePath());
 		}
 
 		ui.connRemoveButton->setEnabled(true);
 	} else {
 		curEdConn = NULL;
 
-		ui.connNameField->setText("");
-		ui.connServerField->setText("");
-		ui.connDbField->setText("");
-		ui.connUserField->setText("");
-		ui.connPortField->setValue(0);
-
-		ui.connSqliteFileField->clear();
-
-		ui.connFileRootField->clear();
-
-		ui.connNameField->setEnabled(false);
-		ui.connTypeBox->setEnabled(false);
-
-		ui.connServerField->setEnabled(false);
-		ui.connUserField->setEnabled(false);
-		ui.connDbField->setEnabled(false);
-		ui.connPortField->setEnabled(false);
-
-		ui.connSqliteFileField->setEnabled(false);
-		ui.connSqliteChooseButton->setEnabled(false);
-
-		ui.connFileRootField->setEnabled(false);
-		ui.connFileRootChooseButton->setEnabled(false);
+		ui.connEditor->clear();
+		ui.connEditor->setEnabled(false);
 
 		ui.connRemoveButton->setEnabled(false);
 	}
@@ -238,14 +176,12 @@ void SettingsDialog::connAddRequested()
 	DatabaseConnection* conn = new DatabaseConnection(DatabaseConnection::SQLite);
 	conn->setName(tr("New Connection"));
 
-	ui.connServerField->setText("localhost");
-	ui.connPortField->setValue(3306);
-	ui.connDbField->setText("electronics");
-	ui.connUserField->setText("electronics");
+	ui.connEditor->clear();
 
-	ui.connSqliteFileField->clear();
-
-	ui.connFileRootField->clear();
+	ui.connEditor->setMySQLHost("localhost");
+	ui.connEditor->setMySQLPort(3306);
+	ui.connEditor->setMySQLDatabaseName("electronics");
+	ui.connEditor->setMySQLUser("electronics");
 
 	LocalPermDbConn* lconn = new LocalPermDbConn;
 	lconn->globalConn = NULL;
@@ -399,33 +335,6 @@ void SettingsDialog::apply()
 }
 
 
-void SettingsDialog::connTypeBoxActivated(int idx)
-{
-	if (idx == -1)
-		return;
-
-	QString dbType = ui.connTypeBox->itemData(idx, Qt::UserRole).toString();
-
-	if (dbType == "mysql") {
-		ui.connStackWidget->setCurrentIndex(0);
-	} else {
-		ui.connStackWidget->setCurrentIndex(1);
-	}
-}
-
-
-void SettingsDialog::connSqliteFileChooseButtonClicked()
-{
-	QString fpath = QFileDialog::getOpenFileName(this, tr("Choose a database file"), ui.connSqliteFileField->text(),
-			tr("SQLite Databases (*.db)"));
-
-	if (fpath.isNull())
-		return;
-
-	ui.connSqliteFileField->setText(fpath);
-}
-
-
 void SettingsDialog::rebuildStartupConnectionBox()
 {
 	QVariant selData = ui.connStartupBox->itemData(ui.connStartupBox->currentIndex(), Qt::UserRole);
@@ -455,14 +364,9 @@ void SettingsDialog::rebuildStartupConnectionBox()
 }
 
 
-void SettingsDialog::connFileRootChosen()
+void SettingsDialog::connNameChanged(const QString& name)
 {
-	QString fpath = QFileDialog::getExistingDirectory(this, tr("Choose the root path"), ui.connFileRootField->text());
-
-	if (fpath.isNull())
-		return;
-
-	ui.connFileRootField->setText(fpath);
+	ui.connList->currentItem()->setText(name);
 }
 
 

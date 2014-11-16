@@ -95,11 +95,13 @@ PartCategoryWidget::PartCategoryWidget(PartCategory* partCat, QWidget* parent)
 
 	listingButtonLayout->addStretch(1);
 
-	recordAddButton = new QPushButton(QIcon::fromTheme("list-add"), "", listingButtonWidget);
+	recordAddButton = new QPushButton(QIcon::fromTheme("list-add", QIcon(":/icons/list-add.png")),
+			"", listingButtonWidget);
 	connect(recordAddButton, SIGNAL(clicked()), this, SLOT(recordAddRequested()));
 	listingButtonLayout->addWidget(recordAddButton);
 
-	recordRemoveButton = new QPushButton(QIcon::fromTheme("list-remove"), "", listingButtonWidget);
+	recordRemoveButton = new QPushButton(QIcon::fromTheme("list-remove", QIcon(":/icons/list-remove.png")),
+			"", listingButtonWidget);
 	connect(recordRemoveButton, SIGNAL(clicked()), this, SLOT(recordRemoveRequested()));
 	listingButtonLayout->addWidget(recordRemoveButton);
 
@@ -143,6 +145,8 @@ PartCategoryWidget::PartCategoryWidget(PartCategory* partCat, QWidget* parent)
     connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(aboutToQuit()));
     connect(sys, SIGNAL(databaseConnectionStatusChanged(DatabaseConnection*, DatabaseConnection*)),
 			this, SLOT(databaseConnectionStatusChanged(DatabaseConnection*, DatabaseConnection*)));
+
+    populateDatabaseDependentUI();
 }
 
 
@@ -228,6 +232,8 @@ void PartCategoryWidget::databaseConnectionStatusChanged(DatabaseConnection* old
 	}
 
 	try {
+		populateDatabaseDependentUI();
+
 		if (newConn) {
 			rebuildListTable();
 		} else if (!newConn  &&  oldConn) {
@@ -349,4 +355,13 @@ void PartCategoryWidget::gotoNextPart()
 void PartCategoryWidget::displayWidgetDefocusRequested()
 {
 	listingTable->setFocus();
+}
+
+
+void PartCategoryWidget::populateDatabaseDependentUI()
+{
+	System* sys = System::getInstance();
+
+	recordAddButton->setEnabled(sys->hasValidDatabaseConnection());
+	recordRemoveButton->setEnabled(sys->hasValidDatabaseConnection());
 }
