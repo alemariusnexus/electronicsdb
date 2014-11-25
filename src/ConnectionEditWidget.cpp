@@ -121,7 +121,7 @@ void ConnectionEditWidget::connTypeBoxActivated(int idx)
 void ConnectionEditWidget::connSqliteFileChooseButtonClicked()
 {
 	QString fpath = QFileDialog::getOpenFileName(this, tr("Choose a database file"), ui.connSqliteFileField->text(),
-			tr("SQLite Databases (*.db)"));
+			tr("SQLite Databases (*.db *.sqlite)"));
 
 	if (fpath.isNull())
 		return;

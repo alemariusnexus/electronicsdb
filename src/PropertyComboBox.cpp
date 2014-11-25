@@ -45,8 +45,11 @@ PropertyComboBox::PropertyComboBox(PartProperty* prop, QWidget* parent)
 			this, SLOT(recordEdited(unsigned int, PartCategory::DataMap)));
 	connect(sys, SIGNAL(databaseConnectionStatusChanged(DatabaseConnection*, DatabaseConnection*)),
 			this, SLOT(databaseConnectionStatusChanged(DatabaseConnection*, DatabaseConnection*)));
+	connect(sys, SIGNAL(partCategoriesChanged()), this, SLOT(partCategoriesChanged()));
 
 	setTextValid(true);
+
+	updateEnum();
 }
 
 
@@ -200,6 +203,11 @@ void PropertyComboBox::editTextChangedSlot(const QString& text)
 
 
 void PropertyComboBox::databaseConnectionStatusChanged(DatabaseConnection* oldConn, DatabaseConnection* newConn)
+{
+}
+
+
+void PropertyComboBox::partCategoriesChanged()
 {
 	updateEnum();
 }

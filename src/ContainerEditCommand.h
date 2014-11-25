@@ -41,6 +41,9 @@ public:
 	virtual void commit();
 	virtual void revert();
 
+protected:
+	void clear() { cmds.clear(); }
+
 private:
 	QString desc;
 	QList<SQLCommand*> cmds;

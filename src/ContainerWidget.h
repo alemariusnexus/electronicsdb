@@ -57,6 +57,7 @@ private:
 	ContainerEditCommand* buildAddPartsCommand(unsigned int cid, ContainerPartTableModel::PartList parts);
 	ContainerEditCommand* buildRemovePartsCommand(unsigned int cid, ContainerPartTableModel::PartList parts);
 	void removeParts(unsigned int cid, ContainerPartTableModel::PartList parts);
+	void reconnectPartCategorySignals();
 
 private slots:
 	void databaseConnectionStatusChanged(DatabaseConnection* oldConn, DatabaseConnection* newConn);
@@ -72,6 +73,7 @@ private slots:
 	void partsDragged(ContainerPartTableModel::PartList parts);
 	void partTableViewContextMenuRequested(const QPoint& pos);
 	void removeSelectedPartsRequested();
+	void partCategoriesChanged();
 
 private:
 	Ui_ContainerWidget ui;

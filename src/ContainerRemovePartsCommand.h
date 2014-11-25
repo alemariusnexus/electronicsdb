@@ -17,17 +17,42 @@
 	along with electronicsdb.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SQLUTILS_H_
-#define SQLUTILS_H_
+#ifndef CONTAINERREMOVEPARTSCOMMAND_H_
+#define CONTAINERREMOVEPARTSCOMMAND_H_
 
 #include "global.h"
+#include "ContainerEditCommand.h"
+#include "PartCategory.h"
 #include <QtCore/QList>
-#include <QtCore/QMap>
-#include <QtCore/QString>
-#include <nxcommon/sql/sql.h>
 
 
-QList<QString> SQLListTables(SQLDatabase db);
-QList<QMap<QString, QString> > SQLListColumns(SQLDatabase db, const QString& table);
+class ContainerRemovePartsCommand : public SQLCommand
+{
+private:
+	struct ContainerPart
+	{
+		PartCategory* cat;
+		unsigned int pid;
+	};
 
-#endif /* SQLUTILS_H_ */
+public:
+	ContainerRemovePartsCommand();
+	virtual ~ContainerRemovePartsCommand() {}
+
+	void setContainerID(unsigned int cid);
+	void setAllContainers(bool allConts);
+	void addPart(PartCategory* cat, unsigned int pid);
+
+	virtual void commit();
+	virtual void revert();
+
+private:
+	QString desc;
+	unsigned int cid;
+	bool allContainers;
+	QList<ContainerPart> parts;
+
+	QList<SQLCommand*> committedCmds;
+};
+
+#endif /* CONTAINERREMOVEPARTSCOMMAND_H_ */

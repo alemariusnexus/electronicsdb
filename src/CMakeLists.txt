@@ -59,7 +59,7 @@ SET(SRCS
     PropertyLinkEditWidget.cpp PropertyTextEdit.cpp PropertyFileWidget.cpp ContainerWidget.cpp
     ContainerTableModel.cpp ContainerEditCommand.cpp ContainerPartTableModel.cpp
     CompoundEditCommand.cpp PartCategoryProvider.cpp ContainerTableItemDelegate.cpp
-    MainApplication.cpp ConnectionEditWidget.cpp
+    MainApplication.cpp ConnectionEditWidget.cpp SQLGeneratorDialog.cpp ContainerRemovePartsCommand.cpp
     )
 SET(MOC_SRCS
     MainWindow.h ConnectDialog.h System.h SettingsDialog.h DatabaseConnection.h PartTableModel.h
@@ -69,9 +69,11 @@ SET(MOC_SRCS
     PropertyLineEdit.h PropertyMultiValueWidget.h PropertyLinkEditWidget.h PropertyTextEdit.h
     PropertyFileWidget.h ContainerWidget.h ContainerTableModel.h ContainerPartTableModel.h
     PartCategoryProvider.h ContainerTableItemDelegate.h MainApplication.h ConnectionEditWidget.h
+    SQLGeneratorDialog.h ContainerRemovePartsCommand.h
     )
 SET(UIC_SRCS
     MainWindow.ui ConnectDialog.ui SettingsDialog.ui ContainerWidget.ui ConnectionEditWidget.ui
+    SQLGeneratorDialog.ui
     )
 
 

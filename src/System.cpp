@@ -112,12 +112,6 @@ void System::unhandeledException(Exception& ex)
 }
 
 
-void System::addPartCategory(PartCategory* cat)
-{
-	partCats << cat;
-}
-
-
 void System::addPermanentDatabaseConnection(DatabaseConnection* conn)
 {
 	permDbConns.push_back(conn);
@@ -211,6 +205,10 @@ bool System::connectDatabase(DatabaseConnection* conn, const QString& pw, bool d
 
 	displayStatusMessage(tr("Connection Established!"));
 
+	partCats = PartCategoryProvider::getInstance()->buildCategories();
+
+	emit partCategoriesChanged();
+
 	return true;
 }
 
@@ -231,12 +229,22 @@ bool System::disconnect(bool ask)
 		}
 	}
 
+	emit partCategoriesAboutToChange();
+
 	currentSqlDb.close();
 	currentSqlDb = SQLDatabase();
 
 	DatabaseConnection* oldConn = currentDbConn;
 
 	currentDbConn = NULL;
+
+	for (PartCategory* cat : partCats) {
+		delete cat;
+	}
+
+	partCats.clear();
+
+	emit partCategoriesChanged();
 
 	emit databaseConnectionStatusChanged(oldConn, NULL);
 
@@ -456,6 +464,57 @@ void System::createTables()
 				"    KEY(pid)\n"
 				")"
 				).arg(MAX_PART_CATEGORY_TABLE_NAME).utf16());
+		sql.sendQuery((const UChar*) QString (
+				"CREATE TABLE IF NOT EXISTS part_category (\n"
+				"    id VARCHAR(%1) NOT NULL,\n"
+				"    name VARCHAR(128) NOT NULL,\n"
+				"    desc_pattern VARCHAR(512),\n"
+				"	 sortidx INTEGER DEFAULT 10000,\n"
+				"    PRIMARY KEY(id)\n"
+				")"
+				).arg(MAX_PART_CATEGORY_TABLE_NAME).utf16());
+		sql.sendQuery((const UChar*) QString (
+				"CREATE TABLE IF NOT EXISTS meta_type (\n"
+				"	id VARCHAR(32) PRIMARY KEY  NOT NULL,\n"
+				"	\n"
+				"	name VARCHAR(128),\n"
+				"	type VARCHAR(32) DEFAULT 'string',\n"
+				"	\n"
+				"	unit_suffix VARCHAR(32),\n"
+				"	display_unit_affix VARCHAR(16),\n"
+				"	\n"
+				"	int_range_min INTEGER,\n"
+				"	int_range_max INTEGER,\n"
+				"	\n"
+				"	decimal_range_min DOUBLE,\n"
+				"	decimal_range_max DOUBLE,\n"
+				"	\n"
+				"	string_max_length INTEGER,\n"
+				"	\n"
+				"	pl_category VARCHAR(64),\n"
+				"	\n"
+				"	flag_full_text_indexed BOOLEAN,\n"
+				"	flag_multi_value BOOLEAN,\n"
+				"	flag_si_prefixes_default_to_base2 BOOLEAN,\n"
+				"	flag_display_with_units BOOLEAN,\n"
+				"	flag_display_no_selection_list BOOLEAN,\n"
+				"	flag_display_hide_from_listing_table BOOLEAN,\n"
+				"	flag_display_text_area BOOLEAN,\n"
+				"	flag_display_multi_in_single_field BOOLEAN,\n"
+				"	flag_display_dynamic_enum BOOLEAN,\n"
+				"	\n"
+				"	bool_true_text VARCHAR(128),\n"
+				"	bool_false_text VARCHAR(128),\n"
+				"	\n"
+				"	ft_user_prefix VARCHAR(64),\n"
+				"	\n"
+				"	textarea_min_height INTEGER,\n"
+				"	\n"
+				"	sql_natural_order_code VARCHAR(512),\n"
+				"	sql_ascending_order_code VARCHAR(512),\n"
+				"	sql_descending_order_code VARCHAR(512)\n"
+				")"
+				).utf16());
 	} else {
 		sql.sendQuery((const UChar*) QString (
 				"CREATE TABLE IF NOT EXISTS container (\n"
@@ -471,15 +530,66 @@ void System::createTables()
 				"    pid INTEGER NOT NULL\n"
 				")"
 				).arg(MAX_PART_CATEGORY_TABLE_NAME).utf16());
+		sql.sendQuery((const UChar*) QString (
+				"CREATE TABLE IF NOT EXISTS part_category (\n"
+				"    id VARCHAR(%1) NOT NULL,\n"
+				"    name VARCHAR(128) NOT NULL,\n"
+				"    desc_pattern VARCHAR(512),\n"
+				"	 sortidx INTEGER DEFAULT 10000,\n"
+				"    PRIMARY KEY(id)\n"
+				")"
+				).arg(MAX_PART_CATEGORY_TABLE_NAME).utf16());
+		sql.sendQuery((const UChar*) QString (
+				"CREATE TABLE IF NOT EXISTS meta_type (\n"
+				"	id VARCHAR(32) PRIMARY KEY  NOT NULL,\n"
+				"	\n"
+				"	name VARCHAR(128),\n"
+				"	type VARCHAR(32) DEFAULT 'string',\n"
+				"	\n"
+				"	unit_suffix VARCHAR(32),\n"
+				"	display_unit_affix VARCHAR(16),\n"
+				"	\n"
+				"	int_range_min INTEGER,\n"
+				"	int_range_max INTEGER,\n"
+				"	\n"
+				"	decimal_range_min DOUBLE,\n"
+				"	decimal_range_max DOUBLE,\n"
+				"	\n"
+				"	string_max_length INTEGER,\n"
+				"	\n"
+				"	pl_category VARCHAR(64),\n"
+				"	\n"
+				"	flag_full_text_indexed BOOLEAN,\n"
+				"	flag_multi_value BOOLEAN,\n"
+				"	flag_si_prefixes_default_to_base2 BOOLEAN,\n"
+				"	flag_display_with_units BOOLEAN,\n"
+				"	flag_display_no_selection_list BOOLEAN,\n"
+				"	flag_display_hide_from_listing_table BOOLEAN,\n"
+				"	flag_display_text_area BOOLEAN,\n"
+				"	flag_display_multi_in_single_field BOOLEAN,\n"
+				"	flag_display_dynamic_enum BOOLEAN,\n"
+				"	\n"
+				"	bool_true_text VARCHAR(128),\n"
+				"	bool_false_text VARCHAR(128),\n"
+				"	\n"
+				"	ft_user_prefix VARCHAR(64),\n"
+				"	\n"
+				"	textarea_min_height INTEGER,\n"
+				"	\n"
+				"	sql_natural_order_code VARCHAR(512),\n"
+				"	sql_ascending_order_code VARCHAR(512),\n"
+				"	sql_descending_order_code VARCHAR(512)\n"
+				")"
+				).utf16());
 		sql.sendQuery(u"CREATE INDEX IF NOT EXISTS container_part_cid_idx ON container_part (cid)");
 		sql.sendQuery(u"CREATE INDEX IF NOT EXISTS container_part_ptype_idx ON container_part (ptype)");
 		sql.sendQuery(u"CREATE INDEX IF NOT EXISTS container_part_pid_idx ON container_part (pid)");
 	}
 
-	for (PartCategoryIterator it = partCats.begin() ; it != partCats.end() ; it++) {
+	/*for (PartCategoryIterator it = partCats.begin() ; it != partCats.end() ; it++) {
 		PartCategory* cat = *it;
 		cat->createTables();
-	}
+	}*/
 }
 
 

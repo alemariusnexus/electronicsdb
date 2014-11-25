@@ -47,13 +47,14 @@ public:
 	typedef QMap<unsigned int, DataMap> MultiDataMap;
 
 public:
-	PartCategory(const QString& tableName, const QString& userReadableName, const QString& idField = "id");
+	PartCategory(const QString& id, const QString& userReadableName, const QString& idField = "id");
 	~PartCategory();
 
 	void addProperty(PartProperty* prop);
 	void setDescriptionPattern(const QString& descPat);
 
-	QString getTableName() const { return tableName; }
+	QString getID() const { return id; }
+	QString getTableName() const { return QString("pcat_") + id; }
 	QString getUserReadableName() const { return userReadableName; }
 	QString getIDField() const { return idField; }
 	PropertyIterator getPropertyBegin() { return props.begin(); }
@@ -65,8 +66,8 @@ public:
 	PartProperty* getProperty(const QString& fieldName);
 	PropertyList getDescriptionProperties();
 
-	QList<QString> generateCreateTablesCode(DatabaseConnection::Type dbType) const;
-	void createTables();
+	//QList<QString> generateCreateTablesCode(DatabaseConnection::Type dbType) const;
+	//void createTables();
 
 	QString getDescription(unsigned int id, const DataMap& data);
 	QMap<unsigned int, QString> getDescriptions(QList<unsigned int> ids);
@@ -93,7 +94,7 @@ private:
 	void rebuildFullTextIndex(bool fullRebuild, QList<unsigned int> ids);
 	QList<unsigned int> find(Filter* filter, unsigned int offset, unsigned int numResults, bool countOnly);
 
-	QString generateSQLColumnTypeDefinition(const PartProperty* prop, DatabaseConnection::Type dbType) const;
+	//QString generateSQLColumnTypeDefinition(const PartProperty* prop, DatabaseConnection::Type dbType) const;
 
 private slots:
 	void databaseConnectionStatusChanged(DatabaseConnection* oldConn, DatabaseConnection* newConn);
@@ -107,7 +108,7 @@ signals:
 	void recordsRemoved(QList<unsigned int> ids);
 
 private:
-	QString tableName;
+	QString id;
 	QString userReadableName;
 	QString idField;
 	QString descPattern;

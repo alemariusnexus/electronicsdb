@@ -26,6 +26,7 @@
 #include "PartCategoryWidget.h"
 #include "ContainerWidget.h"
 #include "PartCategoryProvider.h"
+#include "SQLGeneratorDialog.h"
 #include <cstdio>
 #include <fstream>
 #include <QtCore/QSettings>
@@ -92,14 +93,6 @@ MainWindow::MainWindow()
 
 
 	ui.disconnectAction->setEnabled(false);
-
-
-	QList<PartCategory*> cats = PartCategoryProvider::getInstance()->buildCategories();
-
-	for (QList<PartCategory*>::iterator it = cats.begin() ; it != cats.end() ; it++) {
-		PartCategory* cat = *it;
-		sys->addPartCategory(cat);
-	}
 
 
 	QSettings s;
@@ -268,15 +261,6 @@ MainWindow::MainWindow()
 
 
 
-
-    cats = sys->getPartCategories();
-    qSort(cats.begin(), cats.end(), &_PartCategoryUserReadableNameSortLess);
-
-    for (System::PartCategoryIterator it = cats.begin() ; it != cats.end() ; it++) {
-    	PartCategory* cat = *it;
-    	addPartCategoryWidget(cat);
-    }
-
     //addPartCategoryWidget(ucCat);
     //addPartCategoryWidget(dsheetCat);
 
@@ -323,6 +307,8 @@ MainWindow::MainWindow()
 	connect(sys, SIGNAL(databaseConnectionStatusChanged(DatabaseConnection*, DatabaseConnection*)),
 			this, SLOT(databaseConnectionStatusChanged(DatabaseConnection*, DatabaseConnection*)));
 	connect(sys, SIGNAL(permanentDatabaseConnectionSettingsSaved()), this, SLOT(updateConnectMenu()));
+	connect(sys, SIGNAL(partCategoriesAboutToChange()), this, SLOT(partCategoriesAboutToChange()));
+	connect(sys, SIGNAL(partCategoriesChanged()), this, SLOT(partCategoriesChanged()));
 	connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(aboutToQuit()));
 
 	connect(editStack, SIGNAL(canUndoStatusChanged(bool)), ui.undoAction, SLOT(setEnabled(bool)));
@@ -333,6 +319,8 @@ MainWindow::MainWindow()
 
 	connect(ui.aboutAction, SIGNAL(triggered()), this, SLOT(aboutRequested()));
 	connect(ui.aboutQtAction, SIGNAL(triggered()), this, SLOT(aboutQtRequested()));
+
+	connect(ui.sqlGenAction, SIGNAL(triggered()), this, SLOT(sqlGeneratorRequested()));
 
 	/*QDir resDir(":/");
 
@@ -423,6 +411,33 @@ void MainWindow::loadWindowState()
 	s.beginGroup("gui_geometry");
     restoreState(s.value("main_window_state").toByteArray());
     s.endGroup();
+}
+
+
+void MainWindow::partCategoriesAboutToChange()
+{
+	System* sys = System::getInstance();
+
+	mainTabber->clear();
+
+	for (PartCategoryWidget* widget : catWidgets.values()) {
+		delete widget;
+	}
+
+	catWidgets.clear();
+}
+
+
+void MainWindow::partCategoriesChanged()
+{
+	System* sys = System::getInstance();
+
+	System::PartCategoryList cats = sys->getPartCategories();
+
+    for (System::PartCategoryIterator it = cats.begin() ; it != cats.end() ; it++) {
+    	PartCategory* cat = *it;
+    	addPartCategoryWidget(cat);
+    }
 }
 
 
@@ -773,5 +788,12 @@ void MainWindow::langChangeRequested()
 	s.setValue("main/lang", langCode);
 
 	QMessageBox::information(this, tr("Restart Needed"), tr("You need to restart the program for the new language to become active!"));
+}
+
+
+void MainWindow::sqlGeneratorRequested()
+{
+	SQLGeneratorDialog* dlg = new SQLGeneratorDialog(this);
+	dlg->exec();
 }
 

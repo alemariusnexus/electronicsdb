@@ -18,9 +18,15 @@
  */
 
 #include "PartCategoryProvider.h"
+#include "System.h"
+#include "sqlutils.h"
+#include <nxcommon/exception/InvalidValueException.h>
+#include <cfloat>
 
 
 PartCategoryProvider* PartCategoryProvider::instance = NULL;
+
+
 
 
 
@@ -47,7 +53,7 @@ void PartCategoryProvider::destroy()
 
 
 
-void PartCategoryProvider::addNotesProperty(PartCategory* cat, flags_t addFlags)
+/*void PartCategoryProvider::addNotesProperty(PartCategory* cat, flags_t addFlags)
 {
 	PartProperty* notesProp = new PartProperty("notes", tr("Notes"), PartProperty::String,
 			PartProperty::DisplayHideFromListingTable | PartProperty::DisplayNoSelectionList | PartProperty::DisplayTextArea
@@ -121,15 +127,406 @@ void PartCategoryProvider::addKeywordsProperty(PartCategory* cat, flags_t addFla
 			| PartProperty::DisplayTextArea | PartProperty::FullTextIndex,
 			cat);
 	kwProp->setStringMaximumLength(64);
+}*/
+
+
+
+
+
+void PartCategoryProvider::applyMetaData(PartProperty* prop, const SQLResult& res, flags_t& explicitFlags)
+{
+	CString typeStr;
+
+	if (!res.isNull("type")) {
+		typeStr = res.getStringUTF8("type").lower();
+	} else {
+		typeStr = res.getStringUTF8("id").lower();
+	}
+
+	bool isCoreType = true;
+
+	if (typeStr == "string") {
+		prop->setType(PartProperty::String);
+	} else if (typeStr == "int"  ||  typeStr == "integer") {
+		prop->setType(PartProperty::Integer);
+	} else if (typeStr == "decimal"  ||  typeStr == "float"  ||  typeStr == "double") {
+		prop->setType(PartProperty::Decimal);
+	} else if (typeStr == "boolean"  ||  typeStr == "bool") {
+		prop->setType(PartProperty::Boolean);
+	} else if (typeStr == "partlink"  ||  typeStr == "plink") {
+		prop->setType(PartProperty::PartLink);
+	} else if (typeStr == "file") {
+		prop->setType(PartProperty::File);
+	} else {
+		isCoreType = false;
+
+		if (!applyMetaType(prop, typeStr, explicitFlags)) {
+			throw InvalidValueException(QString("Property '%1.%2' has invalid type: %3")
+					.arg(prop->getPartCategory()->getID()).arg(prop->getFieldName()).arg(typeStr));
+		}
+	}
+
+	if (!res.isNull("name")) {
+		prop->setUserReadableName(res.getString("name"));
+	}
+
+	flags_t flags = prop->getFlags();
+
+	struct FlagEntry
+	{
+		CString fieldName;
+		flags_t flagCode;
+	};
+
+	const FlagEntry flagEntries[] = {
+			{"flag_full_text_indexed", PartProperty::FullTextIndex},
+			{"flag_multi_value", PartProperty::MultiValue},
+			{"flag_si_prefixes_default_to_base2", PartProperty::SIPrefixesDefaultToBase2},
+			{"flag_display_with_units", PartProperty::DisplayWithUnits},
+			{"flag_display_no_selection_list", PartProperty::DisplayNoSelectionList},
+			{"flag_display_hide_from_listing_table", PartProperty::DisplayHideFromListingTable},
+			{"flag_display_text_area", PartProperty::DisplayTextArea},
+			{"flag_display_multi_in_single_field", PartProperty::DisplayMultiInSingleField},
+			{"flag_display_dynamic_enum", PartProperty::DisplayDynamicEnum}
+	};
+
+	for (size_t i = 0 ; i < sizeof(flagEntries) / sizeof(FlagEntry) ; i++) {
+		const FlagEntry& entry = flagEntries[i];
+
+		if (!res.isNull(entry.fieldName)) {
+			explicitFlags |= entry.flagCode;
+
+			if (res.getBool(entry.fieldName)) {
+				flags |= entry.flagCode;
+			} else {
+				flags &= ~entry.flagCode;
+			}
+		}
+	}
+
+	if (!res.isNull("display_unit_affix")) {
+		CString affix = res.getStringUTF8("display_unit_affix").lower();
+
+		if (affix == "sibase2") {
+			flags |= PartProperty::DisplayUnitPrefixSIBase2;
+			explicitFlags |= PartProperty::DisplayUnitPrefixSIBase2;
+		} else if (affix == "sibase10") {
+			// Absence of a DisplayUnitPrefix* flag signals SI base 10
+		} else if (affix == "percent") {
+			flags |= PartProperty::DisplayUnitPrefixPercent;
+			explicitFlags |= PartProperty::DisplayUnitPrefixPercent;
+		} else if (affix == "ppm") {
+			flags |= PartProperty::DisplayUnitPrefixPPM;
+			explicitFlags |= PartProperty::DisplayUnitPrefixPPM;
+		} else if (affix == "none") {
+			flags |= PartProperty::DisplayUnitPrefixNone;
+			explicitFlags |= PartProperty::DisplayUnitPrefixNone;
+		} else {
+			// TODO: Error
+		}
+	}
+
+	prop->setFlags(flags);
+
+	if (!res.isNull("string_max_length")) {
+		unsigned int len = res.getUInt32("string_max_length");
+
+		prop->setStringMaximumLength(len);
+	}
+
+	if (!res.isNull("ft_user_prefix")) {
+		prop->setFullTextSearchUserPrefix(res.getString("ft_user_prefix"));
+	}
+
+	if (!res.isNull("unit_suffix")) {
+		prop->setUnitSuffix(res.getString("unit_suffix"));
+	}
+
+	if (!res.isNull("sql_natural_order_code")) {
+		prop->setSQLNaturalOrderCode(res.getString("sql_natural_order_code"));
+	}
+	if (!res.isNull("sql_ascending_order_code")) {
+		prop->setSQLAscendingOrderCode(res.getString("sql_ascending_order_code"));
+	}
+	if (!res.isNull("sql_descending_order_code")) {
+		prop->setSQLDescendingOrderCode(res.getString("sql_descending_order_code"));
+	}
+
+	if (prop->getType() == PartProperty::PartLink) {
+		CString plCatName;
+
+		if (!res.isNull("pl_category")) {
+			plCatName = res.getStringUTF8("pl_category").lower();
+		} else if (isCoreType  &&  !prop->getPartLinkCategory()) {
+			plCatName = prop->getFieldName().toLower();
+		}
+
+		if (!plCatName.isNull()  ||  isCoreType) {
+			PartCategory* finalPlCat = NULL;
+
+			for (PartCategory* plCat : cats) {
+				if (plCat->getID().toLower() == plCatName) {
+					finalPlCat = plCat;
+					break;
+				}
+			}
+
+			if (!finalPlCat) {
+				throw InvalidValueException(QString("pl_category field of property '%1.%2' references an invalid "
+						"part category: '%3'").arg(prop->getPartCategory()->getID()).arg(prop->getFieldName()).arg(plCatName));
+			}
+
+			prop->setPartLinkCategory(finalPlCat);
+		}
+	}
+
+	QString boolTrueText = prop->getBooleanTrueDisplayText();
+	QString boolFalseText = prop->getBooleanFalseDisplayText();
+
+	if (isCoreType) {
+		boolTrueText = "true";
+		boolFalseText = "false";
+	}
+
+	if (!res.isNull("bool_true_text")) {
+		boolTrueText = res.getString("bool_true_text");
+	}
+	if (!res.isNull("bool_false_text")) {
+		boolFalseText = res.getString("bool_false_text");
+	}
+
+	prop->setBooleanDisplayText(boolTrueText, boolFalseText);
+
+	int64_t intRangeMin = prop->getIntegerMinimum();
+	int64_t intRangeMax = prop->getIntegerMaximum();
+	double decimalRangeMin = prop->getDecimalMinimum();
+	double decimalRangeMax = prop->getDecimalMaximum();
+
+	if (!res.isNull("int_range_min")) {
+		intRangeMin = res.getInt64("int_range_min");
+	}
+	if (!res.isNull("int_range_max")) {
+		intRangeMax = res.getInt64("int_range_max");
+	}
+
+	if (!res.isNull("decimal_range_min")) {
+		decimalRangeMin = res.getDouble("decimal_range_min");
+	}
+	if (!res.isNull("decimal_range_max")) {
+		decimalRangeMax = res.getDouble("decimal_range_max");
+	}
+
+	prop->setIntegerValidRange(intRangeMin, intRangeMax);
+	prop->setDecimalValidRange(decimalRangeMin, decimalRangeMax);
+
+	if (!res.isNull("textarea_min_height")) {
+		prop->setTextAreaMinimumHeight(res.getUInt32("textarea_min_height"));
+	}
 }
 
 
+bool PartCategoryProvider::applyMetaType(PartProperty* prop, const QString& metaType, flags_t& explicitFlags)
+{
+	System* sys = System::getInstance();
 
+	DatabaseConnection* conn = sys->getCurrentDatabaseConnection();
+	SQLDatabase db = sys->getCurrentSQLDatabase();
+
+	SQLPreparedStatement stmt = db.createPreparedStatement(u"SELECT * FROM meta_type WHERE id=?");
+	stmt.bindString(0, metaType.toLower());
+
+	SQLResult res = stmt.execute();
+
+	if (!res.nextRecord()) {
+		return false;
+	}
+
+	applyMetaData(prop, res, explicitFlags);
+
+	return true;
+}
 
 
 QList<PartCategory*> PartCategoryProvider::buildCategories()
 {
-	QList<PartCategory*> cats;
+	System* sys = System::getInstance();
+
+	cats.clear();
+
+	if (!sys->hasValidDatabaseConnection()) {
+		return cats;
+	}
+
+	DatabaseConnection* conn = sys->getCurrentDatabaseConnection();
+	SQLDatabase db = sys->getCurrentSQLDatabase();
+
+	SQLResult res = db.sendQuery(u"SELECT id, name, desc_pattern FROM part_category ORDER BY sortidx, name ASC");
+
+	while (res.nextRecord()) {
+		QString catName = res.getString("id");
+
+		PartCategory* cat = new PartCategory(catName, res.getString("name"));
+		cat->setDescriptionPattern(res.getString("desc_pattern"));
+
+		cats << cat;
+	}
+
+	for (PartCategory* cat : cats) {
+		QString catID = cat->getID();
+
+		SQLResult res;
+
+		QMap<QString, QString> propDefaultValues;
+		QMap<QString, unsigned int> propMaxLengths;
+		QMap<QString, int64_t> propIntStorageRangeMins;
+		QMap<QString, int64_t> propIntStorageRangeMaxs;
+
+		if (conn->getType() == DatabaseConnection::SQLite) {
+			res = db.sendQuery(UString(u"PRAGMA table_info(").append(cat->getTableName()).append(u")"));
+
+			while (res.nextRecord()) {
+				QString propName(res.getString("name"));
+				QString propDef;
+
+				if (!res.isNull("dflt_value")) {
+					propDef = res.getString("dflt_value");
+				}
+
+				propDefaultValues.insert(propName, propDef);
+
+				// SQLite has no inherent maximum length for a string (apart from storage limits of course)
+
+				if (res.getStringUTF8("type") == CString("INTEGER")) {
+					// SQLite supports storing of INTEGERs with at most 8 bytes, but they are always signed.
+					propIntStorageRangeMins.insert(propName, INT64_MIN);
+					propIntStorageRangeMaxs.insert(propName, INT64_MAX);
+				}
+			}
+		} else {
+			res = db.sendQuery(UString(
+					u"SELECT COLUMN_NAME, COLUMN_DEFAULT, CHARACTER_MAXIMUM_LENGTH, DATA_TYPE, COLUMN_TYPE "
+					u"FROM INFORMATION_SCHEMA.COLUMNS "
+					u"WHERE TABLE_NAME='").append(UString(cat->getTableName())).append(u"'"));
+
+			while (res.nextRecord()) {
+				QString propName(res.getString("COLUMN_NAME"));
+				QString propDef;
+
+				if (!res.isNull("COLUMN_DEFAULT")) {
+					propDef = res.getString("COLUMN_DEFAULT");
+				}
+
+				propDefaultValues.insert(propName, propDef);
+
+				if (!res.isNull("CHARACTER_MAXIMUM_LENGTH")) {
+					propMaxLengths.insert(propName, res.getUInt32("CHARACTER_MAXIMUM_LENGTH"));
+				}
+
+				QString colType(res.getString("DATA_TYPE"));
+				colType = colType.toLower();
+
+				bool isUnsigned = QString(res.getString("COLUMN_TYPE")).toLower().contains("unsigned");
+
+				if (colType == "tinyint") {
+					if (isUnsigned) {
+						propIntStorageRangeMins.insert(propName, 0);
+						propIntStorageRangeMaxs.insert(propName, UINT8_MAX);
+					} else {
+						propIntStorageRangeMins.insert(propName, INT8_MIN);
+						propIntStorageRangeMaxs.insert(propName, INT8_MAX);
+					}
+				} else if (colType == "smallint") {
+					if (isUnsigned) {
+						propIntStorageRangeMins.insert(propName, 0);
+						propIntStorageRangeMaxs.insert(propName, UINT16_MAX);
+					} else {
+						propIntStorageRangeMins.insert(propName, INT16_MIN);
+						propIntStorageRangeMaxs.insert(propName, INT16_MAX);
+					}
+				} else if (colType == "mediumint") {
+					if (isUnsigned) {
+						propIntStorageRangeMins.insert(propName, 0);
+						propIntStorageRangeMaxs.insert(propName, 16777215);
+					} else {
+						propIntStorageRangeMins.insert(propName, -8388608);
+						propIntStorageRangeMaxs.insert(propName, 8388607);
+					}
+				} else if (colType == "int") {
+					if (isUnsigned) {
+						propIntStorageRangeMins.insert(propName, 0);
+						propIntStorageRangeMaxs.insert(propName, UINT32_MAX);
+					} else {
+						propIntStorageRangeMins.insert(propName, INT32_MIN);
+						propIntStorageRangeMaxs.insert(propName, INT32_MAX);
+					}
+				} else if (colType == "bigint") {
+					if (isUnsigned) {
+						propIntStorageRangeMins.insert(propName, 0);
+						propIntStorageRangeMaxs.insert(propName, UINT64_MAX);
+					} else {
+						propIntStorageRangeMins.insert(propName, INT64_MIN);
+						propIntStorageRangeMaxs.insert(propName, INT64_MAX);
+					}
+				}
+			}
+		}
+
+		res = db.sendQuery(QString("SELECT * FROM pcatmeta_%1 ORDER BY sortidx, id ASC").arg(catID));
+
+		while (res.nextRecord()) {
+			PartProperty::Type type;
+
+			QString propID = res.getString("id");
+
+			int64_t storageIntMin = INT64_MIN;
+			int64_t storageIntMax = INT64_MAX;
+
+			if (propIntStorageRangeMins.contains(propID)) {
+				storageIntMin = propIntStorageRangeMins[propID];
+				storageIntMax = propIntStorageRangeMaxs[propID];
+			}
+
+			PartProperty* prop = new PartProperty(propID, "", PartProperty::String, 0, cat);
+
+			flags_t explicitFlags = 0;
+
+			applyMetaData(prop, res, explicitFlags);
+
+			// FullTextIndex is set unless explicitly stated otherwise
+			if ((explicitFlags & PartProperty::FullTextIndex) == 0) {
+				prop->setFlags(prop->getFlags() | PartProperty::FullTextIndex);
+			}
+
+			type = prop->getType();
+
+			if ((explicitFlags & PartProperty::DisplayWithUnits) == 0  &&
+					(type == PartProperty::Integer || type == PartProperty::Float || type == PartProperty::Decimal)) {
+				prop->setFlags(prop->getFlags() | PartProperty::DisplayWithUnits);
+			}
+
+			if (storageIntMin > prop->getIntegerMinimum()) {
+				prop->setIntegerValidRange(storageIntMin, prop->getIntegerMaximum());
+			}
+			if (storageIntMax < prop->getIntegerMaximum()) {
+				prop->setIntegerValidRange(prop->getIntegerMinimum(), storageIntMax);
+			}
+
+			QString defVal = propDefaultValues[prop->getFieldName()];
+
+			if (!defVal.isNull()) {
+				prop->setInitialValue(defVal);
+			}
+
+			if (propMaxLengths.contains(prop->getFieldName())) {
+				unsigned int maxLen = propMaxLengths[prop->getFieldName()];
+				prop->setStringMaximumLength(maxLen);
+			}
+		}
+	}
+
+	return cats;
+
+	/*QList<PartCategory*> cats;
 
 
 
@@ -477,5 +874,5 @@ QList<PartCategory*> PartCategoryProvider::buildCategories()
 
 
 
-	return cats;
+	return cats;*/
 }

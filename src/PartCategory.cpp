@@ -27,6 +27,7 @@
 #include "SQLInsertCommand.h"
 #include "SQLMultiValueInsertCommand.h"
 #include "SQLNewRecordCommand.h"
+#include "ContainerRemovePartsCommand.h"
 #include "PartEditCommand.h"
 #include "elutil.h"
 #include "sqlutils.h"
@@ -52,8 +53,8 @@ using Xapian::Utf8Iterator;
 
 
 
-PartCategory::PartCategory(const QString& tableName, const QString& userReadableName, const QString& idField)
-		: tableName(tableName), userReadableName(userReadableName), idField(idField),
+PartCategory::PartCategory(const QString& id, const QString& userReadableName, const QString& idField)
+		: id(id), userReadableName(userReadableName), idField(idField),
 		  xapianDb(Xapian::InMemory::open())
 {
 	System* sys = System::getInstance();
@@ -283,7 +284,7 @@ QList<unsigned int> PartCategory::find(Filter* filter, unsigned int offset, unsi
 				joinCode += QString("LEFT JOIN %1 ON %1.%2=%3.%4")
 						.arg(prop->getMultiValueForeignTableName())
 						.arg(prop->getMultiValueIDFieldName())
-						.arg(tableName)
+						.arg(getTableName())
 						.arg(idField);
 
 				first = false;
@@ -674,7 +675,7 @@ void PartCategory::saveRecord(unsigned int id, DataMap data)
 
 	partCmd->setDescription(QString(tr("Updated part with ID %1 of category \"%2\"")).arg(id).arg(getUserReadableName()));
 
-	SQLUpdateCommand* baseCmd = new SQLUpdateCommand(tableName, idField, id);
+	SQLUpdateCommand* baseCmd = new SQLUpdateCommand(getTableName(), idField, id);
 	partCmd->addSQLCommand(baseCmd);
 
 	for (DataMap::iterator it = data.begin() ; it != data.end() ; it++) {
@@ -771,6 +772,15 @@ void PartCategory::removeRecords(QList<unsigned int> ids)
 		partCmd->setDescription(QString(tr("Removed %1 parts of category \"%2\"")).arg(ids.size()).arg(getUserReadableName()));
 	}
 
+	// Remove references to removed records in the containers
+	ContainerRemovePartsCommand* contCmd = new ContainerRemovePartsCommand;
+	contCmd->setAllContainers(true);
+
+	for (unsigned int id : ids) {
+		contCmd->addPart(this, id);
+	}
+	partCmd->addSQLCommand(contCmd);
+
 	SQLDeleteCommand* baseCmd = new SQLDeleteCommand(getTableName(), getIDField());
 	baseCmd->addRecords(ids);
 	partCmd->addSQLCommand(baseCmd);
@@ -785,6 +795,7 @@ void PartCategory::removeRecords(QList<unsigned int> ids)
 			partCmd->addSQLCommand(delCmd);
 		}
 	}
+
 
 	System* sys = System::getInstance();
 	EditStack* editStack = sys->getEditStack();
@@ -826,7 +837,7 @@ void PartCategory::databaseConnectionStatusChanged(DatabaseConnection* oldConn, 
 }
 
 
-QString PartCategory::generateSQLColumnTypeDefinition(const PartProperty* prop, DatabaseConnection::Type dbType) const
+/*QString PartCategory::generateSQLColumnTypeDefinition(const PartProperty* prop, DatabaseConnection::Type dbType) const
 {
 	QString query("");
 
@@ -1025,7 +1036,7 @@ QList<QString> PartCategory::generateCreateTablesCode(DatabaseConnection::Type d
 	}
 
 	return queries;
-}
+}*/
 
 
 PartCategory::PropertyList PartCategory::getDescriptionProperties()

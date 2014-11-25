@@ -26,6 +26,7 @@
 #include <QtCore/QStringList>
 #include <QtCore/QSet>
 #include <cstdio>
+#include <cfloat>
 
 
 
@@ -35,12 +36,11 @@ PartProperty::PartProperty(const QString& fieldName, const QString& userReadable
 		  sqlNaturalOrderCode(QString("ORDER BY %1 ASC").arg(fieldName)),
 		  sqlAscendingOrderCode(sqlNaturalOrderCode),
 		  sqlDescendingOrderCode(QString("ORDER BY %1 DESC").arg(fieldName)),
-		  mvIDFieldName("id"),
-		  decimalPrecision(32), decimalScale(16),
+		  //decimalPrecision(32), decimalScale(16),
 		  strMaxLen(0),
 		  boolTrueText(tr("TRUE")), boolFalseText(tr("FALSE")),
-		  intStorageType(Int64), intIsSigned(true), intRangeMin(0), intRangeMax(0),
-		  floatRangeMin(0.0), floatRangeMax(0.0),
+		  intRangeMin(INT64_MIN), intRangeMax(INT64_MAX),
+		  floatRangeMin(-DBL_MAX), floatRangeMax(DBL_MAX),
 		  textAreaMinHeight(50),
 		  type(type), flags(flags)
 {
@@ -62,6 +62,18 @@ PartProperty::PartProperty(const QString& fieldName, const QString& userReadable
 
 	if (cat)
 		cat->addProperty(this);
+}
+
+
+void PartProperty::setType(Type type)
+{
+	this->type = type;
+}
+
+
+void PartProperty::setFieldName(const QString& fieldName)
+{
+	this->fieldName = fieldName;
 }
 
 
@@ -128,36 +140,20 @@ void PartProperty::setPartLinkCategory(PartCategory* cat)
 }
 
 
-void PartProperty::setMultiValueForeignTableName(const QString& ftn)
-{
-	mvForeignTableName = ftn;
-}
-
-
 QString PartProperty::getMultiValueForeignTableName() const
 {
-	if (mvForeignTableName.isEmpty()) {
-		if (cat)
-			return QString("%1_%2").arg(cat->getTableName()).arg(getFieldName());
-		else
-			return QString();
-	} else {
-		return mvForeignTableName;
-	}
+	if (cat)
+		return QString("pcatmv_%1_%2").arg(cat->getID()).arg(getFieldName());
+	else
+		return QString();
 }
 
 
-void PartProperty::setMultiValueIDFieldName(const QString& fn)
-{
-	mvIDFieldName = fn;
-}
-
-
-void PartProperty::setDecimalConstraint(unsigned int precision, unsigned int scale)
+/*void PartProperty::setDecimalConstraint(unsigned int precision, unsigned int scale)
 {
 	decimalPrecision = precision;
 	decimalScale = scale;
-}
+}*/
 
 
 void PartProperty::setStringMaximumLength(unsigned int len)
@@ -173,18 +169,6 @@ void PartProperty::setBooleanDisplayText(const QString& trueText, const QString&
 }
 
 
-void PartProperty::setIntegerStorageType(IntegerStorageType type)
-{
-	intStorageType = type;
-}
-
-
-void PartProperty::setIntegerSignedness(bool isSigned)
-{
-	intIsSigned = isSigned;
-}
-
-
 void PartProperty::setIntegerValidRange(int64_t min, int64_t max)
 {
 	intRangeMin = min;
@@ -194,57 +178,13 @@ void PartProperty::setIntegerValidRange(int64_t min, int64_t max)
 
 int64_t PartProperty::getIntegerMinimum() const
 {
-	int64_t min = intRangeMin;
-
-	if (intRangeMin == 0  &&  intRangeMax == 0) {
-		switch (intStorageType) {
-		case Int8:
-			min = intIsSigned ? INT8_MIN : 0;
-			break;
-		case Int16:
-			min = intIsSigned ? INT16_MIN : 0;
-			break;
-		case Int24:
-			min = intIsSigned ? -8388608 : 0;
-			break;
-		case Int32:
-			min = intIsSigned ? INT32_MIN : 0;
-			break;
-		case Int64:
-			min = intIsSigned ? INT64_MIN : 0;
-			break;
-		}
-	}
-
-	return min;
+	return intRangeMin;
 }
 
 
 int64_t PartProperty::getIntegerMaximum() const
 {
-	int64_t max = intRangeMax;
-
-	if (intRangeMin == 0  &&  intRangeMax == 0) {
-		switch (intStorageType) {
-		case Int8:
-			max = intIsSigned ? INT8_MAX : UINT8_MAX;
-			break;
-		case Int16:
-			max = intIsSigned ? INT16_MAX : UINT16_MAX;
-			break;
-		case Int24:
-			max = intIsSigned ? 8388607 : 16777215;
-			break;
-		case Int32:
-			max = intIsSigned ? INT32_MAX : UINT32_MAX;
-			break;
-		case Int64:
-			max = intIsSigned ? INT64_MAX : INT64_MAX;
-			break;
-		}
-	}
-
-	return max;
+	return intRangeMax;
 }
 
 
@@ -383,6 +323,7 @@ QString PartProperty::formatSingleValueForDisplay(const QString& rawStr) const
 			double val = rawStr.toDouble();
 			return FormatFloatSuffices(val, format) + unitSuffix;
 		} else {
+			printf("FICK DICH: %s\n", getFieldName().toLocal8Bit().constData());
 			throw InvalidStateException("DisplayWithUnits flag may only be set for Integer or Float PartProperties!",
 					__FILE__, __LINE__);
 		}
@@ -422,9 +363,9 @@ QString PartProperty::parseSingleUserInputValue(const QString& userStr) const
 					__FILE__, __LINE__);
 		}
 
-		if (!intIsSigned  &&  val < 0) {
+		/*if (!intIsSigned  &&  val < 0) {
 			throw InvalidValueException(tr("Input must be unsigned!").toUtf8().constData(), __FILE__, __LINE__);
-		}
+		}*/
 
 		return QString("%1").arg(val);
 	} else if (type == Float  ||  type == Decimal) {
@@ -438,11 +379,9 @@ QString PartProperty::parseSingleUserInputValue(const QString& userStr) const
 		double min = getFloatMinimum();
 		double max = getFloatMaximum();
 
-		if (min != 0.0  &&  max != 0.0) {
-			if (val < min  ||  val > max) {
-				throw InvalidValueException(tr("Input is out of range! Valid range: %1-%2").arg(min).arg(max).toUtf8().constData(),
-						__FILE__, __LINE__);
-			}
+		if (val < min  ||  val > max) {
+			throw InvalidValueException(tr("Input is out of range! Valid range: %1-%2").arg(min).arg(max).toUtf8().constData(),
+					__FILE__, __LINE__);
 		}
 
 		return QString("%1").arg(val);

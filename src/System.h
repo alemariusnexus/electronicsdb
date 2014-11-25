@@ -73,7 +73,6 @@ public:
 	bool hasValidDatabaseConnection() const;
 	bool isEmergencyDisconnecting() const { return emergencyDisconnectRequested; }
 
-	void addPartCategory(PartCategory* cat);
 	PartCategoryIterator getPartCategoryBegin() { return partCats.begin(); }
 	PartCategoryIterator getPartCategoryEnd() { return partCats.end(); }
 	ConstPartCategoryIterator getPartCategoryBegin() const { return partCats.begin(); }
@@ -118,6 +117,8 @@ private:
 	void updateTaskStatus();
 
 signals:
+	void partCategoriesAboutToChange();
+	void partCategoriesChanged();
 	void databaseConnectionStatusChanged(DatabaseConnection* oldConn, DatabaseConnection* newConn);
 	void permanentDatabaseConnectionAdded(DatabaseConnection* conn);
 	void permanentDatabaseConnectionRemoved(DatabaseConnection* conn);

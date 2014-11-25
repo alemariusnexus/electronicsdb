@@ -81,6 +81,8 @@ public:
 	PartProperty(const QString& fieldName, const QString& userReadableName, Type type, flags_t flags = Default,
 			PartCategory* cat = NULL);
 
+	void setType(Type type);
+	void setFieldName(const QString& fieldName);
 	void setUserReadableName(const QString& name);
 	void setFlags(flags_t flags);
 	void setFullTextSearchUserPrefix(const QString& pfx);
@@ -91,13 +93,9 @@ public:
 	void setSQLDefaultOrderCode(const QString& baseOc);
 	void setPartLinkCategory(PartCategory* cat);
 	void setInitialValue(const QString& val);
-	void setMultiValueForeignTableName(const QString& ftn);
-	void setMultiValueIDFieldName(const QString& fn);
-	void setDecimalConstraint(unsigned int precision, unsigned int scale);
+	//void setDecimalConstraint(unsigned int precision, unsigned int scale);
 	void setStringMaximumLength(unsigned int len);
 	void setBooleanDisplayText(const QString& trueText, const QString& falseText);
-	void setIntegerStorageType(IntegerStorageType type);
-	void setIntegerSignedness(bool isSigned);
 	void setIntegerValidRange(int64_t min, int64_t max);
 	void setFloatValidRange(double min, double max);
 	void setDecimalValidRange(double min, double max) { setFloatValidRange(min, max); }
@@ -112,14 +110,12 @@ public:
 	QString getSQLDescendingOrderCode() const { return sqlDescendingOrderCode; }
 	QString getInitialValue() const { return initialValue; }
 	QString getMultiValueForeignTableName() const;
-	QString getMultiValueIDFieldName() const { return mvIDFieldName; }
-	unsigned int getDecimalPrecision() const { return decimalPrecision; }
-	unsigned int getDecimalScale() const { return decimalScale; }
+	QString getMultiValueIDFieldName() const { return "id"; }
+	//unsigned int getDecimalPrecision() const { return decimalPrecision; }
+	//unsigned int getDecimalScale() const { return decimalScale; }
 	unsigned int getStringMaximumLength() const { return strMaxLen; }
 	QString getBooleanTrueDisplayText() const { return boolTrueText; }
 	QString getBooleanFalseDisplayText() const { return boolFalseText; }
-	IntegerStorageType getIntegerStorageType() const { return intStorageType; }
-	bool isIntegerSigned() const { return intIsSigned; }
 	int64_t getIntegerMinimum() const;
 	int64_t getIntegerMaximum() const;
 	double getFloatMinimum() const;
@@ -153,15 +149,11 @@ private:
 	QString sqlAscendingOrderCode;
 	QString sqlDescendingOrderCode;
 	QString initialValue;
-	QString mvForeignTableName;
-	QString mvIDFieldName;
-	unsigned int decimalPrecision;
-	unsigned int decimalScale;
+	//unsigned int decimalPrecision;
+	//unsigned int decimalScale;
 	unsigned int strMaxLen;
 	QString boolTrueText;
 	QString boolFalseText;
-	IntegerStorageType intStorageType;
-	bool intIsSigned;
 	int64_t intRangeMin;
 	int64_t intRangeMax;
 	double floatRangeMin;

@@ -22,6 +22,7 @@
 
 #include "global.h"
 #include "PartCategory.h"
+#include "sqlutils.h"
 #include <QtCore/QObject>
 #include <QtCore/QList>
 
@@ -40,17 +41,22 @@ public:
 	QList<PartCategory*> buildCategories();
 
 private:
-	void addNotesProperty(PartCategory* cat, flags_t addFlags = 0);
+	bool applyMetaType(PartProperty* prop, const QString& metaType, flags_t& explicitFlags);
+	void applyMetaData(PartProperty* prop, const SQLResult& res, flags_t& explicitFlags);
+
+private:
+	/*void addNotesProperty(PartCategory* cat, flags_t addFlags = 0);
 	void addDatasheetsProperty(PartCategory* cat, flags_t addFlags = 0);
 	void addVendorProperty(PartCategory* cat, flags_t addFlags = 0);
 	void addNumStockProperty(PartCategory* cat, flags_t addFlags = 0);
 	void addTempMaxProperty(PartCategory* cat, flags_t addFlags = 0);
 	void addPackageProperty(PartCategory* cat, flags_t addFlags = 0);
 	void addToleranceProperty(PartCategory* cat, flags_t addFlags = 0);
-	void addKeywordsProperty(PartCategory* cat, flags_t addFlags = 0);
+	void addKeywordsProperty(PartCategory* cat, flags_t addFlags = 0);*/
 
 private:
 	PartCategory* dsheetCat;
+	QList<PartCategory*> cats;
 
 private:
 	static PartCategoryProvider* instance;

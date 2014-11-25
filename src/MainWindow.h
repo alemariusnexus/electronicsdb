@@ -84,6 +84,8 @@ private slots:
 	void connectRequested();
 	void connectProfileRequested();
 	void disconnectRequested();
+	void partCategoriesAboutToChange();
+	void partCategoriesChanged();
 	void databaseConnectionStatusChanged(DatabaseConnection* oldConn, DatabaseConnection* newConn);
 	void settingsRequested();
 	void updateConnectMenu();
@@ -97,6 +99,7 @@ private slots:
 	void aboutRequested();
 	void aboutQtRequested();
 	void langChangeRequested();
+	void sqlGeneratorRequested();
 
 private:
 	Ui_MainWindow ui;

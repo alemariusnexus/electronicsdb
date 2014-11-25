@@ -46,6 +46,7 @@ private slots:
 	void recordEdited(unsigned int id, PartCategory::DataMap newData);
 	void editTextChangedSlot(const QString& text);
 	void databaseConnectionStatusChanged(DatabaseConnection* oldConn, DatabaseConnection* newConn);
+	void partCategoriesChanged();
 
 signals:
 	void changedByUser(const QString& text);

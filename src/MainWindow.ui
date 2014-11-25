@@ -80,6 +80,7 @@
      </property>
     </widget>
     <addaction name="menuLanguage"/>
+    <addaction name="sqlGenAction"/>
     <addaction name="separator"/>
     <addaction name="aboutAction"/>
     <addaction name="aboutQtAction"/>
@@ -183,6 +184,11 @@
   <action name="aboutQtAction">
    <property name="text">
     <string>About Qt</string>
+   </property>
+  </action>
+  <action name="sqlGenAction">
+   <property name="text">
+    <string>SQL Generator</string>
    </property>
   </action>
  </widget>

@@ -27,6 +27,7 @@
 #include "SQLMultiValueInsertCommand.h"
 #include "CompoundEditCommand.h"
 #include "ContainerTableItemDelegate.h"
+#include "ContainerRemovePartsCommand.h"
 #include <QtCore/QSettings>
 #include <QtGui/QMenu>
 
@@ -112,17 +113,13 @@ ContainerWidget::ContainerWidget(QWidget* parent)
 
 	connect(sys, SIGNAL(databaseConnectionStatusChanged(DatabaseConnection*, DatabaseConnection*)),
 			this, SLOT(databaseConnectionStatusChanged(DatabaseConnection*, DatabaseConnection*)));
+	connect(sys, SIGNAL(partCategoriesChanged()), this, SLOT(partCategoriesChanged()));
 	connect(sys, SIGNAL(containersChanged()), this, SLOT(reload()));
 	connect(qApp, SIGNAL(aboutToQuit()), this, SLOT(aboutToQuit()));
 	connect(editStack, SIGNAL(undone(EditCommand*)), this, SLOT(reload()));
 	connect(editStack, SIGNAL(redone(EditCommand*)), this, SLOT(reload()));
 
-	for (System::PartCategoryIterator it = sys->getPartCategoryBegin() ; it != sys->getPartCategoryEnd() ; it++) {
-		PartCategory* cat = *it;
-
-		connect(cat, SIGNAL(recordEdited(unsigned int, PartCategory::DataMap)), this, SLOT(reload()));
-		connect(cat, SIGNAL(recordsRemoved(QList<unsigned int>)), this, SLOT(reload()));
-	}
+	reconnectPartCategorySignals();
 
 
 	reload();
@@ -236,7 +233,7 @@ void ContainerWidget::displayContainer(unsigned int id)
 			for (System::PartCategoryIterator it = sys->getPartCategoryBegin() ; it != sys->getPartCategoryEnd() ; it++) {
 				PartCategory* c = *it;
 
-				if (ptype == c->getTableName()) {
+				if (ptype == c->getID()) {
 					cat = c;
 					break;
 				}
@@ -278,13 +275,25 @@ void ContainerWidget::displayContainer(unsigned int id)
 
 void ContainerWidget::databaseConnectionStatusChanged(DatabaseConnection* oldConn, DatabaseConnection* newConn)
 {
-	contTableModel->reload();
+	// Only reload if disconnected. If connected, this has to be done in partCategoriesChanged(), because otherwise we
+	// won't have the categories ready yet.
+	if (!newConn) {
+		contTableModel->reload();
+	}
 
 	if (oldConn  &&  !newConn) {
 		ui.contAddButton->setEnabled(false);
 	} else if (newConn  &&  !oldConn) {
 		ui.contAddButton->setEnabled(true);
 	}
+}
+
+
+void ContainerWidget::partCategoriesChanged()
+{
+	contTableModel->reload();
+
+	reconnectPartCategorySignals();
 }
 
 
@@ -452,7 +461,7 @@ ContainerEditCommand* ContainerWidget::buildAddPartsCommand(unsigned int cid, Co
 
 	for (System::PartCategoryIterator it = sys->getPartCategoryBegin() ; it != sys->getPartCategoryEnd() ; it++) {
 		PartCategory* cat = *it;
-		catMap[cat->getTableName()] = cat;
+		catMap[cat->getID()] = cat;
 	}
 
 	QList<ContainerPartTableModel::ContainerPart> insParts;
@@ -508,7 +517,7 @@ ContainerEditCommand* ContainerWidget::buildAddPartsCommand(unsigned int cid, Co
 		ContainerPartTableModel::ContainerPart& part = insParts[i];
 
 		QMap<QString, QString> entry;
-		entry["ptype"] = part.cat->getTableName();
+		entry["ptype"] = part.cat->getID();
 		entry["pid"] = QString("%1").arg(part.id);
 		insCmd->addValue(entry);
 	}
@@ -526,53 +535,21 @@ ContainerEditCommand* ContainerWidget::buildRemovePartsCommand(unsigned int cid,
 	if (!sys->hasValidDatabaseConnection())
 		return NULL;
 
-	QMap<QString, PartCategory*> catMap;
+	ContainerEditCommand* contCmd = new ContainerEditCommand;
 
-	for (System::PartCategoryIterator it = sys->getPartCategoryBegin() ; it != sys->getPartCategoryEnd() ; it++) {
-		PartCategory* cat = *it;
-		catMap[cat->getTableName()] = cat;
+	ContainerRemovePartsCommand* cmd = new ContainerRemovePartsCommand;
+	cmd->setAllContainers(false);
+	cmd->setContainerID(cid);
+
+	for (ContainerPartTableModel::PartIterator it = parts.begin() ; it != parts.end() ; it++) {
+		ContainerPartTableModel::ContainerPart& part = *it;
+
+		cmd->addPart(part.cat, part.id);
 	}
 
-	SQLDatabase sql = sys->getCurrentSQLDatabase();
+	contCmd->addSQLCommand(cmd);
 
-	QString query = QString("SELECT ptype, pid FROM container_part WHERE cid='%1'").arg(cid);
-
-	SQLResult res = sql.sendQuery(query);
-
-	SQLMultiValueInsertCommand* insCmd = new SQLMultiValueInsertCommand("container_part", "cid", cid);
-
-	while (res.nextRecord()) {
-		QString ptype = res.getString(0);
-		unsigned int id = res.getUInt32(1);
-
-		PartCategory* cat = catMap[ptype];
-
-		bool removed = false;
-		for (ContainerPartTableModel::PartIterator it = parts.begin() ; it != parts.end() ; it++) {
-			ContainerPartTableModel::ContainerPart& part = *it;
-
-			if (part.cat == cat  &&  part.id == id) {
-				removed = true;
-				break;
-			}
-		}
-
-		if (!removed) {
-			QMap<QString, QString> data;
-			data["ptype"] = cat->getTableName();
-			data["pid"] = QString("%1").arg(id);
-			insCmd->addValue(data);
-		}
-	}
-
-	SQLDeleteCommand* delCmd = new SQLDeleteCommand("container_part", "cid");
-	delCmd->addRecord(cid);
-
-	ContainerEditCommand* cmd = new ContainerEditCommand;
-	cmd->addSQLCommand(delCmd);
-	cmd->addSQLCommand(insCmd);
-
-	return cmd;
+	return contCmd;
 }
 
 
@@ -748,6 +725,20 @@ bool ContainerWidget::eventFilter(QObject* obj, QEvent* evt)
 	}
 
 	return false;
+}
+
+
+void ContainerWidget::reconnectPartCategorySignals()
+{
+	System* sys = System::getInstance();
+
+	for (System::PartCategoryIterator it = sys->getPartCategoryBegin() ; it != sys->getPartCategoryEnd() ; it++) {
+		PartCategory* cat = *it;
+
+		connect(cat, SIGNAL(recordCreated(unsigned int, PartCategory::DataMap)), this, SLOT(reload()));
+		connect(cat, SIGNAL(recordEdited(unsigned int, PartCategory::DataMap)), this, SLOT(reload()));
+		connect(cat, SIGNAL(recordsRemoved(QList<unsigned int>)), this, SLOT(reload()));
+	}
 }
 
 

@@ -76,7 +76,7 @@ void ContainerTableModel::reload()
 
 	for (System::PartCategoryIterator it = sys->getPartCategoryBegin() ; it != sys->getPartCategoryEnd() ; it++) {
 		PartCategory* cat = *it;
-		catMap[cat->getTableName()] = cat;
+		catMap[cat->getID()] = cat;
 	}
 
 	while (res.nextRecord()) {

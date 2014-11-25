@@ -31,7 +31,7 @@ PropertyLineEdit::PropertyLineEdit(PartProperty* prop, QWidget* parent)
 		setMaxLength(maxLen);
 	}
 
-	connect(this, SIGNAL(textEdited(const QString&)), this, SLOT(textEdited(const QString&)));
+	connect(this, SIGNAL(textChanged(const QString&)), this, SLOT(textEdited(const QString&)));
 
 	setTextValid(true);
 }

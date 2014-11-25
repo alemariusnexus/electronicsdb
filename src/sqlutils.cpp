@@ -28,6 +28,36 @@
 
 
 
+QList<QString> SQLListTables(SQLDatabase db)
+{
+	QList<QString> tables;
+
+	SQLDatabaseImpl* impl = db.getImplementation();
+
+#ifdef EDB_MYSQL_ENABLED
+	if (dynamic_cast<MySQLDatabaseImpl*>(impl) != NULL) {
+		SQLResult res = db.sendQuery(u"SHOW TABLES");
+
+		while (res.nextRecord()) {
+			QString tblName = res.getString(0);
+			tables << tblName;
+		}
+	} else
+#endif
+
+	if (dynamic_cast<SQLiteDatabaseImpl*>(impl) != NULL) {
+		SQLResult res = db.sendQuery(u"SELECT name FROM sqlite_master WHERE type='table'");
+
+		while (res.nextRecord()) {
+			QString tblName = res.getString(0);
+			tables << tblName;
+		}
+	}
+
+	return tables;
+}
+
+
 QList<QMap<QString, QString> > SQLListColumns(SQLDatabase db, const QString& table)
 {
 	SQLDatabaseImpl* impl = db.getImplementation();
