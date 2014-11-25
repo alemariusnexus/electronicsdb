@@ -522,6 +522,8 @@ QList<PartCategory*> PartCategoryProvider::buildCategories()
 				prop->setStringMaximumLength(maxLen);
 			}
 		}
+
+		cat->rebuildFullTextIndex();
 	}
 
 	return cats;
