@@ -275,7 +275,7 @@ void PartDisplayWidget::setDisplayedPart(unsigned int id)
 				"    ON container.id = container_part.cid "
 				"WHERE ptype='%1' AND pid='%2'"
 				)
-				.arg(partCat->getTableName())
+				.arg(partCat->getID())
 				.arg(id);
 
 		SQLResult res = sql.sendQuery(query);
