@@ -271,7 +271,7 @@ void ListingTable::contextMenuRequested(const QPoint& pos)
 	buildHeaderSectionMenu(headerMenu);
 	menu.addMenu(headerMenu);
 
-	menu.exec(mapToGlobal(pos));
+	menu.exec(viewport()->mapToGlobal(pos));
 }
 
 
