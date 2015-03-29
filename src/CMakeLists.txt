@@ -52,9 +52,9 @@ SET(SRCS
     main.cpp MainWindow.cpp ConnectDialog.cpp System.cpp SettingsDialog.cpp DatabaseConnection.cpp
     PartTableModel.cpp FilterWidget.cpp elutil.cpp Filter.cpp PartCategory.cpp PartProperty.cpp
     ListingTable.cpp global.cpp PartDisplayWidget.cpp SQLCommand.cpp
-    SQLInsertCommand.cpp SQLDeleteCommand.cpp SQLUpdateCommand.cpp SQLMultiValueInsertCommand.cpp
-    SQLNewRecordCommand.cpp PartCategoryWidget.cpp PartEditCommand.cpp EditStack.cpp Task.cpp
-    ChoosePartDialog.cpp sqlutils.cpp
+    SQLInsertCommand.cpp SQLAdvancedDeleteCommand.cpp SQLDeleteCommand.cpp SQLUpdateCommand.cpp
+    SQLMultiValueInsertCommand.cpp SQLNewRecordCommand.cpp PartCategoryWidget.cpp PartEditCommand.cpp
+    EditStack.cpp Task.cpp ChoosePartDialog.cpp sqlutils.cpp
     PropertyComboBox.cpp PropertyLineEdit.cpp PlainLineEdit.cpp PropertyMultiValueWidget.cpp
     PropertyLinkEditWidget.cpp PropertyTextEdit.cpp PropertyFileWidget.cpp ContainerWidget.cpp
     ContainerTableModel.cpp ContainerEditCommand.cpp ContainerPartTableModel.cpp

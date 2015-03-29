@@ -718,9 +718,46 @@ void PartCategory::saveRecord(unsigned int id, DataMap data)
 }
 
 
+QList<unsigned int> PartCategory::createRecords(QList<DataMap> data)
+{
+	PartEditCommand* partCmd = new PartEditCommand(this);
+	partCmd->setDescription(QString(tr("Created %1 new parts of category \"%2\"")).arg(data.size()).arg(getUserReadableName()));
+
+	QList<SQLNewRecordCommand*> sqlCmds;
+
+	for (DataMap datum : data) {
+		SQLNewRecordCommand* cmd = new SQLNewRecordCommand(this, datum);
+
+		partCmd->addSQLCommand(cmd);
+		sqlCmds << cmd;
+	}
+
+	System* sys = System::getInstance();
+	EditStack* editStack = sys->getEditStack();
+
+	editStack->push(partCmd);
+
+	QList<unsigned int> ids;
+
+	unsigned int i = 0;
+	for (DataMap datum : data) {
+		SQLNewRecordCommand* cmd = sqlCmds[i];
+
+		unsigned int id = cmd->getLastInsertID();
+		emit recordCreated(id, datum);
+		ids << id;
+
+		i++;
+	}
+
+	return ids;
+}
+
+
 unsigned int PartCategory::createRecord(DataMap data)
 {
-	SQLNewRecordCommand* cmd = new SQLNewRecordCommand(this, data);
+	return createRecords(QList<DataMap>() << data)[0];
+	/*SQLNewRecordCommand* cmd = new SQLNewRecordCommand(this, data);
 
 	PartEditCommand* partCmd = new PartEditCommand(this);
 	partCmd->setDescription(QString(tr("Created a new part of category \"%1\"")).arg(getUserReadableName()));
@@ -735,7 +772,7 @@ unsigned int PartCategory::createRecord(DataMap data)
 
 	emit recordCreated(id, data);
 
-	return id;
+	return id;*/
 }
 
 
@@ -759,7 +796,7 @@ unsigned int PartCategory::createRecord()
 }
 
 
-void PartCategory::removeRecords(QList<unsigned int> ids)
+void PartCategory::removeRecords(const QList<unsigned int>& ids)
 {
 	if (ids.empty())
 		return;
@@ -795,7 +832,6 @@ void PartCategory::removeRecords(QList<unsigned int> ids)
 			partCmd->addSQLCommand(delCmd);
 		}
 	}
-
 
 	System* sys = System::getInstance();
 	EditStack* editStack = sys->getEditStack();
@@ -1118,4 +1154,16 @@ QString PartCategory::getDescription(unsigned int id)
 void PartCategory::setDescriptionPattern(const QString& descPat)
 {
 	descPattern = descPat;
+}
+
+
+QList<unsigned int> PartCategory::duplicateRecords(const QList<unsigned int>& ids)
+{
+	return createRecords(getValues(ids).values());
+}
+
+
+unsigned int PartCategory::duplicateRecord(unsigned int id)
+{
+	return createRecord(getValues(id));
 }

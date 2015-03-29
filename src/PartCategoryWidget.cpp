@@ -31,7 +31,8 @@
 
 
 PartCategoryWidget::PartCategoryWidget(PartCategory* partCat, QWidget* parent)
-		: QWidget(parent), partCat(partCat), filter(new Filter), displayFlags(0)
+		: QWidget(parent), partCat(partCat), filter(new Filter), displayFlags(0), displayWidget(NULL), recordAddButton(NULL),
+		  recordRemoveButton(NULL), recordDuplicateButton(NULL)
 {
 	System* sys = System::getInstance();
 
@@ -77,6 +78,14 @@ PartCategoryWidget::PartCategoryWidget(PartCategory* partCat, QWidget* parent)
     listingTable = new ListingTable(partCat, filter, listingWidget);
     connect(listingTable, SIGNAL(currentPartChanged(unsigned int)), this, SLOT(listingCurrentPartChanged(unsigned int)));
     connect(listingTable, SIGNAL(partActivated(unsigned int)), this, SLOT(listingPartActivated(unsigned int)));
+    connect(listingTable, SIGNAL(deletePartsRequested(const QList<unsigned int>&)), this,
+    		SLOT(listingDeletePartsRequested(const QList<unsigned int>&)));
+    connect(listingTable, SIGNAL(addPartRequested()), this, SLOT(listingAddPartRequested()));
+    connect(listingTable, SIGNAL(duplicatePartsRequested(const QList<unsigned int>&)), this,
+    		SLOT(listingDuplicatePartsRequested(const QList<unsigned int>&)));
+    connect(listingTable, SIGNAL(selectedPartsChanged(const QList<unsigned int>&)),
+    		this, SLOT(listingTableSelectionChanged(const QList<unsigned int>&)));
+
     listingLayout->addWidget(listingTable);
     listingTable->updateData();
 
@@ -95,15 +104,22 @@ PartCategoryWidget::PartCategoryWidget(PartCategory* partCat, QWidget* parent)
 
 	listingButtonLayout->addStretch(1);
 
-	recordAddButton = new QPushButton(QIcon::fromTheme("list-add", QIcon(":/icons/list-add.png")),
+	recordAddButton = new QPushButton(QIcon::fromTheme("document-new", QIcon(":/icons/document-new.png")),
 			"", listingButtonWidget);
 	connect(recordAddButton, SIGNAL(clicked()), this, SLOT(recordAddRequested()));
 	listingButtonLayout->addWidget(recordAddButton);
 
-	recordRemoveButton = new QPushButton(QIcon::fromTheme("list-remove", QIcon(":/icons/list-remove.png")),
+	recordRemoveButton = new QPushButton(QIcon::fromTheme("edit-delete", QIcon(":/icons/edit-delete.png")),
 			"", listingButtonWidget);
+	recordRemoveButton->setEnabled(false);
 	connect(recordRemoveButton, SIGNAL(clicked()), this, SLOT(recordRemoveRequested()));
 	listingButtonLayout->addWidget(recordRemoveButton);
+
+	recordDuplicateButton = new QPushButton(QIcon::fromTheme("edit-copy", QIcon(":/icons/edit-copy.png")),
+			"", listingButtonWidget);
+	recordDuplicateButton->setEnabled(false);
+	connect(recordDuplicateButton, SIGNAL(clicked()), this, SLOT(recordDuplicateRequested()));
+	listingButtonLayout->addWidget(recordDuplicateButton);
 
 	listingButtonLayout->addStretch(1);
 
@@ -159,9 +175,11 @@ void PartCategoryWidget::setDisplayFlags(flags_t flags)
 	if ((flags & ChoosePart)  !=  0) {
 		recordAddButton->hide();
 		recordRemoveButton->hide();
+		recordDuplicateButton->hide();
 	} else {
 		recordAddButton->show();
 		recordRemoveButton->show();
+		recordDuplicateButton->show();
 	}
 }
 
@@ -194,8 +212,10 @@ void PartCategoryWidget::filterApplied()
 
 void PartCategoryWidget::listingCurrentPartChanged(unsigned int id)
 {
-	displayWidget->saveChanges();
-	displayWidget->setDisplayedPart(id);
+	if (displayWidget) {
+		displayWidget->saveChanges();
+		displayWidget->setDisplayedPart(id);
+	}
 }
 
 
@@ -206,6 +226,36 @@ void PartCategoryWidget::listingPartActivated(unsigned int id)
 	} else {
 		displayWidget->focusAuto();
 	}
+}
+
+
+void PartCategoryWidget::listingAddPartRequested()
+{
+	recordAddRequested();
+}
+
+
+void PartCategoryWidget::listingDeletePartsRequested(const QList<unsigned int>& ids)
+{
+	partCat->removeRecords(ids);
+}
+
+
+void PartCategoryWidget::listingDuplicatePartsRequested(const QList<unsigned int>& ids)
+{
+	unsigned int oldCurIdx = listingTable->getCurrentPart();
+	QList<unsigned int> newIDs = partCat->duplicateRecords(ids);
+
+	listingTable->selectionModel()->clearSelection();
+
+	int oldCurIdxNum = ids.indexOf(oldCurIdx);
+	if (oldCurIdxNum != -1) {
+		// The current part was duplicated. Make its duplicate the new current part.
+		unsigned int newID = newIDs[oldCurIdxNum];
+		listingTable->setCurrentPart(newID);
+	}
+
+	listingTable->selectParts(newIDs);
 }
 
 
@@ -283,10 +333,13 @@ void PartCategoryWidget::recordRemoveRequested()
 		cidx = listingTableModel->index(lowestRow-1, 0);
 	}
 
-	if (!cidx.isValid())
-		listingCurrentPartChanged(INVALID_PART_ID);
-	else
-		listingTable->setCurrentIndex(cidx);
+	listingTable->setCurrentIndex(cidx);
+}
+
+
+void PartCategoryWidget::recordDuplicateRequested()
+{
+	listingDuplicatePartsRequested(listingTable->getSelectedPartIDs());
 }
 
 
@@ -358,10 +411,27 @@ void PartCategoryWidget::displayWidgetDefocusRequested()
 }
 
 
-void PartCategoryWidget::populateDatabaseDependentUI()
+void PartCategoryWidget::updateButtonStates()
 {
 	System* sys = System::getInstance();
 
-	recordAddButton->setEnabled(sys->hasValidDatabaseConnection());
-	recordRemoveButton->setEnabled(sys->hasValidDatabaseConnection());
+	if (recordAddButton) {
+		bool hasSel = listingTable->selectionModel()->hasSelection();
+
+		recordAddButton->setEnabled(sys->hasValidDatabaseConnection());
+		recordRemoveButton->setEnabled(sys->hasValidDatabaseConnection()  &&  hasSel);
+		recordDuplicateButton->setEnabled(sys->hasValidDatabaseConnection()  &&  hasSel);
+	}
+}
+
+
+void PartCategoryWidget::populateDatabaseDependentUI()
+{
+	updateButtonStates();
+}
+
+
+void PartCategoryWidget::listingTableSelectionChanged(const QList<unsigned int>& ids)
+{
+	updateButtonStates();
 }

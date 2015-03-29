@@ -27,7 +27,7 @@
 
 
 SQLDeleteCommand::SQLDeleteCommand(const QString& tableName, const QString& idField)
-		: tableName(tableName), idField(idField)
+		: SQLAdvancedDeleteCommand(tableName, QString("1=0")), idField(idField)
 {
 }
 
@@ -35,6 +35,7 @@ SQLDeleteCommand::SQLDeleteCommand(const QString& tableName, const QString& idFi
 void SQLDeleteCommand::addRecords(QList<QString> ids)
 {
 	this->ids.append(ids);
+	rebuildWhereClause();
 }
 
 
@@ -43,98 +44,27 @@ void SQLDeleteCommand::addRecords(QList<unsigned int> ids)
 	for (unsigned int i = 0 ; i < ids.size() ; i++) {
 		this->ids << QString("%1").arg(ids[i]);
 	}
+
+	rebuildWhereClause();
 }
 
 
-void SQLDeleteCommand::commit()
+
+void SQLDeleteCommand::rebuildWhereClause()
 {
-	SQLDatabase sql = getSQLConnection();
+	if (ids.empty()) {
+		// Empty lists for an IN(...) expression are not allowed, so we just use an expression that evaluates to false.
+		setWhereClause("1=0");
+	} else {
+		QString idListStr("");
 
-	QList<QMap<QString, QString> > colInfo = SQLListColumns(sql, tableName);
+		for (unsigned int i = 0 ; i < ids.size() ; i++) {
+			if (i != 0)
+				idListStr += ",";
 
-	QString nameCode("");
-	QString valueCode("");
-
-	unsigned int nc = 0;
-
-	for (QList<QMap<QString, QString> >::iterator it = colInfo.begin() ; it != colInfo.end() ; it++) {
-		QMap<QString, QString> col = *it;
-		if (nc != 0)
-			nameCode += ",";
-
-		nameCode += col["name"];
-		nc++;
-	}
-
-	QString idListStr("");
-
-	for (unsigned int i = 0 ; i < ids.size() ; i++) {
-		if (i != 0)
-			idListStr += ",";
-
-		idListStr += QString("'%1'").arg(ids[i]);
-	}
-
-
-	QString query = QString("SELECT %1 FROM %2 WHERE %3 IN(%4)")
-			.arg(nameCode)
-			.arg(tableName)
-			.arg(idField)
-			.arg(idListStr);
-
-	SQLResult res = sql.sendQuery(query);
-
-	if (!res.isValid()) {
-		throw SQLException("Error storing SQL result", __FILE__, __LINE__);
-	}
-
-	unsigned int numRemoved = 0;
-
-	bool first = true;
-	while (res.nextRecord()) {
-		if (!first)
-			valueCode +=",";
-
-		valueCode += "(";
-
-		for (unsigned int i = 0 ; i < nc ; i++) {
-			if (i != 0) {
-				valueCode += ",";
-			}
-
-			valueCode += QString("'%1'").arg(sql.escapeString(res.getString(i)));
+			idListStr += QString("'%1'").arg(ids[i]);
 		}
 
-		valueCode += ")";
-
-		first = false;
-		numRemoved++;
+		setWhereClause(QString("%1 IN (%2)").arg(idField).arg(idListStr));
 	}
-
-	if (numRemoved != 0) {
-		revertQuery = QString("INSERT INTO %1 (%2) VALUES %3")
-				.arg(tableName)
-				.arg(nameCode)
-				.arg(valueCode);
-
-		query = QString("DELETE FROM %1 WHERE %2 IN(%3)")
-				.arg(tableName)
-				.arg(idField)
-				.arg(idListStr);
-
-		sql.sendQuery(query);
-	} else {
-		revertQuery = QString();
-	}
-}
-
-
-void SQLDeleteCommand::revert()
-{
-	if (revertQuery.isEmpty())
-		return;
-
-	SQLDatabase sql = getSQLConnection();
-
-	sql.sendQuery(revertQuery);
 }

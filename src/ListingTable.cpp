@@ -77,6 +77,8 @@ ListingTable::ListingTable(PartCategory* partCat, Filter* filter, QWidget* paren
 
 	connect(selectionModel(), SIGNAL(currentRowChanged(const QModelIndex&, const QModelIndex&)),
 			this, SLOT(currentChanged(const QModelIndex&, const QModelIndex&)));
+	connect(selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)),
+    		this, SLOT(selectionChangedSlot(const QItemSelection&, const QItemSelection&)));
 	connect(model, SIGNAL(updateRequested()), this, SLOT(updateData()));
 
 
@@ -129,6 +131,12 @@ void ListingTable::currentChanged(const QModelIndex& newIdx, const QModelIndex& 
 }
 
 
+void ListingTable::selectionChangedSlot(const QItemSelection&, const QItemSelection&)
+{
+	emit selectedPartsChanged(getSelectedPartIDs());
+}
+
+
 void ListingTable::partActivatedSlot(const QModelIndex& idx)
 {
 	emit partActivated(model->getIndexID(idx));
@@ -168,6 +176,19 @@ void ListingTable::updateData()
 
 	cidx = model->getIndexWithID(cidxId);
 	setCurrentIndex(cidx);
+
+	if (!cidx.isValid()) {
+		// There is no current part. One way this could happen is if parts were previously selected, but they were all
+		// removed. In this case, setCurrentIndex(cidx) above was a no-op because the model was previously reset which
+		// clears any current part selection WITHOUT EMITTING THE currentRowChanged SIGNAL! In this case, we have to emit
+		// currentPartChanged() manually.
+		emit currentPartChanged(INVALID_PART_ID);
+	}
+
+	if (!selectionModel()->hasSelection()) {
+		// Same as above, but for selection.
+		emit selectedPartsChanged(QList<unsigned int>());
+	}
 }
 
 
@@ -222,6 +243,30 @@ void ListingTable::contextMenuRequested(const QPoint& pos)
 {
 	QMenu menu;
 
+	QModelIndexList selIndices = selectionModel()->selectedRows();
+
+	QAction* addAction = new QAction(QIcon::fromTheme("document-new", QIcon(":/icons/document-new.png")),
+			tr("Add Part"), &menu);
+	connect(addAction, SIGNAL(triggered()), this, SLOT(addPartRequestedSlot()));
+	menu.addAction(addAction);
+
+	QAction* removeAction = new QAction(QIcon::fromTheme("edit-delete", QIcon(":/icons/edit-delete.png")),
+			tr("Delete Parts"), &menu);
+	connect(removeAction, SIGNAL(triggered()), this, SLOT(deletePartsRequestedSlot()));
+	menu.addAction(removeAction);
+
+	QAction* duplicateAction = new QAction(QIcon::fromTheme("edit-copy", QIcon(":/icons/edit-copy.png")),
+			tr("Duplicate Parts"), &menu);
+	connect(duplicateAction, SIGNAL(triggered()), this, SLOT(duplicatePartsRequestedSlot()));
+	menu.addAction(duplicateAction);
+
+	if (selIndices.empty()) {
+		removeAction->setEnabled(false);
+		duplicateAction->setEnabled(false);
+	}
+
+	menu.addSeparator();
+
 	QMenu* headerMenu = new QMenu(tr("Sections"), &menu);
 	buildHeaderSectionMenu(headerMenu);
 	menu.addMenu(headerMenu);
@@ -266,3 +311,68 @@ bool ListingTable::restoreState(const QByteArray& state)
 
 	return header->restoreState(state);
 }
+
+
+void ListingTable::addPartRequestedSlot()
+{
+	emit addPartRequested();
+}
+
+
+void ListingTable::deletePartsRequestedSlot()
+{
+	emit deletePartsRequested(getSelectedPartIDs());
+}
+
+
+void ListingTable::duplicatePartsRequestedSlot()
+{
+	emit duplicatePartsRequested(getSelectedPartIDs());
+}
+
+
+QList<unsigned int> ListingTable::getSelectedPartIDs() const
+{
+	QList<unsigned int> partIds;
+
+	QModelIndexList selIndices = selectionModel()->selectedRows();
+	for (QModelIndex idx : selIndices) {
+		partIds << model->getIndexID(idx);
+	}
+
+	return partIds;
+}
+
+
+void ListingTable::setCurrentPart(unsigned int id)
+{
+	setCurrentIndex(model->getIndexWithID(id));
+}
+
+
+void ListingTable::setSelectedParts(const QList<unsigned int>& ids)
+{
+	clearSelection();
+	selectParts(ids);
+}
+
+
+void ListingTable::selectParts(const QList<unsigned int>& ids)
+{
+	QItemSelection sel;
+
+	for (unsigned int id : ids) {
+		QModelIndex idx = model->getIndexWithID(id);
+		sel.select(idx, model->index(idx.row(), model->columnCount()-1));
+	}
+
+	selectionModel()->select(sel, QItemSelectionModel::Select);
+}
+
+
+unsigned int ListingTable::getCurrentPart() const
+{
+	return model->getIndexID(currentIndex());
+}
+
+

@@ -85,10 +85,13 @@ public:
 	DataMap getValues(unsigned int id, PropertyList props = PropertyList());
 
 	void saveRecord(unsigned int id, DataMap data);
+	QList<unsigned int> createRecords(QList<DataMap> data);
 	unsigned int createRecord(DataMap data);
 	unsigned int createRecord();
-	void removeRecords(QList<unsigned int> ids);
+	void removeRecords(const QList<unsigned int>& ids);
 	void removeRecord(unsigned int id);
+	unsigned int duplicateRecord(unsigned int id);
+	QList<unsigned int> duplicateRecords(const QList<unsigned int>& ids);
 
 private:
 	void rebuildFullTextIndex(bool fullRebuild, QList<unsigned int> ids);

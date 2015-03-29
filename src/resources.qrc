@@ -7,6 +7,7 @@
         <file>icons/list-remove.png</file>
         <file>icons/edit-delete.png</file>
         <file>icons/edit-copy.png</file>
+        <file>icons/document-new.png</file>
         <file>icons/document-open.png</file>
         <file>icons/go-jump.png</file>
     </qresource>

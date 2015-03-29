@@ -36,6 +36,11 @@ class ListingTable : public QTableView
 public:
 	ListingTable(PartCategory* partCat, Filter* filter, QWidget* parent = NULL);
 	PartTableModel* getModel() { return model; }
+	QList<unsigned int> getSelectedPartIDs() const;
+	unsigned int getCurrentPart() const;
+	void setCurrentPart(unsigned int id);
+	void setSelectedParts(const QList<unsigned int>& ids);
+	void selectParts(const QList<unsigned int>& ids);
 
 public slots:
 	void updateData();
@@ -58,10 +63,18 @@ private slots:
 	void headerSectionVisibilityActionTriggered();
 	void aboutToQuit();
 	void scaleSectionsToFit();
+	void addPartRequestedSlot();
+	void deletePartsRequestedSlot();
+	void duplicatePartsRequestedSlot();
+	void selectionChangedSlot(const QItemSelection&, const QItemSelection&);
 
 signals:
 	void currentPartChanged(unsigned int id);
+	void selectedPartsChanged(const QList<unsigned int>& ids);
 	void partActivated(unsigned int id);
+	void addPartRequested();
+	void deletePartsRequested(const QList<unsigned int>& ids);
+	void duplicatePartsRequested(const QList<unsigned int>& ids);
 
 private:
 	PartCategory* partCat;

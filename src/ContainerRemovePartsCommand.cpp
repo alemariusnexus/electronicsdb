@@ -21,6 +21,7 @@
 #include "System.h"
 #include "SQLMultiValueInsertCommand.h"
 #include "SQLDeleteCommand.h"
+#include "SQLAdvancedDeleteCommand.h"
 #include <QtCore/QMap>
 #include <cstdlib>
 
@@ -58,7 +59,26 @@ void ContainerRemovePartsCommand::commit()
 {
 	committedCmds.clear();
 
-	SQLDatabase sql = getSQLConnection();
+	QString whereClause("");
+
+	if (!allContainers) {
+		whereClause += QString("cid=%1").arg(cid);
+	} else {
+		whereClause += "1=0";
+	}
+
+	for (ContainerPart part : parts) {
+		whereClause += QString(" OR (ptype='%1' AND pid=%2)").arg(part.cat->getID()).arg(part.pid);
+	}
+
+	SQLAdvancedDeleteCommand* delCmd = new SQLAdvancedDeleteCommand("container_part", whereClause);
+	committedCmds << delCmd;
+
+	for (SQLCommand* cmd : committedCmds) {
+		cmd->commit();
+	}
+
+	/*SQLDatabase sql = getSQLConnection();
 
 	System* sys = System::getInstance();
 
@@ -119,9 +139,15 @@ void ContainerRemovePartsCommand::commit()
 		committedCmds << insCmd;
 	}
 
+	uint64_t s = GetTickcount();
+
 	for (SQLCommand* cmd : committedCmds) {
 		cmd->commit();
 	}
+
+	uint64_t e = GetTickcount();
+
+	printf("It took %ums\n", (unsigned int) (e-s));*/
 }
 
 

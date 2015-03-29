@@ -17,34 +17,38 @@
 	along with electronicsdb.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SQLDELETECOMMAND_H_
-#define SQLDELETECOMMAND_H_
+#ifndef SQLADVANCEDDELETECOMMAND_H_
+#define SQLADVANCEDDELETECOMMAND_H_
 
 #include "global.h"
-#include "SQLAdvancedDeleteCommand.h"
+#include "SQLCommand.h"
 #include <QtCore/QString>
 #include <QtCore/QList>
 
 
 
-class SQLDeleteCommand : public SQLAdvancedDeleteCommand
+class SQLAdvancedDeleteCommand : public SQLCommand
 {
 public:
-	SQLDeleteCommand(const QString& tableName, const QString& idField);
+	SQLAdvancedDeleteCommand(const QString& tableName, const QString& whereClause);
 
-	void addRecords(QList<QString> ids);
+	void setWhereClause(const QString& whereClause);
+
+	/*void addRecords(QList<QString> ids);
 	void addRecords(QList<unsigned int> ids);
 	void addRecord(unsigned int id) { addRecords(QList<unsigned int>() << id); }
-	void addRecord(const QString& id) { addRecords(QList<QString>() << id); }
+	void addRecord(const QString& id) { addRecords(QList<QString>() << id); }*/
 
-private:
-	void rebuildWhereClause();
+	virtual void commit();
+	virtual void revert();
 
-private:
-	QString idField;
-	QList<QString> ids;
+protected:
+	QString tableName;
+	QString whereClause;
+	//QString idField;
+	//QList<QString> ids;
 
 	QString revertQuery;
 };
 
-#endif /* SQLDELETECOMMAND_H_ */
+#endif /* SQLADVANCEDDELETECOMMAND_H_ */

@@ -9,100 +9,176 @@
         <translation>Connect To Database</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="26"/>
         <source>Database Type</source>
-        <translation>Database Type</translation>
+        <translation type="obsolete">Database Type</translation>
+    </message>
+    <message>
+        <source>Connection Parameters</source>
+        <translation type="obsolete">Connection Parameters</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation type="obsolete">Server</translation>
+    </message>
+    <message>
+        <source>localhost</source>
+        <translation type="obsolete">localhost</translation>
+    </message>
+    <message>
+        <source>Port</source>
+        <translation type="obsolete">Port</translation>
+    </message>
+    <message>
+        <source>User</source>
+        <translation type="obsolete">User</translation>
+    </message>
+    <message>
+        <source>electronics</source>
+        <translation type="obsolete">electronics</translation>
+    </message>
+    <message>
+        <source>Password</source>
+        <translation type="obsolete">Password</translation>
+    </message>
+    <message>
+        <source>Database</source>
+        <translation type="obsolete">Database</translation>
+    </message>
+    <message>
+        <source>Database File</source>
+        <translation type="obsolete">Database File</translation>
+    </message>
+    <message>
+        <source>Choose...</source>
+        <translation type="obsolete">Choose...</translation>
+    </message>
+    <message>
+        <source>Create a profile for this connection</source>
+        <translation type="obsolete">Create a profile for this connection</translation>
+    </message>
+    <message>
+        <source>Connection Name</source>
+        <translation type="obsolete">Connection Name</translation>
     </message>
     <message>
         <location filename="ConnectDialog.ui" line="39"/>
-        <source>Connection Parameters</source>
-        <translation>Connection Parameters</translation>
-    </message>
-    <message>
-        <location filename="ConnectDialog.ui" line="55"/>
-        <source>Server</source>
-        <translation>Server</translation>
-    </message>
-    <message>
-        <location filename="ConnectDialog.ui" line="68"/>
-        <source>localhost</source>
-        <translation>localhost</translation>
-    </message>
-    <message>
-        <location filename="ConnectDialog.ui" line="75"/>
-        <source>Port</source>
-        <translation>Port</translation>
-    </message>
-    <message>
-        <location filename="ConnectDialog.ui" line="92"/>
-        <source>User</source>
-        <translation>User</translation>
-    </message>
-    <message>
-        <location filename="ConnectDialog.ui" line="99"/>
-        <location filename="ConnectDialog.ui" line="133"/>
-        <source>electronics</source>
-        <translation>electronics</translation>
-    </message>
-    <message>
-        <location filename="ConnectDialog.ui" line="106"/>
-        <source>Password</source>
-        <translation>Password</translation>
-    </message>
-    <message>
-        <location filename="ConnectDialog.ui" line="126"/>
-        <source>Database</source>
-        <translation>Database</translation>
-    </message>
-    <message>
-        <location filename="ConnectDialog.ui" line="147"/>
-        <source>Database File</source>
-        <translation>Database File</translation>
-    </message>
-    <message>
-        <location filename="ConnectDialog.ui" line="163"/>
-        <source>Choose...</source>
-        <translation>Choose...</translation>
-    </message>
-    <message>
-        <location filename="ConnectDialog.ui" line="183"/>
-        <source>Create a profile for this connection</source>
-        <translation>Create a profile for this connection</translation>
-    </message>
-    <message>
-        <location filename="ConnectDialog.ui" line="230"/>
-        <source>Connection Name</source>
-        <translation>Connection Name</translation>
-    </message>
-    <message>
-        <location filename="ConnectDialog.ui" line="269"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="279"/>
+        <location filename="ConnectDialog.ui" line="49"/>
         <source>Connect</source>
         <translation>Connect</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="32"/>
+        <source>SQLite</source>
+        <translation type="obsolete">SQLite</translation>
+    </message>
+    <message>
+        <source>MySQL</source>
+        <translation type="obsolete">MySQL</translation>
+    </message>
+    <message>
+        <source>Choose a database file</source>
+        <translation type="obsolete">Choose a database file</translation>
+    </message>
+    <message>
+        <source>SQLite Databases (*.db)</source>
+        <translation type="obsolete">SQLite Databases (*.db)</translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="69"/>
+        <source>Enter Password</source>
+        <translation>Enter Password</translation>
+    </message>
+    <message>
+        <location filename="ConnectDialog.cpp" line="70"/>
+        <source>Enter password for connection &apos;%1&apos;:</source>
+        <translation>Enter password for connection &apos;%1&apos;:</translation>
+    </message>
+</context>
+<context>
+    <name>ConnectionEditWidget</name>
+    <message>
+        <location filename="ConnectionEditWidget.ui" line="32"/>
+        <source>Connection Name</source>
+        <translation>Connection Name</translation>
+    </message>
+    <message>
+        <location filename="ConnectionEditWidget.ui" line="46"/>
+        <source>Type</source>
+        <translation>Type</translation>
+    </message>
+    <message>
+        <location filename="ConnectionEditWidget.ui" line="75"/>
+        <source>Connection Settings</source>
+        <translation>Connection Settings</translation>
+    </message>
+    <message>
+        <location filename="ConnectionEditWidget.ui" line="97"/>
+        <source>Host</source>
+        <translation>Host</translation>
+    </message>
+    <message>
+        <location filename="ConnectionEditWidget.ui" line="107"/>
+        <source>Port</source>
+        <translation>Port</translation>
+    </message>
+    <message>
+        <location filename="ConnectionEditWidget.ui" line="124"/>
+        <source>Database</source>
+        <translation>Database</translation>
+    </message>
+    <message>
+        <location filename="ConnectionEditWidget.ui" line="134"/>
+        <source>User Name</source>
+        <translation>User Name</translation>
+    </message>
+    <message>
+        <location filename="ConnectionEditWidget.ui" line="157"/>
+        <source>Database File</source>
+        <translation>Database File</translation>
+    </message>
+    <message>
+        <location filename="ConnectionEditWidget.ui" line="173"/>
+        <location filename="ConnectionEditWidget.ui" line="215"/>
+        <source>Choose...</source>
+        <translation>Choose...</translation>
+    </message>
+    <message>
+        <location filename="ConnectionEditWidget.ui" line="190"/>
+        <source>Embedded File Settings</source>
+        <translation>Embedded File Settings</translation>
+    </message>
+    <message>
+        <location filename="ConnectionEditWidget.ui" line="199"/>
+        <source>Root Path</source>
+        <translation>File root path</translation>
+    </message>
+    <message>
+        <location filename="ConnectionEditWidget.cpp" line="30"/>
         <source>SQLite</source>
         <translation>SQLite</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="33"/>
+        <location filename="ConnectionEditWidget.cpp" line="33"/>
         <source>MySQL</source>
         <translation>MySQL</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="101"/>
+        <location filename="ConnectionEditWidget.cpp" line="123"/>
         <source>Choose a database file</source>
         <translation>Choose a database file</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.cpp" line="102"/>
-        <source>SQLite Databases (*.db)</source>
-        <translation>SQLite Databases (*.db)</translation>
+        <location filename="ConnectionEditWidget.cpp" line="124"/>
+        <source>SQLite Databases (*.db *.sqlite)</source>
+        <translation>SQLite Databases (*.db *.sqlite)</translation>
+    </message>
+    <message>
+        <location filename="ConnectionEditWidget.cpp" line="135"/>
+        <source>Choose a root directory</source>
+        <translation>Choose a root directory</translation>
     </message>
 </context>
 <context>
@@ -136,7 +212,7 @@
         <translation>Parts in Container</translation>
     </message>
     <message>
-        <location filename="ContainerWidget.cpp" line="88"/>
+        <location filename="ContainerWidget.cpp" line="90"/>
         <source>Remove</source>
         <translation>Remove</translation>
     </message>
@@ -211,7 +287,7 @@
 <context>
     <name>Global</name>
     <message>
-        <location filename="System.cpp" line="502"/>
+        <location filename="System.cpp" line="617"/>
         <source>ThisLanguage</source>
         <translation>English</translation>
     </message>
@@ -219,12 +295,27 @@
 <context>
     <name>ListingTable</name>
     <message>
-        <location filename="ListingTable.cpp" line="200"/>
+        <location filename="ListingTable.cpp" line="221"/>
         <source>Scale To Fit Viewport</source>
         <translation>Scale To Fit Viewport</translation>
     </message>
     <message>
-        <location filename="ListingTable.cpp" line="225"/>
+        <location filename="ListingTable.cpp" line="249"/>
+        <source>Add Part</source>
+        <translation>Add Part</translation>
+    </message>
+    <message>
+        <location filename="ListingTable.cpp" line="254"/>
+        <source>Delete Parts</source>
+        <translation>Delete Parts</translation>
+    </message>
+    <message>
+        <location filename="ListingTable.cpp" line="259"/>
+        <source>Duplicate Parts</source>
+        <translation>Duplicate Parts</translation>
+    </message>
+    <message>
+        <location filename="ListingTable.cpp" line="270"/>
         <source>Sections</source>
         <translation>Sections</translation>
     </message>
@@ -272,84 +363,89 @@
         <translation>Language</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="96"/>
+        <location filename="MainWindow.ui" line="97"/>
         <source>Disconnect</source>
         <translation>Disconnect</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="101"/>
+        <location filename="MainWindow.ui" line="102"/>
         <source>Settings...</source>
         <translation>Settings...</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="106"/>
+        <location filename="MainWindow.ui" line="107"/>
         <source>New Connection...</source>
         <translation>New Connection...</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="116"/>
+        <location filename="MainWindow.ui" line="117"/>
         <source>Quit</source>
         <translation>Quit</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="129"/>
+        <location filename="MainWindow.ui" line="130"/>
         <source>Save All</source>
         <translation>Save All</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="137"/>
+        <location filename="MainWindow.ui" line="138"/>
         <source>Undo</source>
         <translation>Undo</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="145"/>
+        <location filename="MainWindow.ui" line="146"/>
         <source>Redo</source>
         <translation>Redo</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="150"/>
+        <location filename="MainWindow.ui" line="151"/>
         <source>Create Backup...</source>
         <translation>Create Backup...</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="155"/>
+        <location filename="MainWindow.ui" line="156"/>
         <source>Restore From Backup...</source>
         <translation>Restore from Backup...</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="160"/>
+        <location filename="MainWindow.ui" line="161"/>
         <source>Add Container Widget</source>
         <translation>Add Container Widget</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="165"/>
+        <location filename="MainWindow.ui" line="166"/>
         <source>Next Container</source>
         <translation>Next Container</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="170"/>
+        <location filename="MainWindow.ui" line="171"/>
         <source>Next Part</source>
         <translation>Next Part</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="175"/>
+        <location filename="MainWindow.ui" line="176"/>
         <source>Previous Part</source>
         <translation>Previous Part</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="180"/>
+        <location filename="MainWindow.ui" line="181"/>
         <source>About</source>
         <translation>About</translation>
     </message>
     <message>
-        <location filename="MainWindow.ui" line="185"/>
-        <location filename="MainWindow.cpp" line="754"/>
+        <location filename="MainWindow.ui" line="186"/>
+        <location filename="MainWindow.cpp" line="776"/>
         <source>About Qt</source>
         <translation>About Qt</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="90"/>
-        <location filename="MainWindow.cpp" line="567"/>
+        <location filename="MainWindow.ui" line="191"/>
+        <source>SQL Generator</source>
+        <translation>SQL Generator</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="91"/>
+        <location filename="MainWindow.cpp" line="589"/>
         <source>Not Connected</source>
         <translation>Not Connected</translation>
     </message>
@@ -398,44 +494,54 @@
         <translation type="obsolete">File Name</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="401"/>
-        <location filename="MainWindow.cpp" line="510"/>
+        <location filename="MainWindow.cpp" line="126"/>
+        <source>MySQL Support Disabled</source>
+        <translation>MySQL Support Disabled</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="126"/>
+        <source>The program was compiled without MySQL support. The MySQL connection &apos;%1&apos; will be disabled!</source>
+        <translation>The program was compiled without MySQL support. The MySQL connection &apos;%1&apos; will be disabled!</translation>
+    </message>
+    <message>
+        <location filename="MainWindow.cpp" line="396"/>
+        <location filename="MainWindow.cpp" line="532"/>
         <source>Enter Password</source>
         <translation>Enter Password</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="402"/>
-        <location filename="MainWindow.cpp" line="511"/>
+        <location filename="MainWindow.cpp" line="397"/>
+        <location filename="MainWindow.cpp" line="533"/>
         <source>Enter password for connection &apos;%1&apos;:</source>
         <translation>Enter password for connection &apos;%1&apos;:</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="554"/>
+        <location filename="MainWindow.cpp" line="576"/>
         <source>MySQL - %1@%2:%3</source>
         <translation>MySQL - %1@%2:%3</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="558"/>
+        <location filename="MainWindow.cpp" line="580"/>
         <source>%1 (%2)</source>
         <translation>%1 (%2)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="561"/>
+        <location filename="MainWindow.cpp" line="583"/>
         <source>SQLite - %1</source>
         <translation>SQLite - %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="564"/>
+        <location filename="MainWindow.cpp" line="586"/>
         <source>Connected to %1</source>
         <translation>Connected to %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="658"/>
+        <location filename="MainWindow.cpp" line="680"/>
         <source>Containers</source>
         <translation>Containers</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="747"/>
+        <location filename="MainWindow.cpp" line="769"/>
         <source>AboutText</source>
         <translation>electronicsdb - Electronic Database Management Program
 
@@ -449,17 +555,17 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 You should have received a copy of the GNU General Public License along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="748"/>
+        <location filename="MainWindow.cpp" line="770"/>
         <source>About Electronics Database</source>
         <translation>About Electronics Database</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="768"/>
+        <location filename="MainWindow.cpp" line="790"/>
         <source>Restart Needed</source>
         <translation>Restart Needed</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="768"/>
+        <location filename="MainWindow.cpp" line="790"/>
         <source>You need to restart the program for the new language to become active!</source>
         <translation>You need to restart the program for the new language to become active!</translation>
     </message>
@@ -486,32 +592,36 @@ You should have received a copy of the GNU General Public License along with thi
         <translation type="obsolete">Building full-text index</translation>
     </message>
     <message>
-        <location filename="PartCategory.cpp" line="675"/>
+        <location filename="PartCategory.cpp" line="676"/>
         <source>Updated part with ID %1 of category &quot;%2&quot;</source>
         <translation>Updated part with ID %1 of category &quot;%2&quot;</translation>
     </message>
     <message>
-        <location filename="PartCategory.cpp" line="725"/>
         <source>Created a new part of category &quot;%1&quot;</source>
-        <translation>Created a new part of category &quot;%1&quot;</translation>
+        <translation type="obsolete">Created a new part of category &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="PartCategory.cpp" line="769"/>
+        <location filename="PartCategory.cpp" line="724"/>
+        <source>Created %1 new parts of category &quot;%2&quot;</source>
+        <translation>Created %1 new parts of category &quot;%2&quot;</translation>
+    </message>
+    <message>
+        <location filename="PartCategory.cpp" line="807"/>
         <source>Removed part with ID %1 of category &quot;%2&quot;</source>
         <translation>Removed part with ID %1 of category &quot;%2&quot;</translation>
     </message>
     <message>
-        <location filename="PartCategory.cpp" line="771"/>
+        <location filename="PartCategory.cpp" line="809"/>
         <source>Removed %1 parts of category &quot;%2&quot;</source>
         <translation>Removed %1 parts of category &quot;%2&quot;</translation>
     </message>
     <message>
-        <location filename="PartCategory.cpp" line="821"/>
+        <location filename="PartCategory.cpp" line="868"/>
         <source>SQL Error</source>
         <translation>SQL Error</translation>
     </message>
     <message>
-        <location filename="PartCategory.cpp" line="822"/>
+        <location filename="PartCategory.cpp" line="869"/>
         <source>An SQL error was caught while rebuilding the full-text index:
 
 %1</source>
@@ -520,13 +630,13 @@ You should have received a copy of the GNU General Public License along with thi
 %1</translation>
     </message>
     <message>
-        <location filename="PartCategory.cpp" line="1078"/>
+        <location filename="PartCategory.cpp" line="1125"/>
         <source>(Invalid: %1#%2)</source>
         <translation>(Invalid: %1#%2)</translation>
     </message>
     <message>
-        <location filename="PartCategory.cpp" line="1085"/>
-        <location filename="PartCategory.cpp" line="1101"/>
+        <location filename="PartCategory.cpp" line="1132"/>
+        <location filename="PartCategory.cpp" line="1148"/>
         <source>(Invalid)</source>
         <translation>(Invalid)</translation>
     </message>
@@ -534,250 +644,195 @@ You should have received a copy of the GNU General Public License along with thi
 <context>
     <name>PartCategoryProvider</name>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="52"/>
         <source>Notes</source>
-        <translation>Notes</translation>
+        <translation type="obsolete">Notes</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="62"/>
-        <location filename="PartCategoryProvider.cpp" line="137"/>
         <source>Datasheets</source>
-        <translation>Datasheets</translation>
+        <translation type="obsolete">Datasheets</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="72"/>
         <source>Vendor</source>
-        <translation>Vendor</translation>
+        <translation type="obsolete">Vendor</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="81"/>
         <source>Number In Stock</source>
-        <translation>Number in Stock</translation>
+        <translation type="obsolete">Number in Stock</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="91"/>
         <source>Maximum Temperature</source>
-        <translation>Maximum Temperature</translation>
+        <translation type="obsolete">Maximum Temperature</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="101"/>
         <source>Package</source>
-        <translation>Package</translation>
+        <translation type="obsolete">Package</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="110"/>
         <source>Tolerance</source>
-        <translation>Tolerance</translation>
+        <translation type="obsolete">Tolerance</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="119"/>
         <source>Keywords</source>
-        <translation>Keywords</translation>
+        <translation type="obsolete">Keywords</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="141"/>
         <source>Title</source>
-        <translation>Title</translation>
+        <translation type="obsolete">Title</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="146"/>
         <source>File</source>
-        <translation>File</translation>
+        <translation type="obsolete">File</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="153"/>
         <source>Capacitors</source>
-        <translation>Capacitors</translation>
+        <translation type="obsolete">Capacitors</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="157"/>
-        <location filename="PartCategoryProvider.cpp" line="351"/>
-        <location filename="PartCategoryProvider.cpp" line="389"/>
         <source>Technology</source>
-        <translation>Technology</translation>
+        <translation type="obsolete">Technology</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="162"/>
         <source>Capacitance</source>
-        <translation>Capacitance</translation>
+        <translation type="obsolete">Capacitance</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="171"/>
-        <location filename="PartCategoryProvider.cpp" line="305"/>
-        <location filename="PartCategoryProvider.cpp" line="356"/>
-        <location filename="PartCategoryProvider.cpp" line="404"/>
-        <location filename="PartCategoryProvider.cpp" line="427"/>
-        <location filename="PartCategoryProvider.cpp" line="449"/>
         <source>Type</source>
-        <translation>Type</translation>
+        <translation type="obsolete">Type</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="178"/>
         <source>Temperature Coefficient</source>
-        <translation>Temperature Coefficient</translation>
+        <translation type="obsolete">Temperature Coefficient</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="183"/>
         <source>Voltage</source>
-        <translation>Voltage</translation>
+        <translation type="obsolete">Voltage</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="198"/>
         <source>Integrated Circuits</source>
-        <translation>Integrated Circuits</translation>
+        <translation type="obsolete">Integrated Circuits</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="202"/>
-        <location filename="PartCategoryProvider.cpp" line="466"/>
         <source>Name</source>
-        <translation>Name</translation>
+        <translation type="obsolete">Name</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="207"/>
         <source>Description</source>
-        <translation>Description</translation>
+        <translation type="obsolete">Description</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="223"/>
         <source>Microcontrollers</source>
-        <translation>Microcontrollers</translation>
+        <translation type="obsolete">Microcontrollers</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="227"/>
-        <location filename="PartCategoryProvider.cpp" line="300"/>
-        <location filename="PartCategoryProvider.cpp" line="422"/>
-        <location filename="PartCategoryProvider.cpp" line="444"/>
         <source>Model</source>
-        <translation>Model</translation>
+        <translation type="obsolete">Model</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="232"/>
         <source>Architecture</source>
-        <translation>Architecture</translation>
+        <translation type="obsolete">Architecture</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="237"/>
         <source>Processor</source>
-        <translation>Processor</translation>
+        <translation type="obsolete">Processor</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="244"/>
         <source>Maximum Frequency</source>
-        <translation>Maximum Frequency</translation>
+        <translation type="obsolete">Maximum Frequency</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="250"/>
         <source>IO Count</source>
-        <translation>IO Count</translation>
+        <translation type="obsolete">IO Count</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="256"/>
         <source>Program Memory</source>
-        <translation>Program Memory</translation>
+        <translation type="obsolete">Program Memory</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="262"/>
         <source>RAM</source>
-        <translation>RAM</translation>
+        <translation type="obsolete">RAM</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="268"/>
         <source>EEPROM Size</source>
-        <translation>EEPROM Size</translation>
+        <translation type="obsolete">EEPROM Size</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="276"/>
-        <location filename="PartCategoryProvider.cpp" line="327"/>
         <source>Minimum Voltage</source>
-        <translation>Minimum Voltage</translation>
+        <translation type="obsolete">Minimum Voltage</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="282"/>
-        <location filename="PartCategoryProvider.cpp" line="333"/>
         <source>Maximum Voltage</source>
-        <translation>Maximum Voltage</translation>
+        <translation type="obsolete">Maximum Voltage</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="296"/>
         <source>Oscillators</source>
-        <translation>Oscillators</translation>
+        <translation type="obsolete">Oscillators</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="312"/>
         <source>Frequency</source>
-        <translation>Frequency</translation>
+        <translation type="obsolete">Frequency</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="321"/>
         <source>Load Capacitance</source>
-        <translation>Load Capacitance</translation>
+        <translation type="obsolete">Load Capacitance</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="347"/>
         <source>Resistors</source>
-        <translation>Resistors</translation>
+        <translation type="obsolete">Resistors</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="361"/>
         <source>Resistance</source>
-        <translation>Resistance</translation>
+        <translation type="obsolete">Resistance</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="371"/>
         <source>Power Rating</source>
-        <translation>Power Rating</translation>
+        <translation type="obsolete">Power Rating</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="385"/>
         <source>Inductors</source>
-        <translation>Inductors</translation>
+        <translation type="obsolete">Inductors</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="395"/>
         <source>Inductance</source>
-        <translation>Inductance</translation>
+        <translation type="obsolete">Inductance</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="418"/>
         <source>Diodes</source>
-        <translation>Diodes</translation>
+        <translation type="obsolete">Diodes</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="440"/>
         <source>Transistors</source>
-        <translation>Transistors</translation>
+        <translation type="obsolete">Transistors</translation>
     </message>
     <message>
-        <location filename="PartCategoryProvider.cpp" line="462"/>
         <source>Miscellaneous</source>
-        <translation>Miscellaneous</translation>
+        <translation type="obsolete">Miscellaneous</translation>
     </message>
 </context>
 <context>
     <name>PartCategoryWidget</name>
     <message>
-        <location filename="PartCategoryWidget.cpp" line="47"/>
+        <location filename="PartCategoryWidget.cpp" line="48"/>
         <source>Filter</source>
         <translation>Filter</translation>
     </message>
     <message>
-        <location filename="PartCategoryWidget.cpp" line="59"/>
+        <location filename="PartCategoryWidget.cpp" line="60"/>
         <source>Parts</source>
         <translation>Parts</translation>
     </message>
     <message>
-        <location filename="PartCategoryWidget.cpp" line="109"/>
+        <location filename="PartCategoryWidget.cpp" line="127"/>
         <source>Part Details</source>
         <translation>Part Details</translation>
     </message>
     <message>
-        <location filename="PartCategoryWidget.cpp" line="185"/>
-        <location filename="PartCategoryWidget.cpp" line="237"/>
+        <location filename="PartCategoryWidget.cpp" line="207"/>
+        <location filename="PartCategoryWidget.cpp" line="293"/>
         <source>SQL Error</source>
         <translation>SQL Error</translation>
     </message>
     <message>
-        <location filename="PartCategoryWidget.cpp" line="186"/>
+        <location filename="PartCategoryWidget.cpp" line="208"/>
         <source>SQL Error caught while rebuilding part listing table:
 
 %1</source>
@@ -786,12 +841,12 @@ You should have received a copy of the GNU General Public License along with thi
 %1</translation>
     </message>
     <message>
-        <location filename="PartCategoryWidget.cpp" line="214"/>
+        <location filename="PartCategoryWidget.cpp" line="268"/>
         <source>Error During Filtering</source>
         <translation>Error During Filtering</translation>
     </message>
     <message>
-        <location filename="PartCategoryWidget.cpp" line="215"/>
+        <location filename="PartCategoryWidget.cpp" line="269"/>
         <source>SQL Error caught during filter execution. Check your user-defined SQL filtering code for errors.
 
 %1</source>
@@ -800,7 +855,7 @@ You should have received a copy of the GNU General Public License along with thi
 %1</translation>
     </message>
     <message>
-        <location filename="PartCategoryWidget.cpp" line="238"/>
+        <location filename="PartCategoryWidget.cpp" line="294"/>
         <source>An SQL error was caught while rebuilding the part listing table:
 
 %1</source>
@@ -928,34 +983,33 @@ Do you want to copy the file to the file root directory?</translation>
         <translation>FALSE</translation>
     </message>
     <message>
-        <location filename="PartProperty.cpp" line="331"/>
-        <location filename="PartProperty.cpp" line="360"/>
+        <location filename="PartProperty.cpp" line="271"/>
+        <location filename="PartProperty.cpp" line="300"/>
         <source>(Invalid)</source>
         <translation>(Invalid)</translation>
     </message>
     <message>
-        <location filename="PartProperty.cpp" line="414"/>
+        <location filename="PartProperty.cpp" line="355"/>
         <source>Input is not a valid integer value!</source>
         <translation>Input is not a valid integer value!</translation>
     </message>
     <message>
-        <location filename="PartProperty.cpp" line="421"/>
-        <location filename="PartProperty.cpp" line="443"/>
+        <location filename="PartProperty.cpp" line="362"/>
+        <location filename="PartProperty.cpp" line="383"/>
         <source>Input is out of range! Valid range: %1-%2</source>
         <translation>Input is out of range! Valid range: %1-%2</translation>
     </message>
     <message>
-        <location filename="PartProperty.cpp" line="426"/>
         <source>Input must be unsigned!</source>
-        <translation>Input must be unsigned!</translation>
+        <translation type="obsolete">Input must be unsigned!</translation>
     </message>
     <message>
-        <location filename="PartProperty.cpp" line="435"/>
+        <location filename="PartProperty.cpp" line="376"/>
         <source>Input is not a valid floating point value!</source>
         <translation>Input is not a valid floating point value!</translation>
     </message>
     <message>
-        <location filename="PartProperty.cpp" line="454"/>
+        <location filename="PartProperty.cpp" line="393"/>
         <source>Input is not a valid part ID!</source>
         <translation>Input is not a valid part ID!</translation>
     </message>
@@ -976,38 +1030,38 @@ Do you want to copy the file to the file root directory?</translation>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="PropertyFileWidget.cpp" line="65"/>
+        <location filename="PropertyFileWidget.cpp" line="66"/>
         <source>Open</source>
         <translation>Open</translation>
     </message>
     <message>
-        <location filename="PropertyFileWidget.cpp" line="69"/>
+        <location filename="PropertyFileWidget.cpp" line="71"/>
         <source>Copy Path To Clipboard</source>
         <translation>Copy Path to Clipboard</translation>
     </message>
     <message>
-        <location filename="PropertyFileWidget.cpp" line="82"/>
+        <location filename="PropertyFileWidget.cpp" line="84"/>
         <source>(Invalid)</source>
         <translation>(Invalid)</translation>
     </message>
     <message>
-        <location filename="PropertyFileWidget.cpp" line="162"/>
+        <location filename="PropertyFileWidget.cpp" line="164"/>
         <source>Choose A File</source>
         <translation>Choose a File</translation>
     </message>
     <message>
-        <location filename="PropertyFileWidget.cpp" line="195"/>
-        <location filename="PropertyFileWidget.cpp" line="202"/>
+        <location filename="PropertyFileWidget.cpp" line="197"/>
+        <location filename="PropertyFileWidget.cpp" line="204"/>
         <source>File Not Found</source>
         <translation>File Not Found</translation>
     </message>
     <message>
-        <location filename="PropertyFileWidget.cpp" line="196"/>
+        <location filename="PropertyFileWidget.cpp" line="198"/>
         <source>The path &apos;%1&apos; is not absolute and there is no current database connection to read the file root path from.</source>
         <translation>The path &apos;%1&apos; is not absolute and there is no current database connection to read the file root path from.</translation>
     </message>
     <message>
-        <location filename="PropertyFileWidget.cpp" line="203"/>
+        <location filename="PropertyFileWidget.cpp" line="205"/>
         <source>The file &apos;%1&apos; does not seem to exist!</source>
         <translation>The file &apos;%1&apos; does not seem to exist!</translation>
     </message>
@@ -1051,6 +1105,64 @@ Do you want to copy the file to the file root directory?</translation>
         <location filename="PropertyMultiValueWidget.cpp" line="178"/>
         <source>Value #%1 is invalid!</source>
         <translation>Value #%1 is invalid!</translation>
+    </message>
+</context>
+<context>
+    <name>SQLGeneratorDialog</name>
+    <message>
+        <location filename="SQLGeneratorDialog.ui" line="14"/>
+        <source>Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SQLGeneratorDialog.ui" line="20"/>
+        <source>Database</source>
+        <translation type="unfinished">Database</translation>
+    </message>
+    <message>
+        <location filename="SQLGeneratorDialog.ui" line="32"/>
+        <source>Database Type</source>
+        <translation type="unfinished">Database Type</translation>
+    </message>
+    <message>
+        <location filename="SQLGeneratorDialog.ui" line="58"/>
+        <source>Part Category</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SQLGeneratorDialog.ui" line="64"/>
+        <source>General</source>
+        <translation type="unfinished">General</translation>
+    </message>
+    <message>
+        <location filename="SQLGeneratorDialog.ui" line="73"/>
+        <source>Internal Name (ID)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SQLGeneratorDialog.ui" line="83"/>
+        <source>User Readable Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SQLGeneratorDialog.ui" line="96"/>
+        <source>Description Pattern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SQLGeneratorDialog.ui" line="126"/>
+        <source>Generate Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="SQLGeneratorDialog.cpp" line="11"/>
+        <source>SQLite</source>
+        <translation type="unfinished">SQLite</translation>
+    </message>
+    <message>
+        <location filename="SQLGeneratorDialog.cpp" line="14"/>
+        <source>MySQL</source>
+        <translation type="unfinished">MySQL</translation>
     </message>
 </context>
 <context>
@@ -1117,136 +1229,119 @@ Do you want to copy the file to the file root directory?</translation>
         <translation>Startup Connection</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="173"/>
         <source>Connection Name</source>
-        <translation>Connection Name</translation>
+        <translation type="obsolete">Connection Name</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="187"/>
         <source>Type</source>
-        <translation>Type</translation>
+        <translation type="obsolete">Type</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="216"/>
         <source>Connection Settings</source>
-        <translation>Connection Settings</translation>
+        <translation type="obsolete">Connection Settings</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="241"/>
         <source>Port</source>
-        <translation>Port</translation>
+        <translation type="obsolete">Port</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="258"/>
         <source>User Name</source>
-        <translation>User Name</translation>
+        <translation type="obsolete">User Name</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="268"/>
         <source>Host</source>
-        <translation>Host</translation>
+        <translation type="obsolete">Host</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="275"/>
         <source>Database</source>
-        <translation>Database</translation>
+        <translation type="obsolete">Database</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="298"/>
         <source>Database File</source>
-        <translation>Database File</translation>
+        <translation type="obsolete">Database File</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="314"/>
-        <location filename="SettingsDialog.ui" line="369"/>
         <source>Choose...</source>
-        <translation>Choose...</translation>
+        <translation type="obsolete">Choose...</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="344"/>
         <source>Embedded File Settings</source>
-        <translation>Embedded File Settings</translation>
+        <translation type="obsolete">Embedded File Settings</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="353"/>
         <source>Root Path</source>
-        <translation>File root path</translation>
+        <translation type="obsolete">File root path</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="48"/>
         <source>SQLite</source>
-        <translation>SQLite</translation>
+        <translation type="obsolete">SQLite</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="49"/>
         <source>MySQL</source>
-        <translation>MySQL</translation>
+        <translation type="obsolete">MySQL</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="236"/>
+        <location filename="SettingsDialog.cpp" line="177"/>
         <source>New Connection</source>
         <translation>New Connection</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="416"/>
         <source>Choose a database file</source>
-        <translation>Choose a database file</translation>
+        <translation type="obsolete">Choose a database file</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="417"/>
         <source>SQLite Databases (*.db)</source>
-        <translation>SQLite Databases (*.db)</translation>
+        <translation type="obsolete">SQLite Databases (*.db)</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="437"/>
+        <location filename="SettingsDialog.cpp" line="349"/>
         <source>(None)</source>
         <translation>(None)</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="457"/>
         <source>Choose the root path</source>
-        <translation>Choose the root path</translation>
+        <translation type="obsolete">Choose the root path</translation>
     </message>
 </context>
 <context>
     <name>System</name>
     <message>
-        <location filename="System.cpp" line="161"/>
+        <location filename="System.cpp" line="160"/>
         <source>Failed To Open Connection</source>
         <translation>Failed To Open Connection</translation>
     </message>
     <message>
-        <location filename="System.cpp" line="178"/>
+        <location filename="System.cpp" line="177"/>
         <source>File Root Not Found</source>
         <translation>File Root Not Found</translation>
     </message>
     <message>
-        <location filename="System.cpp" line="179"/>
+        <location filename="System.cpp" line="178"/>
         <source>The file root directory &apos;%1&apos; could not be found! The program will continue to work, but opening or writing of the embedded files will be disabled.</source>
         <translation>The file root directory &apos;%1&apos; could not be found! The program will continue to work, but opening or writing of the embedded files will be disabled.</translation>
     </message>
     <message>
-        <location filename="System.cpp" line="183"/>
+        <location filename="System.cpp" line="182"/>
         <source>Invalid File Root</source>
         <translation>Invalid file root directory</translation>
     </message>
     <message>
-        <location filename="System.cpp" line="184"/>
+        <location filename="System.cpp" line="183"/>
         <source>The file root directory &apos;%1&apos; exists but is not a directory! The program will continue to work, but opening or writing of the embedded files will be disabled.</source>
         <translation>The file root directory &apos;%1&apos; exists but is not a directory! The program will continue to work, but opening or writing of the embedded files will be disabled.</translation>
     </message>
     <message>
-        <location filename="System.cpp" line="207"/>
+        <location filename="System.cpp" line="206"/>
         <source>Connection Established!</source>
         <translation>Connection Established!</translation>
     </message>
     <message>
-        <location filename="System.cpp" line="219"/>
+        <location filename="System.cpp" line="222"/>
         <source>Close Connection?</source>
         <translation>Close Connection?</translation>
     </message>
     <message>
-        <location filename="System.cpp" line="220"/>
+        <location filename="System.cpp" line="223"/>
         <source>There is already an open connection. If you continue, the current connection will be closed.
 
 Are you sure you want to continue?</source>
@@ -1255,7 +1350,7 @@ Are you sure you want to continue?</source>
 Are you sure you want to continue?</translation>
     </message>
     <message>
-        <location filename="System.cpp" line="238"/>
+        <location filename="System.cpp" line="251"/>
         <source>Connection Closed!</source>
         <translation>Connection CLosed!</translation>
     </message>

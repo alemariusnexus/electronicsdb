@@ -47,18 +47,26 @@ public slots:
 	void gotoPreviousPart();
 	void gotoNextPart();
 
+private:
+	void updateButtonStates();
+
 private slots:
 	void aboutToQuit();
 	void listingCurrentPartChanged(unsigned int id);
 	void listingPartActivated(unsigned int id);
+	void listingAddPartRequested();
+	void listingDeletePartsRequested(const QList<unsigned int>& ids);
+	void listingDuplicatePartsRequested(const QList<unsigned int>& ids);
 	void filterApplied();
 	void rebuildListTable();
 	void databaseConnectionStatusChanged(DatabaseConnection* oldConn, DatabaseConnection* newConn);
 	void recordAddRequested();
 	void recordRemoveRequested();
+	void recordDuplicateRequested();
 	void recordChosenSlot(unsigned int id);
 	void displayWidgetDefocusRequested();
 	void populateDatabaseDependentUI();
+	void listingTableSelectionChanged(const QList<unsigned int>& ids);
 
 signals:
 	void recordChosen(unsigned int id);
@@ -79,6 +87,7 @@ private:
 
 	QPushButton* recordAddButton;
 	QPushButton* recordRemoveButton;
+	QPushButton* recordDuplicateButton;
 };
 
 #endif /* PARTCATEGORYWIDGET_H_ */
