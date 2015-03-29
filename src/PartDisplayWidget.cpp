@@ -72,6 +72,13 @@ PartDisplayWidget::PartDisplayWidget(PartCategory* partCat, QWidget* parent)
 	QVBoxLayout* topLayout = new QVBoxLayout(this);
 	setLayout(topLayout);
 
+	headerLabel = new QLabel(tr("(No part selected)"));
+	/* !!! */ headerLabel->hide(); /* !!! */
+	QFont font = headerLabel->font();
+	font.setBold(true);
+	headerLabel->setFont(font);
+	topLayout->addWidget(headerLabel, 0, Qt::AlignCenter);
+
 	tabber = NULL;
 	QScrollArea* formScrollArea;
 
@@ -219,6 +226,8 @@ void PartDisplayWidget::setDisplayedPart(unsigned int id)
 	if (id == INVALID_PART_ID) {
 		currentId = INVALID_PART_ID;
 
+		headerLabel->setText(tr("(No part selected)"));
+
 		partIdLabel->setText(tr("-"));
 		partContainersLabel->setText(QString(tr("-")));
 
@@ -266,6 +275,7 @@ void PartDisplayWidget::setDisplayedPart(unsigned int id)
 
 		currentId = id;
 
+		headerLabel->setText(partCat->getDescription(id));
 		partIdLabel->setText(QString("%1").arg(id));
 
 		QString query = QString (

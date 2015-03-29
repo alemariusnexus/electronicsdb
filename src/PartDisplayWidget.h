@@ -103,6 +103,7 @@ private:
 	unsigned int currentId;
 	bool localChanges;
 
+	QLabel* headerLabel;
 	QLabel* partIdLabel;
 	QLabel* partContainersLabel;
 
