@@ -124,6 +124,7 @@ int main(int argc, char** argv)
         app.setApplicationName(appName);
         app.setApplicationDisplayName("ElectronicsDB");
         app.setApplicationVersion(EDB_VERSION_STRING);
+        app.setWindowIcon(QIcon(":/icons/appicon.png"));
 
         QString appDataPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
         QDir appDataDir(appDataPath);

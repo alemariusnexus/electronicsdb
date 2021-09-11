@@ -352,7 +352,9 @@ QByteArray KeyVault::hex2bin(const QString& data) const
     uint8_t* bin = new uint8_t[binLen];
     int actualBinLen = hydro_hex2bin(bin, binLen, hexUtf8.constData(), hexUtf8.length(), nullptr, nullptr);
     assert(actualBinLen >= 0);
-    return QByteArray::fromRawData(reinterpret_cast<const char*>(bin), actualBinLen);
+    QByteArray barr(reinterpret_cast<const char*>(bin), actualBinLen);
+    delete[] bin;
+    return barr;
 }
 
 void KeyVault::encrypt(QJsonObject& vault, const QString& id, const QString& key)
@@ -387,6 +389,8 @@ void KeyVault::encrypt(QJsonObject& vault, const QString& id, const QString& key
     jentry.insert("packet", bin2hex(QByteArray(reinterpret_cast<const char*>(packet),
                                            static_cast<int>(sizeof(packet)))));
     jentry.insert("format", "hydro1");
+
+    delete[] cipher;
 
     // No! Ownership was taken by QByteArray above!
     // delete[] cipher;
@@ -494,7 +498,10 @@ QString KeyVault::decrypt(const QJsonObject& vault, const QString& id, const QSt
 
     assert(keyLen%2 == 0);
 
-    QString key = QString::fromRawData(reinterpret_cast<const QChar*>(keyRaw), static_cast<int>(keyLen/2));
+    QString key(reinterpret_cast<const QChar*>(keyRaw), static_cast<int>(keyLen/2));
+
+    hydro_memzero(keyRaw, keyLen);
+    delete[] keyRaw;
 
     hydro_memzero(&sessKeys, sizeof(sessKeys));
 

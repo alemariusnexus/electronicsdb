@@ -1,4 +1,6 @@
-FIND_PATH(EDB_QSQLITE_SOURCE_PATH qsql_sqlite.cpp)
+SET(EDB_QSQLITE_SOURCE_PATH "${EDB_QT_PLUGINS_SOURCE_PATH}/sqldrivers/sqlite")
+
+MESSAGE(STATUS "Building QSQLITE driver with embedded SQLite.")
 
 ADD_LIBRARY(qsqlite SHARED
         "${EDB_QSQLITE_SOURCE_PATH}/qsql_sqlite.cpp"
@@ -27,4 +29,3 @@ INSTALL(TARGETS qsqlite
         RUNTIME DESTINATION bin/plugins/sqldrivers
         LIBRARY DESTINATION bin/plugins/sqldrivers
         )
-#INSTALL(TARGETS qsqlite LIBRARY DESTINATION bin/plugins/sqldrivers)

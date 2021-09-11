@@ -3,6 +3,7 @@
         <file>electronics_de.qm</file>
         <file>electronics_en.qm</file>
 
+        <file>icons/appicon.png</file>
         <file>icons/document-new.png</file>
         <file>icons/document-open.png</file>
         <file>icons/document-save.png</file>
