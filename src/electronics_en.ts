@@ -1,281 +1,838 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="en_US">
+<TS version="2.1" language="en_US">
 <context>
     <name>ConnectDialog</name>
     <message>
-        <location filename="ConnectDialog.ui" line="14"/>
+        <location filename="electronicsdb/gui/settings/ConnectDialog.ui" line="14"/>
         <source>Connect To Database</source>
         <translation>Connect To Database</translation>
     </message>
     <message>
-        <source>Database Type</source>
-        <translation type="obsolete">Database Type</translation>
-    </message>
-    <message>
-        <source>Connection Parameters</source>
-        <translation type="obsolete">Connection Parameters</translation>
-    </message>
-    <message>
-        <source>Server</source>
-        <translation type="obsolete">Server</translation>
-    </message>
-    <message>
-        <source>localhost</source>
-        <translation type="obsolete">localhost</translation>
-    </message>
-    <message>
-        <source>Port</source>
-        <translation type="obsolete">Port</translation>
-    </message>
-    <message>
-        <source>User</source>
-        <translation type="obsolete">User</translation>
-    </message>
-    <message>
-        <source>electronics</source>
-        <translation type="obsolete">electronics</translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation type="obsolete">Password</translation>
-    </message>
-    <message>
-        <source>Database</source>
-        <translation type="obsolete">Database</translation>
-    </message>
-    <message>
-        <source>Database File</source>
-        <translation type="obsolete">Database File</translation>
-    </message>
-    <message>
-        <source>Choose...</source>
-        <translation type="obsolete">Choose...</translation>
-    </message>
-    <message>
-        <source>Create a profile for this connection</source>
-        <translation type="obsolete">Create a profile for this connection</translation>
-    </message>
-    <message>
-        <source>Connection Name</source>
-        <translation type="obsolete">Connection Name</translation>
-    </message>
-    <message>
-        <location filename="ConnectDialog.ui" line="39"/>
+        <location filename="electronicsdb/gui/settings/ConnectDialog.ui" line="39"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="ConnectDialog.ui" line="49"/>
+        <location filename="electronicsdb/gui/settings/ConnectDialog.ui" line="49"/>
         <source>Connect</source>
         <translation>Connect</translation>
-    </message>
-    <message>
-        <source>SQLite</source>
-        <translation type="obsolete">SQLite</translation>
-    </message>
-    <message>
-        <source>MySQL</source>
-        <translation type="obsolete">MySQL</translation>
-    </message>
-    <message>
-        <source>Choose a database file</source>
-        <translation type="obsolete">Choose a database file</translation>
-    </message>
-    <message>
-        <source>SQLite Databases (*.db)</source>
-        <translation type="obsolete">SQLite Databases (*.db)</translation>
-    </message>
-    <message>
-        <location filename="ConnectDialog.cpp" line="69"/>
-        <source>Enter Password</source>
-        <translation>Enter Password</translation>
-    </message>
-    <message>
-        <location filename="ConnectDialog.cpp" line="70"/>
-        <source>Enter password for connection &apos;%1&apos;:</source>
-        <translation>Enter password for connection &apos;%1&apos;:</translation>
     </message>
 </context>
 <context>
     <name>ConnectionEditWidget</name>
     <message>
-        <location filename="ConnectionEditWidget.ui" line="32"/>
+        <location filename="electronicsdb/gui/settings/ConnectionEditWidget.ui" line="32"/>
         <source>Connection Name</source>
         <translation>Connection Name</translation>
     </message>
     <message>
-        <location filename="ConnectionEditWidget.ui" line="46"/>
+        <location filename="electronicsdb/gui/settings/ConnectionEditWidget.ui" line="46"/>
         <source>Type</source>
         <translation>Type</translation>
     </message>
     <message>
-        <location filename="ConnectionEditWidget.ui" line="75"/>
+        <location filename="electronicsdb/gui/settings/ConnectionEditWidget.ui" line="75"/>
         <source>Connection Settings</source>
         <translation>Connection Settings</translation>
     </message>
     <message>
-        <location filename="ConnectionEditWidget.ui" line="97"/>
-        <source>Host</source>
-        <translation>Host</translation>
-    </message>
-    <message>
-        <location filename="ConnectionEditWidget.ui" line="107"/>
-        <source>Port</source>
-        <translation>Port</translation>
-    </message>
-    <message>
-        <location filename="ConnectionEditWidget.ui" line="124"/>
-        <source>Database</source>
-        <translation>Database</translation>
-    </message>
-    <message>
-        <location filename="ConnectionEditWidget.ui" line="134"/>
-        <source>User Name</source>
-        <translation>User Name</translation>
-    </message>
-    <message>
-        <location filename="ConnectionEditWidget.ui" line="157"/>
-        <source>Database File</source>
-        <translation>Database File</translation>
-    </message>
-    <message>
-        <location filename="ConnectionEditWidget.ui" line="173"/>
-        <location filename="ConnectionEditWidget.ui" line="215"/>
+        <location filename="electronicsdb/gui/settings/ConnectionEditWidget.ui" line="125"/>
         <source>Choose...</source>
         <translation>Choose...</translation>
     </message>
     <message>
-        <location filename="ConnectionEditWidget.ui" line="190"/>
+        <location filename="electronicsdb/gui/settings/ConnectionEditWidget.ui" line="138"/>
+        <source>This database doesn&apos;t support transactional DDL, which makes editing the static model very dangerous. Consider using a different database system.</source>
+        <translation>This database doesn&apos;t support transactional DDL, which makes editing the static model very dangerous. Consider using a different database system.</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/ConnectionEditWidget.ui" line="91"/>
         <source>Embedded File Settings</source>
         <translation>Embedded File Settings</translation>
     </message>
     <message>
-        <location filename="ConnectionEditWidget.ui" line="199"/>
+        <location filename="electronicsdb/gui/settings/ConnectionEditWidget.ui" line="100"/>
         <source>Root Path</source>
         <translation>File root path</translation>
-    </message>
-    <message>
-        <location filename="ConnectionEditWidget.cpp" line="30"/>
-        <source>SQLite</source>
-        <translation>SQLite</translation>
-    </message>
-    <message>
-        <location filename="ConnectionEditWidget.cpp" line="33"/>
-        <source>MySQL</source>
-        <translation>MySQL</translation>
-    </message>
-    <message>
-        <location filename="ConnectionEditWidget.cpp" line="123"/>
-        <source>Choose a database file</source>
-        <translation>Choose a database file</translation>
-    </message>
-    <message>
-        <location filename="ConnectionEditWidget.cpp" line="124"/>
-        <source>SQLite Databases (*.db *.sqlite)</source>
-        <translation>SQLite Databases (*.db *.sqlite)</translation>
-    </message>
-    <message>
-        <location filename="ConnectionEditWidget.cpp" line="135"/>
-        <source>Choose a root directory</source>
-        <translation>Choose a root directory</translation>
-    </message>
-</context>
-<context>
-    <name>ContainerTableModel</name>
-    <message>
-        <location filename="ContainerTableModel.cpp" line="218"/>
-        <source>Name</source>
-        <translation>Name</translation>
-    </message>
-    <message>
-        <location filename="ContainerTableModel.cpp" line="220"/>
-        <source>Parts</source>
-        <translation>Parts</translation>
     </message>
 </context>
 <context>
     <name>ContainerWidget</name>
     <message>
-        <location filename="ContainerWidget.ui" line="29"/>
+        <location filename="electronicsdb/gui/container/ContainerWidget.ui" line="56"/>
         <source>Container ID</source>
         <translation>Container ID</translation>
     </message>
     <message>
-        <location filename="ContainerWidget.ui" line="45"/>
+        <location filename="electronicsdb/gui/container/ContainerWidget.ui" line="81"/>
         <source>Search</source>
         <translation>Search</translation>
     </message>
     <message>
-        <location filename="ContainerWidget.ui" line="138"/>
+        <location filename="electronicsdb/gui/container/ContainerWidget.ui" line="203"/>
         <source>Parts In Container</source>
         <translation>Parts in Container</translation>
     </message>
+</context>
+<context>
+    <name>DefaultDatabaseConnectionWidget</name>
     <message>
-        <location filename="ContainerWidget.cpp" line="90"/>
+        <location filename="electronicsdb/db/common/DefaultDatabaseConnectionWidget.ui" line="17"/>
+        <source>Host</source>
+        <translation>Host</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/db/common/DefaultDatabaseConnectionWidget.ui" line="27"/>
+        <source>Port</source>
+        <translation>Port</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/db/common/DefaultDatabaseConnectionWidget.ui" line="41"/>
+        <source>Database</source>
+        <translation>Database</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/db/common/DefaultDatabaseConnectionWidget.ui" line="51"/>
+        <source>User</source>
+        <translation>User</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/db/common/DefaultDatabaseConnectionWidget.ui" line="61"/>
+        <source>Password</source>
+        <translation>Password</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/db/common/DefaultDatabaseConnectionWidget.ui" line="78"/>
+        <source>Save password in vault</source>
+        <translation>Save password in vault</translation>
+    </message>
+</context>
+<context>
+    <name>Global</name>
+    <message>
+        <location filename="electronicsdb/System.cpp" line="677"/>
+        <source>ThisLanguage</source>
+        <translation>English</translation>
+    </message>
+</context>
+<context>
+    <name>KeyVaultDialog</name>
+    <message>
+        <location filename="electronicsdb/gui/settings/KeyVaultDialog.ui" line="14"/>
+        <source>Setup Key Vault</source>
+        <translation>Setup Key Vault</translation>
+    </message>
+</context>
+<context>
+    <name>KeyVaultWidget</name>
+    <message>
+        <location filename="electronicsdb/gui/settings/KeyVaultWidget.ui" line="20"/>
+        <source>Enable Password Vault</source>
+        <translation>Enable Password Vault</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/KeyVaultWidget.ui" line="43"/>
+        <source>Clear Vault</source>
+        <translation>Clear Vault</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/KeyVaultWidget.ui" line="53"/>
+        <source>Vault Protection</source>
+        <translation>Vault Protection</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/KeyVaultWidget.ui" line="59"/>
+        <source>Use Master Password:</source>
+        <translation>Use Master Password:</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/KeyVaultWidget.ui" line="69"/>
+        <source>Password</source>
+        <translation>Password</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/KeyVaultWidget.ui" line="79"/>
+        <location filename="electronicsdb/gui/settings/KeyVaultWidget.ui" line="96"/>
+        <source>**********</source>
+        <translation>**********</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/KeyVaultWidget.ui" line="86"/>
+        <source>Password (repeat)</source>
+        <translation>Password (repeat)</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/KeyVaultWidget.ui" line="109"/>
+        <source>Without a master password, connection passwords are encrypted with a default key that is &lt;b&gt;easily discovered by attackers.&lt;/b&gt; This is a &lt;b&gt;security risk!&lt;/b&gt; Do not use this setting with passwords you use elsewhere, or when you don&apos;t trust your computer&apos;s protection!</source>
+        <translation>Without a master password, connection passwords are encrypted with a default key that is &lt;b&gt;easily discovered by attackers.&lt;/b&gt; This is a &lt;b&gt;security risk!&lt;/b&gt; Do not use this setting with passwords you use elsewhere, or when you don&apos;t trust your computer&apos;s protection!</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/KeyVaultWidget.ui" line="119"/>
+        <source>Disabling the vault will remove all your passwords from it!</source>
+        <translation>Disabling the vault will remove all your passwords from it!</translation>
+    </message>
+</context>
+<context>
+    <name>MainWindow</name>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="14"/>
+        <source>Electronic Database</source>
+        <translation>Electronic Database</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="33"/>
+        <source>File</source>
+        <translation>File</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="37"/>
+        <source>&amp;Connect</source>
+        <translation>&amp;Connect</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="51"/>
+        <source>Settings</source>
+        <translation>Settings</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="55"/>
+        <source>Static Model</source>
+        <translation>Static Model</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="65"/>
+        <source>Edit</source>
+        <translation>Edit</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="77"/>
+        <source>Windows</source>
+        <translation>Windows</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="83"/>
+        <source>Help</source>
+        <translation>Help</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="87"/>
+        <source>Language</source>
+        <translation>Language</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="104"/>
+        <source>Disconnect</source>
+        <translation>Disconnect</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="109"/>
+        <source>Settings...</source>
+        <translation>Settings...</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="114"/>
+        <source>New Connection...</source>
+        <translation>New Connection...</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="123"/>
+        <source>Quit</source>
+        <translation>Quit</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="135"/>
+        <source>Save All</source>
+        <translation>Save All</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="143"/>
+        <source>Undo</source>
+        <translation>Undo</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="151"/>
+        <source>Redo</source>
+        <translation>Redo</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="156"/>
+        <source>Create Backup...</source>
+        <translation>Create Backup...</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="161"/>
+        <source>Restore From Backup...</source>
+        <translation>Restore from Backup...</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="166"/>
+        <source>Add Container Widget</source>
+        <translation>Add Container Widget</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="171"/>
+        <source>Next Container</source>
+        <translation>Next Container</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="176"/>
+        <source>Next Part</source>
+        <translation>Next Part</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="181"/>
+        <source>Previous Part</source>
+        <translation>Previous Part</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="186"/>
+        <source>About</source>
+        <translation>About</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="191"/>
+        <source>About Qt</source>
+        <translation>About Qt</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="196"/>
+        <source>SQL Generator</source>
+        <translation>SQL Generator</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="201"/>
+        <source>Edit Part Link Types...</source>
+        <translation>Edit Part Link Types [BETA]...</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="209"/>
+        <source>Edit Part Categories...</source>
+        <translation>Edit Part Categories [BETA]...</translation>
+    </message>
+</context>
+<context>
+    <name>PartCategoryEditDialog</name>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="14"/>
+        <source>Part Categories</source>
+        <translation>Part Categories</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="103"/>
+        <source>No errors.</source>
+        <translation>No errors.</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="111"/>
+        <source>Edit Part Category</source>
+        <translation>Edit Part Category</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="139"/>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="323"/>
+        <source>ID</source>
+        <translation>ID</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="167"/>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="351"/>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="181"/>
+        <source>Description</source>
+        <translation>Description</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="225"/>
+        <source>Part Properties</source>
+        <translation>Part Properties</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="314"/>
+        <source>General</source>
+        <translation>General</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="365"/>
+        <source>Type</source>
+        <translation>Type</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="375"/>
+        <source>FTS Prefix</source>
+        <translation>FTS Prefix</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="399"/>
+        <source>Type Specifics</source>
+        <translation>Type Specifics</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="427"/>
+        <source>Unit Suffix</source>
+        <translation>Unit Suffix</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="441"/>
+        <source>Unit Prefix</source>
+        <translation>Unit Prefix</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="451"/>
+        <source>Range</source>
+        <translation>Range</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="491"/>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="551"/>
+        <source>(Infinite)</source>
+        <translation>(Infinite)</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="498"/>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="558"/>
+        <source>Inf</source>
+        <translation>Inf</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="508"/>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="568"/>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="623"/>
+        <source>Enabled</source>
+        <translation>Enabled</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="585"/>
+        <source>Max. Length</source>
+        <translation>Max. Length</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="610"/>
+        <source>(Unlimited)</source>
+        <translation>(Unlimited)</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="633"/>
+        <source>Text Area Height</source>
+        <translation>Text Area Height</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="681"/>
+        <source>Bool Text</source>
+        <translation>Bool Text</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="706"/>
+        <source>True</source>
+        <translation>True</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="716"/>
+        <source>False</source>
+        <translation>False</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="736"/>
+        <source>Flags</source>
+        <translation>Flags</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="760"/>
+        <source>Multi-Value</source>
+        <translation>Multi-Value</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="770"/>
+        <source>Full-Text Indexed</source>
+        <translation>Full-Text Indexed</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="780"/>
+        <source>SI Prefix Defaults to Base 2</source>
+        <translation>SI Prefix Defaults to Base 2</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="824"/>
+        <source>Display Units</source>
+        <translation>Display Units</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="834"/>
+        <source>Display Selection List</source>
+        <translation>Display Selection List</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="844"/>
+        <source>Hide from Listing Table</source>
+        <translation>Hide from Listing Table</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="854"/>
+        <source>Display in Text Area</source>
+        <translation>Display in Text Area</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="864"/>
+        <source>Display in Single Field</source>
+        <translation>Display in Single Field</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="874"/>
+        <source>Display Dynamic Enumeration</source>
+        <translation>Display Dynamic Enumeration</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="903"/>
+        <source>Order Code (SQL)</source>
+        <translation>Order Code (SQL)</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="924"/>
+        <source>Natural</source>
+        <translation>Natural</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="938"/>
+        <source>Ascending</source>
+        <translation>Ascending</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="952"/>
+        <source>Descending</source>
+        <translation>Descending</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.ui" line="998"/>
+        <source>Changes</source>
+        <translation>Changes</translation>
+    </message>
+</context>
+<context>
+    <name>PartLinkEditWidget</name>
+    <message>
+        <location filename="electronicsdb/gui/part/PartLinkEditWidget.ui" line="50"/>
+        <source>Choose...</source>
+        <translation>Choose...</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/part/PartLinkEditWidget.ui" line="75"/>
+        <source>Jump To Part</source>
+        <translation>Jump To Part</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/part/PartLinkEditWidget.ui" line="82"/>
+        <source>Quick Open File</source>
+        <translation>Quick Open File</translation>
+    </message>
+</context>
+<context>
+    <name>PartLinkTypeEditDialog</name>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.ui" line="14"/>
+        <source>Part Link Types</source>
+        <translation>Part Link Types</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.ui" line="158"/>
+        <source>No errors.</source>
+        <translation>No errors.</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.ui" line="169"/>
+        <source>Edit Part Link Type</source>
+        <translation>Edit Part Link Type</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.ui" line="181"/>
+        <source>ID</source>
+        <translation>ID</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.ui" line="222"/>
+        <source>Side A</source>
+        <translation>Side A</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.ui" line="261"/>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.ui" line="401"/>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.ui" line="281"/>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.ui" line="421"/>
+        <source>Show</source>
+        <translation>Show</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.ui" line="288"/>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.ui" line="428"/>
+        <source>Editable</source>
+        <translation>Editable</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.ui" line="295"/>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.ui" line="435"/>
+        <source>Display Selection List</source>
+        <translation>Display Selection List</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.ui" line="339"/>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.ui" line="479"/>
+        <source>Invert Selection</source>
+        <translation>Invert Selection</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.ui" line="362"/>
+        <source>Side B</source>
+        <translation>Side B</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.ui" line="510"/>
+        <source>Changes</source>
+        <translation>Changes</translation>
+    </message>
+</context>
+<context>
+    <name>PropertyDateTimeEdit</name>
+    <message>
+        <location filename="electronicsdb/gui/part/PropertyDateTimeEdit.ui" line="36"/>
+        <source>Now</source>
+        <translation>Now</translation>
+    </message>
+</context>
+<context>
+    <name>QCoreApplication</name>
+    <message>
+        <location filename="electronicsdb/model/part/Part.cpp" line="136"/>
+        <source>(Invalid)</source>
+        <translation>(Invalid)</translation>
+    </message>
+</context>
+<context>
+    <name>SQLExecDialog</name>
+    <message>
+        <location filename="electronicsdb/gui/smodel/SQLExecDialog.ui" line="14"/>
+        <source>Execute SQL Code</source>
+        <translation>Execute SQL Code</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/SQLExecDialog.ui" line="20"/>
+        <source>SQL Code</source>
+        <translation>SQL Code</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/SQLExecDialog.ui" line="39"/>
+        <source>&lt;b&gt;WARNING: Backup your database&lt;/b&gt; before applying these changes. If something goes wrong, it might corrupt your database and lead to partial or complete &lt;b&gt;data loss&lt;/b&gt;. This is especially the case with MySQL/MariaDB databases. This is &lt;b&gt;beta&lt;/b&gt; functionality. You have been warned.</source>
+        <translation>&lt;b&gt;WARNING: Backup your database&lt;/b&gt; before applying these changes. If something goes wrong, it might corrupt your database and lead to partial or complete &lt;b&gt;data loss&lt;/b&gt;. This is especially the case with MySQL/MariaDB databases. This is &lt;b&gt;beta&lt;/b&gt; functionality. You have been warned.</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/SQLExecDialog.ui" line="64"/>
+        <source>Save...</source>
+        <translation>Save...</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/SQLExecDialog.ui" line="71"/>
+        <source>Copy to Clipboard</source>
+        <translation>Copy to Clipboard</translation>
+    </message>
+</context>
+<context>
+    <name>SQLiteDatabaseConnectionWidget</name>
+    <message>
+        <location filename="electronicsdb/db/sqlite/SQLiteDatabaseConnectionWidget.ui" line="17"/>
+        <source>Database File</source>
+        <translation>Database File</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/db/sqlite/SQLiteDatabaseConnectionWidget.ui" line="42"/>
+        <source>Choose...</source>
+        <translation>Choose...</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsDialog</name>
+    <message>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="14"/>
+        <source>Settings</source>
+        <translation>Settings</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="30"/>
+        <source>General</source>
+        <translation>General</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="36"/>
+        <source>Appearance</source>
+        <translation>Appearance</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="45"/>
+        <source>Theme (requires restart)</source>
+        <translation>Theme (requires restart)</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="58"/>
+        <source>Editing</source>
+        <translation>Editing</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="64"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When enabled, for properties that are typically expressed using binary SI prefixes (e.g. &apos;1KiB&apos; for 1024 Bytes), whenever the user enters a value with a non-binary SI prefix, it is instead interpreted as if the user entered the binary prefix (e.g. 1KB = 1024 Bytes and not 1000 Bytes).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When enabled, for properties that are typically expressed using binary SI prefixes (e.g. &apos;1KiB&apos; for 1024 Bytes), whenever the user enters a value with a non-binary SI prefix, it is instead interpreted as if the user entered the binary prefix (e.g. 1KB = 1024 Bytes and not 1000 Bytes).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="67"/>
+        <source>Interpret SI prefixes as binary for binary properties</source>
+        <translation>Interpret SI prefixes as binary for binary properties</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="77"/>
+        <source>Key Vault</source>
+        <translation>Key Vault</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="103"/>
+        <source>Databases</source>
+        <translation>Databases</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="115"/>
+        <source>Startup Connection</source>
+        <translation>Startup Connection</translation>
+    </message>
+</context>
+<context>
+    <name>electronicsdb::ChangelogTableModel</name>
+    <message>
+        <location filename="electronicsdb/gui/util/ChangelogTableModel.cpp" line="153"/>
+        <source>Undo</source>
+        <translation>Undo</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/util/ChangelogTableModel.cpp" line="183"/>
+        <source>Entity</source>
+        <translation>Entity</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/util/ChangelogTableModel.cpp" line="187"/>
+        <source>Change Description</source>
+        <translation>Change Description</translation>
+    </message>
+</context>
+<context>
+    <name>electronicsdb::ConnectionEditWidget</name>
+    <message>
+        <location filename="electronicsdb/gui/settings/ConnectionEditWidget.cpp" line="136"/>
+        <source>Choose a root directory</source>
+        <translation>Choose a root directory</translation>
+    </message>
+</context>
+<context>
+    <name>electronicsdb::ContainerPartTableModel</name>
+    <message>
+        <location filename="electronicsdb/gui/container/ContainerPartTableModel.cpp" line="116"/>
+        <source>Part Description</source>
+        <translation>Part Description</translation>
+    </message>
+</context>
+<context>
+    <name>electronicsdb::ContainerTableModel</name>
+    <message>
+        <location filename="electronicsdb/gui/container/ContainerTableModel.cpp" line="163"/>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/container/ContainerTableModel.cpp" line="165"/>
+        <source>Parts</source>
+        <translation>Parts</translation>
+    </message>
+</context>
+<context>
+    <name>electronicsdb::ContainerWidget</name>
+    <message>
+        <location filename="electronicsdb/gui/container/ContainerWidget.cpp" line="101"/>
         <source>Remove</source>
         <translation>Remove</translation>
     </message>
 </context>
 <context>
-    <name>FilterWidget</name>
+    <name>electronicsdb::DefaultDatabaseConnection</name>
     <message>
-        <location filename="FilterWidget.cpp" line="102"/>
+        <location filename="electronicsdb/db/common/DefaultDatabaseConnection.cpp" line="63"/>
+        <source>%1 - %2@%3:%4/%5</source>
+        <translation>%1 - %2@%3:%4/%5</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/db/common/DefaultDatabaseConnection.cpp" line="65"/>
+        <source>%1 (%2)</source>
+        <translation>%1 (%2)</translation>
+    </message>
+</context>
+<context>
+    <name>electronicsdb::FilterWidget</name>
+    <message>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="108"/>
         <source>Full Text Filter</source>
         <translation>Full Text Filter</translation>
     </message>
     <message>
-        <location filename="FilterWidget.cpp" line="108"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="114"/>
         <source>Query:</source>
         <translation>Query:</translation>
     </message>
     <message>
-        <location filename="FilterWidget.cpp" line="118"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="124"/>
         <source>- Insert Prefix -</source>
         <translation>- Insert Prefix -</translation>
     </message>
     <message>
-        <location filename="FilterWidget.cpp" line="131"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="137"/>
         <source>Additional SQL Filter</source>
         <translation>Additional SQL Filter</translation>
     </message>
     <message>
-        <location filename="FilterWidget.cpp" line="138"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="144"/>
         <source>(Disabled)</source>
         <translation>(Disabled)</translation>
     </message>
     <message>
-        <location filename="FilterWidget.cpp" line="139"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="145"/>
         <source>AND</source>
         <translation>AND</translation>
     </message>
     <message>
-        <location filename="FilterWidget.cpp" line="140"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="146"/>
         <source>OR</source>
         <translation>OR</translation>
     </message>
     <message>
-        <location filename="FilterWidget.cpp" line="149"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="156"/>
         <source>- Insert Column -</source>
         <translation>- Insert Column -</translation>
     </message>
     <message>
-        <location filename="FilterWidget.cpp" line="173"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="180"/>
         <source>Reset All</source>
         <translation>Reset All</translation>
     </message>
     <message>
-        <location filename="FilterWidget.cpp" line="177"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="184"/>
         <source>Apply Filters</source>
         <translation>Apply Filters</translation>
     </message>
     <message>
-        <location filename="FilterWidget.cpp" line="446"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="413"/>
         <source>SQL Error</source>
         <translation>SQL Error</translation>
     </message>
     <message>
-        <location filename="FilterWidget.cpp" line="447"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="414"/>
         <source>An SQL error was caught while building the filter widget:
 
 %1</source>
@@ -285,554 +842,367 @@
     </message>
 </context>
 <context>
-    <name>Global</name>
+    <name>electronicsdb::KeyVault</name>
     <message>
-        <location filename="System.cpp" line="617"/>
-        <source>ThisLanguage</source>
-        <translation>English</translation>
+        <location filename="electronicsdb/util/KeyVault.cpp" line="147"/>
+        <location filename="electronicsdb/util/KeyVault.cpp" line="237"/>
+        <source>Unlock Key Vault</source>
+        <translation>Unlock Key Vault</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/util/KeyVault.cpp" line="148"/>
+        <source>Please enter your vault master password:</source>
+        <translation>Please enter your vault master password:</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/util/KeyVault.cpp" line="238"/>
+        <source>Please enter the password to unlock the key vault:</source>
+        <translation>Please enter the password to unlock the key vault:</translation>
     </message>
 </context>
 <context>
-    <name>ListingTable</name>
+    <name>electronicsdb::KeyVaultWidget</name>
     <message>
-        <location filename="ListingTable.cpp" line="221"/>
+        <location filename="electronicsdb/gui/settings/KeyVaultWidget.cpp" line="68"/>
+        <source>Password Mismatch</source>
+        <translation>Password Mismatch</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/KeyVaultWidget.cpp" line="68"/>
+        <source>The passwords do not match!</source>
+        <translation>The passwords do not match!</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/KeyVaultWidget.cpp" line="119"/>
+        <source>********</source>
+        <translation>********</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/KeyVaultWidget.cpp" line="147"/>
+        <source>Clear Key Vault?</source>
+        <translation>Clear Key Vault?</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/KeyVaultWidget.cpp" line="148"/>
+        <source>Do you really want to clear the key vault? This will remove all stored passwords and reset the vault key.</source>
+        <translation>Do you really want to clear the key vault? This will remove all stored passwords and reset the vault key.</translation>
+    </message>
+</context>
+<context>
+    <name>electronicsdb::ListingTable</name>
+    <message>
+        <location filename="electronicsdb/gui/part/ListingTable.cpp" line="213"/>
         <source>Scale To Fit Viewport</source>
         <translation>Scale To Fit Viewport</translation>
     </message>
     <message>
-        <location filename="ListingTable.cpp" line="249"/>
+        <location filename="electronicsdb/gui/part/ListingTable.cpp" line="241"/>
         <source>Add Part</source>
         <translation>Add Part</translation>
     </message>
     <message>
-        <location filename="ListingTable.cpp" line="254"/>
+        <location filename="electronicsdb/gui/part/ListingTable.cpp" line="246"/>
         <source>Delete Parts</source>
         <translation>Delete Parts</translation>
     </message>
     <message>
-        <location filename="ListingTable.cpp" line="259"/>
+        <location filename="electronicsdb/gui/part/ListingTable.cpp" line="251"/>
         <source>Duplicate Parts</source>
         <translation>Duplicate Parts</translation>
     </message>
     <message>
-        <location filename="ListingTable.cpp" line="270"/>
+        <location filename="electronicsdb/gui/part/ListingTable.cpp" line="262"/>
         <source>Sections</source>
         <translation>Sections</translation>
     </message>
 </context>
 <context>
-    <name>MainWindow</name>
+    <name>electronicsdb::MainWindow</name>
     <message>
-        <location filename="MainWindow.ui" line="14"/>
-        <source>Electronic Database</source>
-        <translation>Electronic Database</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="33"/>
-        <source>Database</source>
-        <translation>Database</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="37"/>
-        <source>&amp;Connect</source>
-        <translation>&amp;Connect</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="51"/>
-        <source>Settings</source>
-        <translation>Settings</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="57"/>
-        <source>Edit</source>
-        <translation>Edit</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="69"/>
-        <source>Windows</source>
-        <translation>Windows</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="75"/>
-        <source>Help</source>
-        <translation>Help</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="79"/>
-        <source>Language</source>
-        <translation>Language</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="97"/>
-        <source>Disconnect</source>
-        <translation>Disconnect</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="102"/>
-        <source>Settings...</source>
-        <translation>Settings...</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="107"/>
-        <source>New Connection...</source>
-        <translation>New Connection...</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="117"/>
-        <source>Quit</source>
-        <translation>Quit</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="130"/>
-        <source>Save All</source>
-        <translation>Save All</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="138"/>
-        <source>Undo</source>
-        <translation>Undo</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="146"/>
-        <source>Redo</source>
-        <translation>Redo</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="151"/>
-        <source>Create Backup...</source>
-        <translation>Create Backup...</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="156"/>
-        <source>Restore From Backup...</source>
-        <translation>Restore from Backup...</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="161"/>
-        <source>Add Container Widget</source>
-        <translation>Add Container Widget</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="166"/>
-        <source>Next Container</source>
-        <translation>Next Container</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="171"/>
-        <source>Next Part</source>
-        <translation>Next Part</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="176"/>
-        <source>Previous Part</source>
-        <translation>Previous Part</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="181"/>
-        <source>About</source>
-        <translation>About</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="186"/>
-        <location filename="MainWindow.cpp" line="776"/>
-        <source>About Qt</source>
-        <translation>About Qt</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.ui" line="191"/>
-        <source>SQL Generator</source>
-        <translation>SQL Generator</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.cpp" line="91"/>
-        <location filename="MainWindow.cpp" line="589"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="95"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="424"/>
         <source>Not Connected</source>
         <translation>Not Connected</translation>
     </message>
     <message>
-        <source>Microcontrollers</source>
-        <translation type="obsolete">Microcontrollers</translation>
-    </message>
-    <message>
-        <source>Model</source>
-        <translation type="obsolete">Model</translation>
-    </message>
-    <message>
-        <source>Package</source>
-        <translation type="obsolete">Package</translation>
-    </message>
-    <message>
-        <source>Program Memory</source>
-        <translation type="obsolete">Program Memory</translation>
-    </message>
-    <message>
-        <source>RAM Size</source>
-        <translation type="obsolete">RAM Size</translation>
-    </message>
-    <message>
-        <source>Voltage</source>
-        <translation type="obsolete">Voltage</translation>
-    </message>
-    <message>
-        <source>Datasheet</source>
-        <translation type="obsolete">Datasheet</translation>
-    </message>
-    <message>
-        <source>Notes</source>
-        <translation type="obsolete">Notes</translation>
-    </message>
-    <message>
-        <source>Datasheets</source>
-        <translation type="obsolete">Datasheets</translation>
-    </message>
-    <message>
-        <source>Title</source>
-        <translation type="obsolete">Title</translation>
-    </message>
-    <message>
-        <source>File Name</source>
-        <translation type="obsolete">File Name</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.cpp" line="126"/>
-        <source>MySQL Support Disabled</source>
-        <translation>MySQL Support Disabled</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.cpp" line="126"/>
-        <source>The program was compiled without MySQL support. The MySQL connection &apos;%1&apos; will be disabled!</source>
-        <translation>The program was compiled without MySQL support. The MySQL connection &apos;%1&apos; will be disabled!</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.cpp" line="396"/>
-        <location filename="MainWindow.cpp" line="532"/>
-        <source>Enter Password</source>
-        <translation>Enter Password</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.cpp" line="397"/>
-        <location filename="MainWindow.cpp" line="533"/>
-        <source>Enter password for connection &apos;%1&apos;:</source>
-        <translation>Enter password for connection &apos;%1&apos;:</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.cpp" line="576"/>
-        <source>MySQL - %1@%2:%3</source>
-        <translation>MySQL - %1@%2:%3</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.cpp" line="580"/>
-        <source>%1 (%2)</source>
-        <translation>%1 (%2)</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.cpp" line="583"/>
-        <source>SQLite - %1</source>
-        <translation>SQLite - %1</translation>
-    </message>
-    <message>
-        <location filename="MainWindow.cpp" line="586"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="421"/>
         <source>Connected to %1</source>
         <translation>Connected to %1</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="680"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="517"/>
         <source>Containers</source>
         <translation>Containers</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="769"/>
-        <source>AboutText</source>
-        <translation>electronicsdb - Electronic Database Management Program
-
-Compiled from Git %1 (%2).
-
-
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.</translation>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="593"/>
+        <source>Version</source>
+        <translation>Version</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="770"/>
-        <source>About Electronics Database</source>
-        <translation>About Electronics Database</translation>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="594"/>
+        <source>SQL Drivers (Qt)</source>
+        <translation>SQL Drivers (Qt)</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="790"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="600"/>
+        <source>Database</source>
+        <translation>Database</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="612"/>
+        <source>AboutText (infoTable: %1)</source>
+        <translation>&lt;html&gt;&lt;body&gt;
+&lt;h1&gt;ElectronicsDB&lt;/h1&gt;
+&lt;h2&gt;Electronic Component Management Program&lt;/h2&gt;&lt;br/&gt;
+
+%1&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
+
+Copyright 2010-2021 David &quot;Alemarius Nexus&quot; Lerch&lt;br/&gt;&lt;br/&gt;
+
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.&lt;br/&gt;&lt;br/&gt;
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.&lt;br/&gt;&lt;br/&gt;
+
+You should have received a copy of the GNU General Public License along with this program.  If not, see &lt;a href=&quot;http://www.gnu.org/licenses/&quot;&gt;http://www.gnu.org/licenses/&lt;/a&gt;.
+&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="616"/>
+        <source>About %1</source>
+        <translation>About %1</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="621"/>
+        <source>About Qt</source>
+        <translation>About Qt</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="634"/>
         <source>Restart Needed</source>
         <translation>Restart Needed</translation>
     </message>
     <message>
-        <location filename="MainWindow.cpp" line="790"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="634"/>
         <source>You need to restart the program for the new language to become active!</source>
         <translation>You need to restart the program for the new language to become active!</translation>
     </message>
 </context>
 <context>
-    <name>MySQLDatabase</name>
+    <name>electronicsdb::MySQLDatabaseWrapper</name>
     <message>
-        <source>Error connecting to MySQL database %s@%s:%u:
-
-%s</source>
-        <translation type="obsolete">Error connecting to MySQL database %s@%s:%u:
-
-%s</translation>
-    </message>
-    <message>
-        <source>Error executing MySQL query</source>
-        <translation type="obsolete">Error executing MySQL query</translation>
+        <location filename="electronicsdb/db/mysql/MySQLDatabaseWrapper.cpp" line="186"/>
+        <source>MySQL/MariaDB</source>
+        <translation>MySQL/MariaDB</translation>
     </message>
 </context>
 <context>
-    <name>PartCategory</name>
+    <name>electronicsdb::PSQLDatabaseWrapper</name>
     <message>
-        <source>Building full-text index</source>
-        <translation type="obsolete">Building full-text index</translation>
-    </message>
-    <message>
-        <location filename="PartCategory.cpp" line="676"/>
-        <source>Updated part with ID %1 of category &quot;%2&quot;</source>
-        <translation>Updated part with ID %1 of category &quot;%2&quot;</translation>
-    </message>
-    <message>
-        <source>Created a new part of category &quot;%1&quot;</source>
-        <translation type="obsolete">Created a new part of category &quot;%1&quot;</translation>
-    </message>
-    <message>
-        <location filename="PartCategory.cpp" line="724"/>
-        <source>Created %1 new parts of category &quot;%2&quot;</source>
-        <translation>Created %1 new parts of category &quot;%2&quot;</translation>
-    </message>
-    <message>
-        <location filename="PartCategory.cpp" line="807"/>
-        <source>Removed part with ID %1 of category &quot;%2&quot;</source>
-        <translation>Removed part with ID %1 of category &quot;%2&quot;</translation>
-    </message>
-    <message>
-        <location filename="PartCategory.cpp" line="809"/>
-        <source>Removed %1 parts of category &quot;%2&quot;</source>
-        <translation>Removed %1 parts of category &quot;%2&quot;</translation>
-    </message>
-    <message>
-        <location filename="PartCategory.cpp" line="868"/>
-        <source>SQL Error</source>
-        <translation>SQL Error</translation>
-    </message>
-    <message>
-        <location filename="PartCategory.cpp" line="869"/>
-        <source>An SQL error was caught while rebuilding the full-text index:
-
-%1</source>
-        <translation>An SQL error was caught while rebuilding the full-text index:
-
-%1</translation>
-    </message>
-    <message>
-        <location filename="PartCategory.cpp" line="1125"/>
-        <source>(Invalid: %1#%2)</source>
-        <translation>(Invalid: %1#%2)</translation>
-    </message>
-    <message>
-        <location filename="PartCategory.cpp" line="1132"/>
-        <location filename="PartCategory.cpp" line="1148"/>
-        <source>(Invalid)</source>
-        <translation>(Invalid)</translation>
+        <location filename="electronicsdb/db/psql/PSQLDatabaseWrapper.cpp" line="199"/>
+        <source>PostgreSQL</source>
+        <translation>PostgreSQL</translation>
     </message>
 </context>
 <context>
-    <name>PartCategoryProvider</name>
+    <name>electronicsdb::PartCategoryEditDialog</name>
     <message>
-        <source>Notes</source>
-        <translation type="obsolete">Notes</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="53"/>
+        <source>&lt;b&gt;Added:&lt;/b&gt;</source>
+        <translation>&lt;b&gt;Added:&lt;/b&gt;</translation>
     </message>
     <message>
-        <source>Datasheets</source>
-        <translation type="obsolete">Datasheets</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="61"/>
+        <source>Properties: %1</source>
+        <translation>Properties: %1</translation>
     </message>
     <message>
-        <source>Vendor</source>
-        <translation type="obsolete">Vendor</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="75"/>
+        <source>&lt;b&gt;Edited:&lt;/b&gt;</source>
+        <translation>&lt;b&gt;Edited:&lt;/b&gt;</translation>
     </message>
     <message>
-        <source>Number In Stock</source>
-        <translation type="obsolete">Number in Stock</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="83"/>
+        <source>ID (%1 -&gt; %2)</source>
+        <translation>ID (%1 -&gt; %2)</translation>
     </message>
     <message>
-        <source>Maximum Temperature</source>
-        <translation type="obsolete">Maximum Temperature</translation>
-    </message>
-    <message>
-        <source>Package</source>
-        <translation type="obsolete">Package</translation>
-    </message>
-    <message>
-        <source>Tolerance</source>
-        <translation type="obsolete">Tolerance</translation>
-    </message>
-    <message>
-        <source>Keywords</source>
-        <translation type="obsolete">Keywords</translation>
-    </message>
-    <message>
-        <source>Title</source>
-        <translation type="obsolete">Title</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="obsolete">File</translation>
-    </message>
-    <message>
-        <source>Capacitors</source>
-        <translation type="obsolete">Capacitors</translation>
-    </message>
-    <message>
-        <source>Technology</source>
-        <translation type="obsolete">Technology</translation>
-    </message>
-    <message>
-        <source>Capacitance</source>
-        <translation type="obsolete">Capacitance</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation type="obsolete">Type</translation>
-    </message>
-    <message>
-        <source>Temperature Coefficient</source>
-        <translation type="obsolete">Temperature Coefficient</translation>
-    </message>
-    <message>
-        <source>Voltage</source>
-        <translation type="obsolete">Voltage</translation>
-    </message>
-    <message>
-        <source>Integrated Circuits</source>
-        <translation type="obsolete">Integrated Circuits</translation>
-    </message>
-    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="86"/>
         <source>Name</source>
-        <translation type="obsolete">Name</translation>
+        <translation>Name</translation>
     </message>
     <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="89"/>
         <source>Description</source>
-        <translation type="obsolete">Description</translation>
+        <translation>Description</translation>
     </message>
     <message>
-        <source>Microcontrollers</source>
-        <translation type="obsolete">Microcontrollers</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="120"/>
+        <source>Property Order</source>
+        <translation>Property Order</translation>
     </message>
     <message>
-        <source>Model</source>
-        <translation type="obsolete">Model</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="125"/>
+        <source>Changes: %1</source>
+        <translation>Changes: %1</translation>
     </message>
     <message>
-        <source>Architecture</source>
-        <translation type="obsolete">Architecture</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="174"/>
+        <source>Properties added: %1</source>
+        <translation>Properties added: %1</translation>
     </message>
     <message>
-        <source>Processor</source>
-        <translation type="obsolete">Processor</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="177"/>
+        <source>Properties removed: %1</source>
+        <translation>Properties removed: %1</translation>
     </message>
     <message>
-        <source>Maximum Frequency</source>
-        <translation type="obsolete">Maximum Frequency</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="180"/>
+        <source>Properties edited: %1</source>
+        <translation>Properties edited: %1</translation>
     </message>
     <message>
-        <source>IO Count</source>
-        <translation type="obsolete">IO Count</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="194"/>
+        <source>&lt;b&gt;Removed&lt;/b&gt;</source>
+        <translation>&lt;b&gt;Removed&lt;/b&gt;</translation>
     </message>
     <message>
-        <source>Program Memory</source>
-        <translation type="obsolete">Program Memory</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="201"/>
+        <source>&lt;i&gt;Global&lt;/i&gt;</source>
+        <translation>&lt;i&gt;Global&lt;/i&gt;</translation>
     </message>
     <message>
-        <source>RAM</source>
-        <translation type="obsolete">RAM</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="206"/>
+        <source>&lt;b&gt;Order changed&lt;/b&gt;</source>
+        <translation>&lt;b&gt;Order changed&lt;/b&gt;</translation>
     </message>
     <message>
-        <source>EEPROM Size</source>
-        <translation type="obsolete">EEPROM Size</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="304"/>
+        <source>(Default)</source>
+        <translation>(Default)</translation>
     </message>
     <message>
-        <source>Minimum Voltage</source>
-        <translation type="obsolete">Minimum Voltage</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="306"/>
+        <source>SI Base 10 (kB)</source>
+        <translation>SI Base 10 (kB)</translation>
     </message>
     <message>
-        <source>Maximum Voltage</source>
-        <translation type="obsolete">Maximum Voltage</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="308"/>
+        <source>SI Base 2 (kiB)</source>
+        <translation>SI Base 2 (kiB)</translation>
     </message>
     <message>
-        <source>Oscillators</source>
-        <translation type="obsolete">Oscillators</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="310"/>
+        <source>Percent (%)</source>
+        <translation>Percent (%)</translation>
     </message>
     <message>
-        <source>Frequency</source>
-        <translation type="obsolete">Frequency</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="312"/>
+        <source>Parts Per Million (ppm)</source>
+        <translation>Parts Per Million (ppm)</translation>
     </message>
     <message>
-        <source>Load Capacitance</source>
-        <translation type="obsolete">Load Capacitance</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="314"/>
+        <source>None</source>
+        <translation>None</translation>
     </message>
     <message>
-        <source>Resistors</source>
-        <translation type="obsolete">Resistors</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="610"/>
+        <source>See changelog for errors.</source>
+        <translation>See changelog for errors.</translation>
     </message>
     <message>
-        <source>Resistance</source>
-        <translation type="obsolete">Resistance</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="615"/>
+        <source>Duplicate IDs.</source>
+        <translation>Duplicate IDs.</translation>
     </message>
     <message>
-        <source>Power Rating</source>
-        <translation type="obsolete">Power Rating</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="622"/>
+        <source>No errors.</source>
+        <translation>No errors.</translation>
     </message>
     <message>
-        <source>Inductors</source>
-        <translation type="obsolete">Inductors</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="626"/>
+        <source>Error: %1</source>
+        <translation>Error: %1</translation>
     </message>
     <message>
-        <source>Inductance</source>
-        <translation type="obsolete">Inductance</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="702"/>
+        <source>Link: %1</source>
+        <translation>Link: %1</translation>
     </message>
     <message>
-        <source>Diodes</source>
-        <translation type="obsolete">Diodes</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="735"/>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="1054"/>
+        <source>unnamed</source>
+        <translation>unnamed</translation>
     </message>
     <message>
-        <source>Transistors</source>
-        <translation type="obsolete">Transistors</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="744"/>
+        <source>Unnamed</source>
+        <translation>Unnamed</translation>
     </message>
     <message>
-        <source>Miscellaneous</source>
-        <translation type="obsolete">Miscellaneous</translation>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="779"/>
+        <source>Invalid ID</source>
+        <translation>Invalid ID</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="794"/>
+        <source>Invalid property ID: %1</source>
+        <translation>Invalid property ID: %1</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="973"/>
+        <source>Duplicate property ID: %1</source>
+        <translation>Duplicate property ID: %1</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="1107"/>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="1160"/>
+        <source>Original: %1</source>
+        <translation>Original: %1</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="1210"/>
+        <source>(Default: %1)</source>
+        <translation>(Default: %1)</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="1364"/>
+        <source>- Insert Property -</source>
+        <translation>- Insert Property -</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartCategoryEditDialog.cpp" line="1365"/>
+        <source>ID</source>
+        <translation>ID</translation>
     </message>
 </context>
 <context>
-    <name>PartCategoryWidget</name>
+    <name>electronicsdb::PartCategoryWidget</name>
     <message>
-        <location filename="PartCategoryWidget.cpp" line="48"/>
+        <location filename="electronicsdb/gui/part/PartCategoryWidget.cpp" line="53"/>
         <source>Filter</source>
         <translation>Filter</translation>
     </message>
     <message>
-        <location filename="PartCategoryWidget.cpp" line="60"/>
+        <location filename="electronicsdb/gui/part/PartCategoryWidget.cpp" line="65"/>
         <source>Parts</source>
         <translation>Parts</translation>
     </message>
     <message>
-        <location filename="PartCategoryWidget.cpp" line="127"/>
+        <location filename="electronicsdb/gui/part/PartCategoryWidget.cpp" line="126"/>
         <source>Part Details</source>
         <translation>Part Details</translation>
     </message>
     <message>
-        <location filename="PartCategoryWidget.cpp" line="207"/>
-        <location filename="PartCategoryWidget.cpp" line="293"/>
+        <location filename="electronicsdb/gui/part/PartCategoryWidget.cpp" line="204"/>
         <source>SQL Error</source>
         <translation>SQL Error</translation>
     </message>
     <message>
-        <location filename="PartCategoryWidget.cpp" line="208"/>
+        <location filename="electronicsdb/gui/part/PartCategoryWidget.cpp" line="205"/>
         <source>SQL Error caught while rebuilding part listing table:
 
 %1</source>
@@ -841,12 +1211,12 @@ You should have received a copy of the GNU General Public License along with thi
 %1</translation>
     </message>
     <message>
-        <location filename="PartCategoryWidget.cpp" line="268"/>
+        <location filename="electronicsdb/gui/part/PartCategoryWidget.cpp" line="280"/>
         <source>Error During Filtering</source>
         <translation>Error During Filtering</translation>
     </message>
     <message>
-        <location filename="PartCategoryWidget.cpp" line="269"/>
+        <location filename="electronicsdb/gui/part/PartCategoryWidget.cpp" line="281"/>
         <source>SQL Error caught during filter execution. Check your user-defined SQL filtering code for errors.
 
 %1</source>
@@ -854,61 +1224,58 @@ You should have received a copy of the GNU General Public License along with thi
 
 %1</translation>
     </message>
-    <message>
-        <location filename="PartCategoryWidget.cpp" line="294"/>
-        <source>An SQL error was caught while rebuilding the part listing table:
-
-%1</source>
-        <translation>An SQL error was caught while rebuilding the part listing table:
-
-%1</translation>
-    </message>
 </context>
 <context>
-    <name>PartDisplayWidget</name>
+    <name>electronicsdb::PartDisplayWidget</name>
     <message>
-        <location filename="PartDisplayWidget.cpp" line="83"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="86"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="250"/>
+        <source>(No part selected)</source>
+        <translation>(No part selected)</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="101"/>
         <source>General</source>
         <translation>General</translation>
     </message>
     <message>
-        <location filename="PartDisplayWidget.cpp" line="102"/>
-        <location filename="PartDisplayWidget.cpp" line="105"/>
-        <location filename="PartDisplayWidget.cpp" line="222"/>
-        <location filename="PartDisplayWidget.cpp" line="223"/>
-        <location filename="PartDisplayWidget.cpp" line="296"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="120"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="123"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="252"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="253"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="333"/>
         <source>-</source>
         <translation>-</translation>
     </message>
     <message>
-        <location filename="PartDisplayWidget.cpp" line="103"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="121"/>
         <source>Part ID</source>
         <translation>Part ID</translation>
     </message>
     <message>
-        <location filename="PartDisplayWidget.cpp" line="107"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="125"/>
         <source>Associated Containers</source>
         <translation>Associated Containers</translation>
     </message>
     <message>
-        <location filename="PartDisplayWidget.cpp" line="546"/>
-        <location filename="PartDisplayWidget.cpp" line="590"/>
-        <location filename="PartDisplayWidget.cpp" line="607"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="644"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="688"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="705"/>
         <source>Invalid File</source>
         <translation>Invalid File</translation>
     </message>
     <message>
-        <location filename="PartDisplayWidget.cpp" line="547"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="645"/>
         <source>The file path you specified for property &apos;%1&apos; is not relative or tried to reference the parent directory, and the current file root directory is invalid. This file can&apos;t be saved!</source>
         <translation>The file path you specified for property &apos;%1&apos; is not relative or tried to reference the parent directory, and the current file root directory is invalid. This file can&apos;t be saved!</translation>
     </message>
     <message>
-        <location filename="PartDisplayWidget.cpp" line="557"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="655"/>
         <source>Copy File?</source>
         <translation>Copy File?</translation>
     </message>
     <message>
-        <location filename="PartDisplayWidget.cpp" line="558"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="656"/>
         <source>The file you specified for property &apos;%1&apos; does not seem to be inside the current file root directory. It must be copied there to be handled correctly by this program.
 
 Do you want to copy the file to the file root directory?</source>
@@ -917,431 +1284,348 @@ Do you want to copy the file to the file root directory?</source>
 Do you want to copy the file to the file root directory?</translation>
     </message>
     <message>
-        <location filename="PartDisplayWidget.cpp" line="580"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="678"/>
         <source>Select Destination File</source>
         <translation>Select Destination File</translation>
     </message>
     <message>
-        <location filename="PartDisplayWidget.cpp" line="591"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="689"/>
         <source>The selected file does not seem to be inside the current file root directory &apos;%1&apos;!</source>
         <translation>The selected file does not seem to be inside the current file root directory &apos;%1&apos;!</translation>
     </message>
     <message>
-        <location filename="PartDisplayWidget.cpp" line="598"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="696"/>
         <source>Unable To Copy File</source>
         <translation>Unable To Copy File</translation>
     </message>
     <message>
-        <location filename="PartDisplayWidget.cpp" line="599"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="697"/>
         <source>Failed to copy file &apos;%1&apos; to &apos;%2/%3&apos;!</source>
         <translation>Failed to copy file &apos;%1&apos; to &apos;%2/%3&apos;!</translation>
     </message>
     <message>
-        <location filename="PartDisplayWidget.cpp" line="608"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="706"/>
         <source>The file path you specified for property &apos;%1&apos; does not seem to point inside the current file root directory, nor does a regular file exist under that path. This file can&apos;t be saved!</source>
         <translation>The file path you specified for property &apos;%1&apos; does not seem to point inside the current file root directory, nor does a regular file exist under that path. This file can&apos;t be saved!</translation>
     </message>
+</context>
+<context>
+    <name>electronicsdb::PartLinkEditWidget</name>
     <message>
-        <source>Value</source>
-        <translation type="obsolete">Value</translation>
+        <location filename="electronicsdb/gui/part/PartLinkEditWidget.cpp" line="45"/>
+        <source>(None)</source>
+        <translation>(None)</translation>
     </message>
     <message>
-        <source>...</source>
-        <translation type="obsolete">...</translation>
-    </message>
-    <message>
-        <source>ID</source>
-        <translation type="obsolete">ID</translation>
-    </message>
-    <message>
+        <location filename="electronicsdb/gui/part/PartLinkEditWidget.cpp" line="170"/>
         <source>(Invalid)</source>
-        <translation type="obsolete">(Invalid)</translation>
-    </message>
-    <message>
-        <source>Follow Link</source>
-        <translation type="obsolete">Follow Link</translation>
-    </message>
-    <message>
-        <source>Save Changes?</source>
-        <translation type="obsolete">Save Changes?</translation>
-    </message>
-    <message>
-        <source>Your current entry was modified. Do you want to save your changes?</source>
-        <translation type="obsolete">Your current entry was modified. Do you want to save your changes?</translation>
+        <translation>(Invalid)</translation>
     </message>
 </context>
 <context>
-    <name>PartProperty</name>
+    <name>electronicsdb::PartLinkType</name>
     <message>
-        <location filename="PartProperty.cpp" line="41"/>
+        <location filename="electronicsdb/model/PartLinkType.cpp" line="58"/>
+        <location filename="electronicsdb/model/PartLinkType.cpp" line="84"/>
+        <source>Overlapping categories: %1</source>
+        <translation>Overlapping categories: %1</translation>
+    </message>
+</context>
+<context>
+    <name>electronicsdb::PartLinkTypeEditDialog</name>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.cpp" line="50"/>
+        <source>&lt;b&gt;Added:&lt;/b&gt;</source>
+        <translation>&lt;b&gt;Added:&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.cpp" line="53"/>
+        <source>Pattern: %1</source>
+        <translation>Pattern: %1</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.cpp" line="67"/>
+        <source>&lt;b&gt;Edited:&lt;/b&gt;</source>
+        <translation>&lt;b&gt;Edited:&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.cpp" line="75"/>
+        <source>ID (%1 -&gt; %2)</source>
+        <translation>ID (%1 -&gt; %2)</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.cpp" line="78"/>
+        <source>Name A</source>
+        <translation>Name A</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.cpp" line="81"/>
+        <source>Name B</source>
+        <translation>Name B</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.cpp" line="84"/>
+        <source>Flags</source>
+        <translation>Flags</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.cpp" line="88"/>
+        <source>Changes: %1</source>
+        <translation>Changes: %1</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.cpp" line="95"/>
+        <source>Pattern: %1 -&gt; %2</source>
+        <translation>Pattern: %1 -&gt; %2</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.cpp" line="109"/>
+        <source>&lt;b&gt;Removed&lt;/b&gt;</source>
+        <translation>&lt;b&gt;Removed&lt;/b&gt;</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.cpp" line="350"/>
+        <source>See changelog for errors.</source>
+        <translation>See changelog for errors.</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.cpp" line="355"/>
+        <source>Duplicate IDs.</source>
+        <translation>Duplicate IDs.</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.cpp" line="363"/>
+        <source>No errors.</source>
+        <translation>No errors.</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.cpp" line="367"/>
+        <source>Error: %1</source>
+        <translation>Error: %1</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.cpp" line="478"/>
+        <source>Original: %1</source>
+        <translation>Original: %1</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.cpp" line="592"/>
+        <source>unnamed</source>
+        <translation>unnamed</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.cpp" line="632"/>
+        <source>Invalid ID</source>
+        <translation>Invalid ID</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/smodel/PartLinkTypeEditDialog.cpp" line="686"/>
+        <source>Invalid part categories: %1</source>
+        <translation>Invalid part categories: %1</translation>
+    </message>
+</context>
+<context>
+    <name>electronicsdb::PartProperty</name>
+    <message>
+        <location filename="electronicsdb/model/PartProperty.cpp" line="309"/>
         <source>TRUE</source>
         <translation>TRUE</translation>
     </message>
     <message>
-        <location filename="PartProperty.cpp" line="41"/>
+        <location filename="electronicsdb/model/PartProperty.cpp" line="323"/>
         <source>FALSE</source>
         <translation>FALSE</translation>
     </message>
     <message>
-        <location filename="PartProperty.cpp" line="271"/>
-        <location filename="PartProperty.cpp" line="300"/>
+        <location filename="electronicsdb/model/PartProperty.cpp" line="584"/>
         <source>(Invalid)</source>
         <translation>(Invalid)</translation>
     </message>
     <message>
-        <location filename="PartProperty.cpp" line="355"/>
+        <location filename="electronicsdb/model/PartProperty.cpp" line="666"/>
         <source>Input is not a valid integer value!</source>
         <translation>Input is not a valid integer value!</translation>
     </message>
     <message>
-        <location filename="PartProperty.cpp" line="362"/>
-        <location filename="PartProperty.cpp" line="383"/>
+        <location filename="electronicsdb/model/PartProperty.cpp" line="673"/>
+        <location filename="electronicsdb/model/PartProperty.cpp" line="690"/>
         <source>Input is out of range! Valid range: %1-%2</source>
         <translation>Input is out of range! Valid range: %1-%2</translation>
     </message>
     <message>
-        <source>Input must be unsigned!</source>
-        <translation type="obsolete">Input must be unsigned!</translation>
-    </message>
-    <message>
-        <location filename="PartProperty.cpp" line="376"/>
+        <location filename="electronicsdb/model/PartProperty.cpp" line="683"/>
         <source>Input is not a valid floating point value!</source>
         <translation>Input is not a valid floating point value!</translation>
     </message>
-    <message>
-        <location filename="PartProperty.cpp" line="393"/>
-        <source>Input is not a valid part ID!</source>
-        <translation>Input is not a valid part ID!</translation>
-    </message>
 </context>
 <context>
-    <name>PartTableModel</name>
+    <name>electronicsdb::PartTableModel</name>
     <message>
-        <location filename="PartTableModel.cpp" line="304"/>
+        <location filename="electronicsdb/gui/part/PartTableModel.cpp" line="234"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
 </context>
 <context>
-    <name>PropertyFileWidget</name>
+    <name>electronicsdb::PropertyFileWidget</name>
     <message>
-        <location filename="PropertyFileWidget.cpp" line="55"/>
+        <location filename="electronicsdb/gui/part/PropertyFileWidget.cpp" line="56"/>
         <source>...</source>
         <translation>...</translation>
     </message>
     <message>
-        <location filename="PropertyFileWidget.cpp" line="66"/>
+        <location filename="electronicsdb/gui/part/PropertyFileWidget.cpp" line="67"/>
         <source>Open</source>
         <translation>Open</translation>
     </message>
     <message>
-        <location filename="PropertyFileWidget.cpp" line="71"/>
+        <location filename="electronicsdb/gui/part/PropertyFileWidget.cpp" line="72"/>
         <source>Copy Path To Clipboard</source>
         <translation>Copy Path to Clipboard</translation>
     </message>
     <message>
-        <location filename="PropertyFileWidget.cpp" line="84"/>
+        <location filename="electronicsdb/gui/part/PropertyFileWidget.cpp" line="85"/>
         <source>(Invalid)</source>
         <translation>(Invalid)</translation>
     </message>
     <message>
-        <location filename="PropertyFileWidget.cpp" line="164"/>
+        <location filename="electronicsdb/gui/part/PropertyFileWidget.cpp" line="165"/>
         <source>Choose A File</source>
         <translation>Choose a File</translation>
     </message>
-    <message>
-        <location filename="PropertyFileWidget.cpp" line="197"/>
-        <location filename="PropertyFileWidget.cpp" line="204"/>
-        <source>File Not Found</source>
-        <translation>File Not Found</translation>
-    </message>
-    <message>
-        <location filename="PropertyFileWidget.cpp" line="198"/>
-        <source>The path &apos;%1&apos; is not absolute and there is no current database connection to read the file root path from.</source>
-        <translation>The path &apos;%1&apos; is not absolute and there is no current database connection to read the file root path from.</translation>
-    </message>
-    <message>
-        <location filename="PropertyFileWidget.cpp" line="205"/>
-        <source>The file &apos;%1&apos; does not seem to exist!</source>
-        <translation>The file &apos;%1&apos; does not seem to exist!</translation>
-    </message>
 </context>
 <context>
-    <name>PropertyLinkEditWidget</name>
+    <name>electronicsdb::PropertyMultiValueWidget</name>
     <message>
-        <location filename="PropertyLinkEditWidget.cpp" line="54"/>
-        <source>...</source>
-        <translation>...</translation>
-    </message>
-    <message>
-        <location filename="PropertyLinkEditWidget.cpp" line="58"/>
-        <location filename="PropertyLinkEditWidget.cpp" line="86"/>
-        <location filename="PropertyLinkEditWidget.cpp" line="173"/>
-        <source>(Invalid)</source>
-        <translation>(Invalid)</translation>
-    </message>
-    <message>
-        <location filename="PropertyLinkEditWidget.cpp" line="64"/>
-        <location filename="PropertyLinkEditWidget.cpp" line="69"/>
-        <source>Open</source>
-        <translation>Open</translation>
-    </message>
-</context>
-<context>
-    <name>PropertyMultiValueWidget</name>
-    <message>
-        <location filename="PropertyMultiValueWidget.cpp" line="105"/>
-        <location filename="PropertyMultiValueWidget.cpp" line="110"/>
-        <location filename="PropertyMultiValueWidget.cpp" line="115"/>
+        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="117"/>
+        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="122"/>
+        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="127"/>
+        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="132"/>
         <source>Value</source>
         <translation>Value</translation>
     </message>
     <message>
-        <location filename="PropertyMultiValueWidget.cpp" line="123"/>
-        <source>Link</source>
-        <translation>Link</translation>
-    </message>
-    <message>
-        <location filename="PropertyMultiValueWidget.cpp" line="178"/>
+        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="213"/>
         <source>Value #%1 is invalid!</source>
         <translation>Value #%1 is invalid!</translation>
     </message>
-</context>
-<context>
-    <name>SQLGeneratorDialog</name>
     <message>
-        <location filename="SQLGeneratorDialog.ui" line="14"/>
-        <source>Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="SQLGeneratorDialog.ui" line="20"/>
-        <source>Database</source>
-        <translation type="unfinished">Database</translation>
-    </message>
-    <message>
-        <location filename="SQLGeneratorDialog.ui" line="32"/>
-        <source>Database Type</source>
-        <translation type="unfinished">Database Type</translation>
-    </message>
-    <message>
-        <location filename="SQLGeneratorDialog.ui" line="58"/>
-        <source>Part Category</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="SQLGeneratorDialog.ui" line="64"/>
-        <source>General</source>
-        <translation type="unfinished">General</translation>
-    </message>
-    <message>
-        <location filename="SQLGeneratorDialog.ui" line="73"/>
-        <source>Internal Name (ID)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="SQLGeneratorDialog.ui" line="83"/>
-        <source>User Readable Name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="SQLGeneratorDialog.ui" line="96"/>
-        <source>Description Pattern</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="SQLGeneratorDialog.ui" line="126"/>
-        <source>Generate Code</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="SQLGeneratorDialog.cpp" line="11"/>
-        <source>SQLite</source>
-        <translation type="unfinished">SQLite</translation>
-    </message>
-    <message>
-        <location filename="SQLGeneratorDialog.cpp" line="14"/>
-        <source>MySQL</source>
-        <translation type="unfinished">MySQL</translation>
+        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="433"/>
+        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="440"/>
+        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="537"/>
+        <source>(Invalid)</source>
+        <translation>(Invalid)</translation>
     </message>
 </context>
 <context>
-    <name>SQLiteDatabase</name>
+    <name>electronicsdb::SQLExecDialog</name>
     <message>
-        <source>Error opening SQLite database file &apos;%s&apos;: %s</source>
-        <translation type="obsolete">Error opening SQLite database file &apos;%s&apos;: %s</translation>
+        <location filename="electronicsdb/gui/smodel/SQLExecDialog.cpp" line="81"/>
+        <source>Select Destination File</source>
+        <translation>Select Destination File</translation>
     </message>
     <message>
-        <source>Error closing SQLite database</source>
-        <translation type="obsolete">Error closing SQLite database</translation>
+        <location filename="electronicsdb/gui/smodel/SQLExecDialog.cpp" line="90"/>
+        <source>Error Saving File</source>
+        <translation>Error Saving File</translation>
     </message>
     <message>
-        <source>Error preparing SQLite query</source>
-        <translation type="obsolete">Error preparing SQLite query</translation>
-    </message>
-</context>
-<context>
-    <name>SQLiteResult</name>
-    <message>
-        <source>Error executing SQLite query</source>
-        <translation type="obsolete">Error executing SQLite query</translation>
-    </message>
-    <message>
-        <source>Error stepping SQLite query</source>
-        <translation type="obsolete">Error stepping SQLite query</translation>
+        <location filename="electronicsdb/gui/smodel/SQLExecDialog.cpp" line="90"/>
+        <source>Error saving SQL code to file: %1</source>
+        <translation>Error saving SQL code to file: %1</translation>
     </message>
 </context>
 <context>
-    <name>SettingsDialog</name>
+    <name>electronicsdb::SQLiteDatabaseConnection</name>
     <message>
-        <location filename="SettingsDialog.ui" line="14"/>
-        <source>Settings</source>
-        <translation>Settings</translation>
+        <location filename="electronicsdb/db/sqlite/SQLiteDatabaseConnection.cpp" line="57"/>
+        <source>SQLite - %1</source>
+        <translation>SQLite - %1</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="30"/>
-        <source>Behavior</source>
-        <translation>Behavior</translation>
+        <location filename="electronicsdb/db/sqlite/SQLiteDatabaseConnection.cpp" line="59"/>
+        <source>%1 (%2)</source>
+        <translation>%1 (%2)</translation>
     </message>
+</context>
+<context>
+    <name>electronicsdb::SQLiteDatabaseConnectionWidget</name>
     <message>
-        <location filename="SettingsDialog.ui" line="36"/>
-        <source>Editing</source>
-        <translation>Editing</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.ui" line="42"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When enabled, for properties that are typically expressed using binary SI prefixes (e.g. &apos;1KiB&apos; for 1024 Bytes), whenever the user enters a value with a non-binary SI prefix, it is instead interpreted as if the user entered the binary prefix (e.g. 1KB = 1024 Bytes and not 1000 Bytes).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When enabled, for properties that are typically expressed using binary SI prefixes (e.g. &apos;1KiB&apos; for 1024 Bytes), whenever the user enters a value with a non-binary SI prefix, it is instead interpreted as if the user entered the binary prefix (e.g. 1KB = 1024 Bytes and not 1000 Bytes).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.ui" line="45"/>
-        <source>Interpret SI prefixes as binary for binary properties</source>
-        <translation>Interpret SI prefixes as binary for binary properties</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.ui" line="56"/>
-        <source>Databases</source>
-        <translation>Databases</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.ui" line="68"/>
-        <source>Startup Connection</source>
-        <translation>Startup Connection</translation>
-    </message>
-    <message>
-        <source>Connection Name</source>
-        <translation type="obsolete">Connection Name</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation type="obsolete">Type</translation>
-    </message>
-    <message>
-        <source>Connection Settings</source>
-        <translation type="obsolete">Connection Settings</translation>
-    </message>
-    <message>
-        <source>Port</source>
-        <translation type="obsolete">Port</translation>
-    </message>
-    <message>
-        <source>User Name</source>
-        <translation type="obsolete">User Name</translation>
-    </message>
-    <message>
-        <source>Host</source>
-        <translation type="obsolete">Host</translation>
-    </message>
-    <message>
-        <source>Database</source>
-        <translation type="obsolete">Database</translation>
-    </message>
-    <message>
-        <source>Database File</source>
-        <translation type="obsolete">Database File</translation>
-    </message>
-    <message>
-        <source>Choose...</source>
-        <translation type="obsolete">Choose...</translation>
-    </message>
-    <message>
-        <source>Embedded File Settings</source>
-        <translation type="obsolete">Embedded File Settings</translation>
-    </message>
-    <message>
-        <source>Root Path</source>
-        <translation type="obsolete">File root path</translation>
-    </message>
-    <message>
-        <source>SQLite</source>
-        <translation type="obsolete">SQLite</translation>
-    </message>
-    <message>
-        <source>MySQL</source>
-        <translation type="obsolete">MySQL</translation>
-    </message>
-    <message>
-        <location filename="SettingsDialog.cpp" line="177"/>
-        <source>New Connection</source>
-        <translation>New Connection</translation>
-    </message>
-    <message>
+        <location filename="electronicsdb/db/sqlite/SQLiteDatabaseConnectionWidget.cpp" line="47"/>
         <source>Choose a database file</source>
-        <translation type="obsolete">Choose a database file</translation>
+        <translation>Choose a database file</translation>
     </message>
     <message>
-        <source>SQLite Databases (*.db)</source>
-        <translation type="obsolete">SQLite Databases (*.db)</translation>
+        <location filename="electronicsdb/db/sqlite/SQLiteDatabaseConnectionWidget.cpp" line="48"/>
+        <source>SQLite Databases (*.db *.sqlite)</source>
+        <translation>SQLite Databases (*.db *.sqlite)</translation>
+    </message>
+</context>
+<context>
+    <name>electronicsdb::SQLiteDatabaseWrapper</name>
+    <message>
+        <location filename="electronicsdb/db/sqlite/SQLiteDatabaseWrapper.cpp" line="154"/>
+        <source>SQLite</source>
+        <translation>SQLite</translation>
+    </message>
+</context>
+<context>
+    <name>electronicsdb::SettingsDialog</name>
+    <message>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.cpp" line="89"/>
+        <source>Default</source>
+        <translation>Default</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="349"/>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.cpp" line="90"/>
+        <source>Dark (experimental)</source>
+        <translation>Dark (experimental)</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.cpp" line="338"/>
         <source>(None)</source>
         <translation>(None)</translation>
     </message>
-    <message>
-        <source>Choose the root path</source>
-        <translation type="obsolete">Choose the root path</translation>
-    </message>
 </context>
 <context>
-    <name>System</name>
+    <name>electronicsdb::System</name>
     <message>
-        <location filename="System.cpp" line="160"/>
+        <location filename="electronicsdb/System.cpp" line="266"/>
         <source>Failed To Open Connection</source>
         <translation>Failed To Open Connection</translation>
     </message>
     <message>
-        <location filename="System.cpp" line="177"/>
+        <location filename="electronicsdb/System.cpp" line="286"/>
         <source>File Root Not Found</source>
         <translation>File Root Not Found</translation>
     </message>
     <message>
-        <location filename="System.cpp" line="178"/>
+        <location filename="electronicsdb/System.cpp" line="287"/>
         <source>The file root directory &apos;%1&apos; could not be found! The program will continue to work, but opening or writing of the embedded files will be disabled.</source>
         <translation>The file root directory &apos;%1&apos; could not be found! The program will continue to work, but opening or writing of the embedded files will be disabled.</translation>
     </message>
     <message>
-        <location filename="System.cpp" line="182"/>
+        <location filename="electronicsdb/System.cpp" line="291"/>
         <source>Invalid File Root</source>
         <translation>Invalid file root directory</translation>
     </message>
     <message>
-        <location filename="System.cpp" line="183"/>
+        <location filename="electronicsdb/System.cpp" line="292"/>
         <source>The file root directory &apos;%1&apos; exists but is not a directory! The program will continue to work, but opening or writing of the embedded files will be disabled.</source>
         <translation>The file root directory &apos;%1&apos; exists but is not a directory! The program will continue to work, but opening or writing of the embedded files will be disabled.</translation>
     </message>
     <message>
-        <location filename="System.cpp" line="206"/>
+        <location filename="electronicsdb/System.cpp" line="323"/>
         <source>Connection Established!</source>
         <translation>Connection Established!</translation>
     </message>
     <message>
-        <location filename="System.cpp" line="222"/>
+        <location filename="electronicsdb/System.cpp" line="338"/>
         <source>Close Connection?</source>
         <translation>Close Connection?</translation>
     </message>
     <message>
-        <location filename="System.cpp" line="223"/>
+        <location filename="electronicsdb/System.cpp" line="339"/>
         <source>There is already an open connection. If you continue, the current connection will be closed.
 
 Are you sure you want to continue?</source>
@@ -1350,9 +1634,50 @@ Are you sure you want to continue?</source>
 Are you sure you want to continue?</translation>
     </message>
     <message>
-        <location filename="System.cpp" line="251"/>
+        <location filename="electronicsdb/System.cpp" line="366"/>
         <source>Connection Closed!</source>
         <translation>Connection CLosed!</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/System.cpp" line="402"/>
+        <source>Enter Password</source>
+        <translation>Enter Password</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/System.cpp" line="403"/>
+        <source>Enter password for connection &apos;%1&apos;:</source>
+        <translation>Enter password for connection &apos;%1&apos;:</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/System.cpp" line="626"/>
+        <location filename="electronicsdb/System.cpp" line="642"/>
+        <source>File Not Found</source>
+        <translation>File Not Found</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/System.cpp" line="627"/>
+        <source>The path &apos;%1&apos; is not absolute and there is no current database connection to read the file root path from.</source>
+        <translation>The path &apos;%1&apos; is not absolute and there is no current database connection to read the file root path from.</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/System.cpp" line="643"/>
+        <source>The file &apos;%1&apos; does not exist!</source>
+        <translation>The file &apos;%1&apos; does not exist!</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/System.cpp" line="727"/>
+        <source>&lt;br/&gt;&lt;br/&gt;You are using a database which doesn&apos;t support transactional DDL. That means that if any single step of this fails, it &lt;b&gt;&lt;u&gt;will definitely lead to data corruption&lt;/u&gt;&lt;/b&gt;, as the previous steps can&apos;t be rolled back. Consider using a database with support for transactional DDL (e.g. PostgreSQL or SQLite), or be absolutely certain that you have a valid, up-to-date database backup.</source>
+        <translation>&lt;br/&gt;&lt;br/&gt;You are using a database which doesn&apos;t support transactional DDL. That means that if any single step of this fails, it &lt;b&gt;&lt;u&gt;will definitely lead to data corruption&lt;/u&gt;&lt;/b&gt;, as the previous steps can&apos;t be rolled back. Consider using a database with support for transactional DDL (e.g. PostgreSQL or SQLite), or be absolutely certain that you have a valid, up-to-date database backup.</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/System.cpp" line="734"/>
+        <source>Dangerous Operation</source>
+        <translation>Dangerous Operation</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/System.cpp" line="735"/>
+        <source>&lt;b&gt;WARNING:&lt;/b&gt; Changing the static model has a risk of causing &lt;b&gt;database corruption&lt;/b&gt;. This is beta functionality and very likely has errors. You should always &lt;b&gt;backup your database&lt;/b&gt; before changing the static model. Not doing so may lead to &lt;b&gt;data loss&lt;/b&gt;.%1</source>
+        <translation>&lt;b&gt;WARNING:&lt;/b&gt; Changing the static model has a risk of causing &lt;b&gt;database corruption&lt;/b&gt;. This is beta functionality and very likely has errors. You should always &lt;b&gt;backup your database&lt;/b&gt; before changing the static model. Not doing so may lead to &lt;b&gt;data loss&lt;/b&gt;.%1</translation>
     </message>
 </context>
 </TS>

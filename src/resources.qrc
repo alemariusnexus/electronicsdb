@@ -2,13 +2,14 @@
     <qresource prefix="/">
         <file>electronics_de.qm</file>
         <file>electronics_en.qm</file>
-        
-        <file>icons/list-add.png</file>
-        <file>icons/list-remove.png</file>
-        <file>icons/edit-delete.png</file>
-        <file>icons/edit-copy.png</file>
+
         <file>icons/document-new.png</file>
         <file>icons/document-open.png</file>
+        <file>icons/document-save.png</file>
+        <file>icons/edit-copy.png</file>
+        <file>icons/edit-delete.png</file>
         <file>icons/go-jump.png</file>
+        <file>icons/list-add.png</file>
+        <file>icons/list-remove.png</file>
     </qresource>
 </RCC>

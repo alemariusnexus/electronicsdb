@@ -1,11 +1,12 @@
 #!/bin/sh
 
-# This is a simple script which extracts translation data from all source files of gtatools-gui and generates/updates *.ts files for them.
+# This is a simple script which extracts translation data from all source files and generates/updates *.ts files for them.
 # This is done via a call to Qt's lupdate tool.
 # This script will search for lupdate under various aliases, preferring lupdate-qt4. Alternatively, you can pass the name of the lupdate
 # executable as first argument to this script.
 
-ROOT_DIR="`dirname "$0"`"
+ROOT_DIR="`dirname "$0"`/electronicsdb"
+OUT_DIR="`dirname "$0"`"
 
 if [ ! -d "$ROOT_DIR" ];
 then
@@ -39,4 +40,4 @@ fi
 
 echo "Using lupdate executable $LUPDATE"
 
-$LUPDATE "$ROOT_DIR" -ts "$ROOT_DIR/electronics_en.ts" "$ROOT_DIR/electronics_de.ts"
+$LUPDATE -noobsolete "$ROOT_DIR" -ts "$OUT_DIR/electronics_en.ts" "$OUT_DIR/electronics_de.ts"

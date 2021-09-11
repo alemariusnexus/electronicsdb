@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1150</width>
+    <height>779</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Electronic Database</string>
+  </property>
+  <property name="dockNestingEnabled">
+   <bool>true</bool>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout"/>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1150</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuDatabase">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <widget class="QMenu" name="connectMenu">
+     <property name="title">
+      <string>&amp;Connect</string>
+     </property>
+     <addaction name="connectAction"/>
+     <addaction name="separator"/>
+    </widget>
+    <addaction name="connectMenu"/>
+    <addaction name="disconnectAction"/>
+    <addaction name="separator"/>
+    <addaction name="saveAction"/>
+    <addaction name="separator"/>
+    <addaction name="quitAction"/>
+   </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+    <widget class="QMenu" name="menuStatic_Model">
+     <property name="title">
+      <string>Static Model</string>
+     </property>
+     <addaction name="editPcatsAction"/>
+     <addaction name="editLtypesAction"/>
+    </widget>
+    <addaction name="settingsAction"/>
+    <addaction name="menuStatic_Model"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="undoAction"/>
+    <addaction name="redoAction"/>
+    <addaction name="separator"/>
+    <addaction name="prevPartAction"/>
+    <addaction name="nextPartAction"/>
+    <addaction name="separator"/>
+    <addaction name="nextContainerAction"/>
+   </widget>
+   <widget class="QMenu" name="menuWindows">
+    <property name="title">
+     <string>Windows</string>
+    </property>
+    <addaction name="addContainerWidgetAction"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <widget class="QMenu" name="menuLanguage">
+     <property name="title">
+      <string>Language</string>
+     </property>
+    </widget>
+    <addaction name="menuLanguage"/>
+    <addaction name="separator"/>
+    <addaction name="aboutAction"/>
+    <addaction name="aboutQtAction"/>
+   </widget>
+   <addaction name="menuDatabase"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuSettings"/>
+   <addaction name="menuWindows"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="disconnectAction">
+   <property name="text">
+    <string>Disconnect</string>
+   </property>
+  </action>
+  <action name="settingsAction">
+   <property name="text">
+    <string>Settings...</string>
+   </property>
+  </action>
+  <action name="connectAction">
+   <property name="text">
+    <string>New Connection...</string>
+   </property>
+  </action>
+  <action name="quitAction">
+   <property name="icon">
+    <iconset theme="application-exit">
+     <normaloff>.</normaloff>.</iconset>
+   </property>
+   <property name="text">
+    <string>Quit</string>
+   </property>
+  </action>
+  <action name="saveAction">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset theme="document-save">
+     <normaloff>.</normaloff>.</iconset>
+   </property>
+   <property name="text">
+    <string>Save All</string>
+   </property>
+  </action>
+  <action name="undoAction">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Undo</string>
+   </property>
+  </action>
+  <action name="redoAction">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Redo</string>
+   </property>
+  </action>
+  <action name="createBackupAction">
+   <property name="text">
+    <string>Create Backup...</string>
+   </property>
+  </action>
+  <action name="restoreBackupAction">
+   <property name="text">
+    <string>Restore From Backup...</string>
+   </property>
+  </action>
+  <action name="addContainerWidgetAction">
+   <property name="text">
+    <string>Add Container Widget</string>
+   </property>
+  </action>
+  <action name="nextContainerAction">
+   <property name="text">
+    <string>Next Container</string>
+   </property>
+  </action>
+  <action name="nextPartAction">
+   <property name="text">
+    <string>Next Part</string>
+   </property>
+  </action>
+  <action name="prevPartAction">
+   <property name="text">
+    <string>Previous Part</string>
+   </property>
+  </action>
+  <action name="aboutAction">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="aboutQtAction">
+   <property name="text">
+    <string>About Qt</string>
+   </property>
+  </action>
+  <action name="sqlGenAction">
+   <property name="text">
+    <string>SQL Generator</string>
+   </property>
+  </action>
+  <action name="editLtypesAction">
+   <property name="text">
+    <string>Edit Part Link Types...</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true">Ctrl+L</string>
+   </property>
+  </action>
+  <action name="editPcatsAction">
+   <property name="text">
+    <string>Edit Part Categories...</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true">Ctrl+C</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

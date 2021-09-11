@@ -1,0 +1,7 @@
+build*
+*.qm
+.idea
+src/.idea
+src/nxcommon
+testdata
+testcfg
