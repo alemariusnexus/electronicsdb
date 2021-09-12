@@ -168,6 +168,9 @@ SET(EDB_INSTALL_SKELETON_DIR "" CACHE STRING "Directory containing the basic fil
 
 INSTALL(TARGETS electronicsdb DESTINATION bin)
 
+INSTALL(FILES electronicsdb.desktop DESTINATION share/applications/)
+INSTALL(FILES icons/appicon.png DESTINATION share/icons/hicolor/64x64/apps)
+
 #IF(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.21.0")
 #    INSTALL(IMPORTED_RUNTIME_ARTIFACTS electronicsdb)
 #    INSTALL(IMPORTED_RUNTIME_ARTIFACTS
