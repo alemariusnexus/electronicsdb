@@ -23,6 +23,7 @@
 
 #include <QList>
 #include <QObject>
+#include <QSqlDatabase>
 #include <QSqlQuery>
 #include "PartCategory.h"
 #include "PartLinkType.h"
@@ -50,18 +51,24 @@ public:
     QStringList generatePartLinkTypeDeltaCode (
             const QList<PartLinkType*>& added,
             const QList<PartLinkType*>& removed,
-            const QMap<PartLinkType*, PartLinkType*>& edited);
+            const QMap<PartLinkType*, PartLinkType*>& edited,
+            const QSqlDatabase& targetDb = QSqlDatabase::database());
 
     QStringList generateCategorySchemaDeltaCode (
             const QList<PartCategory*>& added,
             const QList<PartCategory*>& removed,
             const QMap<PartCategory*, PartCategory*>& edited,
-            const QMap<PartProperty*, PartProperty*>& editedProps);
+            const QMap<PartProperty*, PartProperty*>& editedProps,
+            const QSqlDatabase& targetDb = QSqlDatabase::database());
 
-    QStringList generateMetaTypeCode(PartPropertyMetaType* mtype);
+    QStringList generateMetaTypeCode (
+            PartPropertyMetaType* mtype,
+            const QSqlDatabase& targetDb = QSqlDatabase::database());
 
-    void executeSchemaStatements(const QStringList& schemaStmts);
-    QString dumpSchemaCode(const QStringList& schemaStmts, bool dumpTransactionCode = false);
+    void executeSchemaStatements(const QStringList& schemaStmts, bool transaction = true,
+            const QSqlDatabase& targetDb = QSqlDatabase::database());
+    QString dumpSchemaCode(const QStringList& schemaStmts, bool dumpTransactionCode = false,
+            const QSqlDatabase& targetDb = QSqlDatabase::database());
     QStringList parseSchemaCode(const QString& code);
 
 private:
@@ -69,24 +76,31 @@ private:
             const QList<QMap<QString, QMap<QString, QVariant>>>& columnData);
     void loadMetaType(PartPropertyMetaType* mtype, const QSqlQuery& query, QString& parentMetaTypeID);
 
-    QStringList generatePartLinkTypeAddCode(PartLinkType* ltype, const QString& overrideID = QString());
-    QStringList generatePartLinkTypeRemoveCode(PartLinkType* ltype, const QString& overrideID = QString());
-    QStringList generatePartLinkTypeEditCode(PartLinkType* oldLtype, PartLinkType* ltype);
+    QStringList generatePartLinkTypeAddCode(SQLDatabaseWrapper* dbw, PartLinkType* ltype,
+            const QString& overrideID = QString());
+    QStringList generatePartLinkTypeRemoveCode(SQLDatabaseWrapper* dbw, PartLinkType* ltype,
+            const QString& overrideID = QString());
+    QStringList generatePartLinkTypeEditCode(SQLDatabaseWrapper* dbw, PartLinkType* oldLtype, PartLinkType* ltype);
 
-    QStringList generateCategoryAddCode(PartCategory* pcat, const QString& overrideID = QString());
-    QStringList generateCategoryRemoveCode(PartCategory* pcat, const QString& overrideID = QString());
-    QStringList generateCategoryEditCode(PartCategory* oldPcat, PartCategory* pcat,
+    QStringList generateCategoryAddCode(SQLDatabaseWrapper* dbw, PartCategory* pcat,
+            const QString& overrideID = QString());
+    QStringList generateCategoryRemoveCode(SQLDatabaseWrapper* dbw, PartCategory* pcat,
+            const QString& overrideID = QString());
+    QStringList generateCategoryEditCode(SQLDatabaseWrapper* dbw, PartCategory* oldPcat, PartCategory* pcat,
             const QMap<PartProperty*, PartProperty*>& editedProps);
-    QStringList generateCategoryRegEntryAddCode(PartCategory* pcat, const QString& overrideID = QString());
-    QStringList generateCategoryRegEntryRemoveCode(PartCategory* pcat, const QString& overrideID = QString());
+    QStringList generateCategoryRegEntryAddCode(SQLDatabaseWrapper* dbw, PartCategory* pcat,
+            const QString& overrideID = QString());
+    QStringList generateCategoryRegEntryRemoveCode(SQLDatabaseWrapper* dbw, PartCategory* pcat,
+            const QString& overrideID = QString());
 
-    QStringList generatePartPropertyAddCode(PartProperty* prop, const QString& overrideID = QString(),
-            const QString& pcatOverrideID = QString());
-    QStringList generatePartPropertyRemoveCode(PartProperty* prop, const QString& overrideID = QString(),
-            const QString& pcatOverrideID = QString());
-    QStringList generatePartPropertyEditCode(PartProperty* oldProp, PartProperty* prop,
+    QStringList generatePartPropertyAddCode(SQLDatabaseWrapper* dbw, PartProperty* prop,
+            const QString& overrideID = QString(), const QString& pcatOverrideID = QString());
+    QStringList generatePartPropertyRemoveCode(SQLDatabaseWrapper* dbw, PartProperty* prop,
+            const QString& overrideID = QString(), const QString& pcatOverrideID = QString());
+    QStringList generatePartPropertyEditCode(SQLDatabaseWrapper* dbw, PartProperty* oldProp, PartProperty* prop,
             const QString& pcatOverrideID = QString());
     QStringList generateCategorySchemaPropertiesDeltaCode (
+            SQLDatabaseWrapper* dbw,
             PartCategory* pcat,
             const QList<PartProperty*>& added,
             const QList<PartProperty*>& removed,
@@ -94,6 +108,7 @@ private:
             const QString& pcatOverrideID = QString());
 
     void generateMetaTypeUpsertParts (
+            SQLDatabaseWrapper* dbw,
             PartPropertyMetaType* mtype,
             QString& fieldsCode, QString& valsCode, QString& updateCode
             );

@@ -739,5 +739,17 @@ void System::showDatabaseCorruptionWarningDialog(QWidget* parent)
     }
 }
 
+void System::showFirstRunDialog(QWidget* parent)
+{
+    QSettings s;
+
+    if (!s.value("gui/first_run_dialog_shown").toBool()) {
+        s.setValue("gui/first_run_dialog_shown", true);
+        s.sync();
+
+        QMessageBox::information(parent, tr("First Steps"), tr("FirstRunDialogText"));
+    }
+}
+
 
 }

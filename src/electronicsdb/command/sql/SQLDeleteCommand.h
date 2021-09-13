@@ -32,8 +32,10 @@ namespace electronicsdb
 class SQLDeleteCommand : public SQLCommand
 {
 public:
-    SQLDeleteCommand(const QString& tableName, const QString& whereClause, const QList<QVariant>& bindParamVals = {});
-    SQLDeleteCommand(const QString& tableName, const QString& idField, const QList<dbid_t>& ids);
+    SQLDeleteCommand(const QString& tableName, const QString& whereClause, const QList<QVariant>& bindParamVals = {},
+                     const QString& connName = QString());
+    SQLDeleteCommand(const QString& tableName, const QString& idField, const QList<dbid_t>& ids,
+            const QString& connName = QString());
 
     void setWhereClause(const QString& whereClause, const QList<QVariant>& bindParamVals = {});
     void setWhereClauseFromIDs(const QString& idField, const QList<dbid_t>& ids);

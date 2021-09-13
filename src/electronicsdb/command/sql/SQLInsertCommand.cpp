@@ -35,20 +35,22 @@ namespace electronicsdb
 {
 
 
-SQLInsertCommand::SQLInsertCommand(const QString& tableName, const QString& idField)
-        : tableName(tableName), idField(idField)
+SQLInsertCommand::SQLInsertCommand(const QString& tableName, const QString& idField, const QString& connName)
+        : SQLCommand(connName), tableName(tableName), idField(idField)
 {
 }
 
 
-SQLInsertCommand::SQLInsertCommand(const QString& tableName, const QString& idField, const DataMapList& data)
-        : tableName(tableName), idField(idField), data(data)
+SQLInsertCommand::SQLInsertCommand (
+        const QString& tableName, const QString& idField, const DataMapList& data, const QString& connName
+)       : SQLCommand(connName), tableName(tableName), idField(idField), data(data)
 {
 }
 
 
-SQLInsertCommand::SQLInsertCommand(const QString& tableName, const QString& idField, const DataMap& data)
-: tableName(tableName), idField(idField), data({data})
+SQLInsertCommand::SQLInsertCommand (
+        const QString& tableName, const QString& idField, const DataMap& data, const QString& connName
+)       : SQLCommand(connName), tableName(tableName), idField(idField), data({data})
 {
 }
 

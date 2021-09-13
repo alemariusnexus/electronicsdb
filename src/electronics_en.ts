@@ -2,6 +2,29 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="en_US">
 <context>
+    <name>BackupDialog</name>
+    <message>
+        <location filename="electronicsdb/gui/settings/BackupDialog.ui" line="14"/>
+        <source>Backup</source>
+        <translation>Backup</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/BackupDialog.ui" line="23"/>
+        <source>Backup database</source>
+        <translation>Backup database</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/BackupDialog.ui" line="33"/>
+        <source>Backup files</source>
+        <translation>Backup files</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/BackupDialog.ui" line="46"/>
+        <source>WARNING: This program can currently not restore these backups automatically. You will need to open the backup file by hand and restore the backup manually.</source>
+        <translation>WARNING: This program can currently not restore these backups automatically. You will need to open the backup file by hand and restore the backup manually.</translation>
+    </message>
+</context>
+<context>
     <name>ConnectDialog</name>
     <message>
         <location filename="electronicsdb/gui/settings/ConnectDialog.ui" line="14"/>
@@ -73,6 +96,45 @@
         <location filename="electronicsdb/gui/container/ContainerWidget.ui" line="203"/>
         <source>Parts In Container</source>
         <translation>Parts in Container</translation>
+    </message>
+</context>
+<context>
+    <name>DatabaseMigrationDialog</name>
+    <message>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.ui" line="14"/>
+        <source>Database Migration</source>
+        <translation>Database Migration</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.ui" line="35"/>
+        <source>Source</source>
+        <translation>Source</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.ui" line="44"/>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.ui" line="66"/>
+        <source>Database</source>
+        <translation>Database</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.ui" line="57"/>
+        <source>Destination</source>
+        <translation>Destination</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.ui" line="76"/>
+        <source>WARNING: All data in this database will be overwritten. This may include data unrelated to this program. These changes can not be reverted.</source>
+        <translation>WARNING: All data in this database will be overwritten. This may include data unrelated to this program. These changes can not be reverted.</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.ui" line="89"/>
+        <source>Settings</source>
+        <translation>Settings</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.ui" line="98"/>
+        <source>Migration Type</source>
+        <translation>Migration Type</translation>
     </message>
 </context>
 <context>
@@ -191,124 +253,135 @@
         <translation>&amp;Connect</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="51"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="52"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="55"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="56"/>
         <source>Static Model</source>
         <translation>Static Model</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="65"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="67"/>
         <source>Edit</source>
         <translation>Edit</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="77"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="79"/>
         <source>Windows</source>
         <translation>Windows</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="83"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="85"/>
         <source>Help</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="87"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="89"/>
         <source>Language</source>
         <translation>Language</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="104"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="106"/>
         <source>Disconnect</source>
         <translation>Disconnect</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="109"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="111"/>
         <source>Settings...</source>
         <translation>Settings...</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="114"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="116"/>
         <source>New Connection...</source>
         <translation>New Connection...</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="123"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="125"/>
         <source>Quit</source>
         <translation>Quit</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="135"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="137"/>
         <source>Save All</source>
         <translation>Save All</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="143"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="145"/>
         <source>Undo</source>
         <translation>Undo</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="151"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="153"/>
         <source>Redo</source>
         <translation>Redo</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="156"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="158"/>
         <source>Create Backup...</source>
         <translation>Create Backup...</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="161"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="163"/>
         <source>Restore From Backup...</source>
         <translation>Restore from Backup...</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="166"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="168"/>
         <source>Add Container Widget</source>
         <translation>Add Container Widget</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="171"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="173"/>
         <source>Next Container</source>
         <translation>Next Container</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="176"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="178"/>
         <source>Next Part</source>
         <translation>Next Part</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="181"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="183"/>
         <source>Previous Part</source>
         <translation>Previous Part</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="186"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="188"/>
         <source>About</source>
         <translation>About</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="191"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="193"/>
         <source>About Qt</source>
         <translation>About Qt</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="196"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="198"/>
         <source>SQL Generator</source>
         <translation>SQL Generator</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="201"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="203"/>
         <source>Edit Part Link Types...</source>
-        <translation>Edit Part Link Types [BETA]...</translation>
+        <translation>Edit Part Link Types (beta)...</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="209"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="211"/>
         <source>Edit Part Categories...</source>
-        <translation>Edit Part Categories [BETA]...</translation>
+        <translation>Edit Part Categories (beta)...</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="219"/>
+        <source>Database Migration...</source>
+        <translation>Database Migration (beta)...</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="227"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="235"/>
+        <source>Backup...</source>
+        <translation>Backup (beta)...</translation>
     </message>
 </context>
 <context>
@@ -707,6 +780,33 @@
     </message>
 </context>
 <context>
+    <name>electronicsdb::BackupDialog</name>
+    <message>
+        <location filename="electronicsdb/gui/settings/BackupDialog.cpp" line="79"/>
+        <source>Choose backup file</source>
+        <translation>Choose backup file</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/BackupDialog.cpp" line="79"/>
+        <source>ZIP files (*.zip)</source>
+        <translation>ZIP files (*.zip)</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/BackupDialog.cpp" line="90"/>
+        <source>Backup Error</source>
+        <translation>Backup Error</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/BackupDialog.cpp" line="91"/>
+        <source>An error occurred during backup:
+
+%1</source>
+        <translation>An error occurred during backup:
+
+%1</translation>
+    </message>
+</context>
+<context>
     <name>electronicsdb::ChangelogTableModel</name>
     <message>
         <location filename="electronicsdb/gui/util/ChangelogTableModel.cpp" line="153"/>
@@ -759,6 +859,129 @@
         <location filename="electronicsdb/gui/container/ContainerWidget.cpp" line="101"/>
         <source>Remove</source>
         <translation>Remove</translation>
+    </message>
+</context>
+<context>
+    <name>electronicsdb::DatabaseMigrationDialog</name>
+    <message>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.cpp" line="47"/>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.cpp" line="48"/>
+        <source>- Select -</source>
+        <translation>- Select -</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.cpp" line="57"/>
+        <source>Static Model only</source>
+        <translation>Static Model only</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.cpp" line="58"/>
+        <source>Everything</source>
+        <translation>Everything</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.cpp" line="92"/>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.cpp" line="96"/>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.cpp" line="104"/>
+        <source>Invalid Database</source>
+        <translation>Invalid Database</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.cpp" line="92"/>
+        <source>The selected source database is invalid!</source>
+        <translation>The selected source database is invalid!</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.cpp" line="96"/>
+        <source>The selected destination database is invalid!</source>
+        <translation>The selected destination database is invalid!</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.cpp" line="104"/>
+        <source>Source and destination databases must be different!</source>
+        <translation>Source and destination databases must be different!</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.cpp" line="108"/>
+        <source>Confirm Migration</source>
+        <translation>Confirm Migration</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.cpp" line="109"/>
+        <source>Are you sure you want to &lt;b&gt;overwrite all data in &apos;%1&apos;&lt;/b&gt;? This action can not be undone.</source>
+        <translation>Are you sure you want to &lt;b&gt;overwrite all data in &apos;%1&apos;&lt;/b&gt;? This action can not be undone.</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.cpp" line="126"/>
+        <source>Migration Error</source>
+        <translation>Migration Error</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/DatabaseMigrationDialog.cpp" line="127"/>
+        <source>An error occurred during database migration:
+
+%1</source>
+        <translation>An error occurred during database migration:
+
+%1</translation>
+    </message>
+</context>
+<context>
+    <name>electronicsdb::DatabaseMigrator</name>
+    <message>
+        <location filename="electronicsdb/model/DatabaseMigrator.cpp" line="142"/>
+        <source>Migrating static model...</source>
+        <translation>Migrating static model...</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/model/DatabaseMigrator.cpp" line="172"/>
+        <source>Migrating containers (pass 1/2)...</source>
+        <translation>Migrating containers (pass 1/2)...</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/model/DatabaseMigrator.cpp" line="194"/>
+        <source>Migrating parts for category &apos;%1&apos; (pass 1/2)</source>
+        <translation>Migrating parts for category &apos;%1&apos; (pass 1/2)...</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/model/DatabaseMigrator.cpp" line="218"/>
+        <source>Migrating containers (pass 2/2)...</source>
+        <translation>Migrating containers (pass 2/2)...</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/model/DatabaseMigrator.cpp" line="245"/>
+        <source>Migrating parts for category &apos;%1&apos; (pass 2/2)</source>
+        <translation>Migrating parts for category &apos;%1&apos; (pass 2/2)...</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/model/DatabaseMigrator.cpp" line="273"/>
+        <source>Committing changes...</source>
+        <translation>Committing changes...</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/model/DatabaseMigrator.cpp" line="279"/>
+        <source>Migration done!</source>
+        <translation>Migration done!</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/model/DatabaseMigrator.cpp" line="370"/>
+        <source>Optimizing backup database size...</source>
+        <translation>Optimizing backup database size...</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/model/DatabaseMigrator.cpp" line="377"/>
+        <source>Packing backup database...</source>
+        <translation>Packing backup database...</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/model/DatabaseMigrator.cpp" line="398"/>
+        <source>Packaging files (this may take some time)...</source>
+        <translation>Packaging files (this may take some time)...</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/model/DatabaseMigrator.cpp" line="432"/>
+        <source>Backup done!</source>
+        <translation>Backup done!</translation>
     </message>
 </context>
 <context>
@@ -863,27 +1086,27 @@
 <context>
     <name>electronicsdb::KeyVaultWidget</name>
     <message>
-        <location filename="electronicsdb/gui/settings/KeyVaultWidget.cpp" line="68"/>
+        <location filename="electronicsdb/gui/settings/KeyVaultWidget.cpp" line="87"/>
         <source>Password Mismatch</source>
         <translation>Password Mismatch</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/settings/KeyVaultWidget.cpp" line="68"/>
+        <location filename="electronicsdb/gui/settings/KeyVaultWidget.cpp" line="87"/>
         <source>The passwords do not match!</source>
         <translation>The passwords do not match!</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/settings/KeyVaultWidget.cpp" line="119"/>
+        <location filename="electronicsdb/gui/settings/KeyVaultWidget.cpp" line="138"/>
         <source>********</source>
         <translation>********</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/settings/KeyVaultWidget.cpp" line="147"/>
+        <location filename="electronicsdb/gui/settings/KeyVaultWidget.cpp" line="166"/>
         <source>Clear Key Vault?</source>
         <translation>Clear Key Vault?</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/settings/KeyVaultWidget.cpp" line="148"/>
+        <location filename="electronicsdb/gui/settings/KeyVaultWidget.cpp" line="167"/>
         <source>Do you really want to clear the key vault? This will remove all stored passwords and reset the vault key.</source>
         <translation>Do you really want to clear the key vault? This will remove all stored passwords and reset the vault key.</translation>
     </message>
@@ -919,38 +1142,38 @@
 <context>
     <name>electronicsdb::MainWindow</name>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="95"/>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="424"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="97"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="444"/>
         <source>Not Connected</source>
         <translation>Not Connected</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="421"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="439"/>
         <source>Connected to %1</source>
         <translation>Connected to %1</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="517"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="539"/>
         <source>Containers</source>
         <translation>Containers</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="593"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="615"/>
         <source>Version</source>
         <translation>Version</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="594"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="616"/>
         <source>SQL Drivers (Qt)</source>
         <translation>SQL Drivers (Qt)</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="600"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="622"/>
         <source>Database</source>
         <translation>Database</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="612"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="634"/>
         <source>AboutText (infoTable: %1)</source>
         <translation>&lt;html&gt;&lt;body&gt;
 &lt;h1&gt;ElectronicsDB&lt;/h1&gt;
@@ -968,22 +1191,22 @@ You should have received a copy of the GNU General Public License along with thi
 &lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="616"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="638"/>
         <source>About %1</source>
         <translation>About %1</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="621"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="643"/>
         <source>About Qt</source>
         <translation>About Qt</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="634"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="656"/>
         <source>Restart Needed</source>
         <translation>Restart Needed</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="634"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="656"/>
         <source>You need to restart the program for the new language to become active!</source>
         <translation>You need to restart the program for the new language to become active!</translation>
     </message>
@@ -1427,33 +1650,33 @@ Do you want to copy the file to the file root directory?</translation>
 <context>
     <name>electronicsdb::PartProperty</name>
     <message>
-        <location filename="electronicsdb/model/PartProperty.cpp" line="309"/>
+        <location filename="electronicsdb/model/PartProperty.cpp" line="319"/>
         <source>TRUE</source>
         <translation>TRUE</translation>
     </message>
     <message>
-        <location filename="electronicsdb/model/PartProperty.cpp" line="323"/>
+        <location filename="electronicsdb/model/PartProperty.cpp" line="333"/>
         <source>FALSE</source>
         <translation>FALSE</translation>
     </message>
     <message>
-        <location filename="electronicsdb/model/PartProperty.cpp" line="584"/>
+        <location filename="electronicsdb/model/PartProperty.cpp" line="594"/>
         <source>(Invalid)</source>
         <translation>(Invalid)</translation>
     </message>
     <message>
-        <location filename="electronicsdb/model/PartProperty.cpp" line="666"/>
+        <location filename="electronicsdb/model/PartProperty.cpp" line="676"/>
         <source>Input is not a valid integer value!</source>
         <translation>Input is not a valid integer value!</translation>
     </message>
     <message>
-        <location filename="electronicsdb/model/PartProperty.cpp" line="673"/>
-        <location filename="electronicsdb/model/PartProperty.cpp" line="690"/>
+        <location filename="electronicsdb/model/PartProperty.cpp" line="683"/>
+        <location filename="electronicsdb/model/PartProperty.cpp" line="700"/>
         <source>Input is out of range! Valid range: %1-%2</source>
         <translation>Input is out of range! Valid range: %1-%2</translation>
     </message>
     <message>
-        <location filename="electronicsdb/model/PartProperty.cpp" line="683"/>
+        <location filename="electronicsdb/model/PartProperty.cpp" line="693"/>
         <source>Input is not a valid floating point value!</source>
         <translation>Input is not a valid floating point value!</translation>
     </message>
@@ -1678,6 +1901,18 @@ Are you sure you want to continue?</translation>
         <location filename="electronicsdb/System.cpp" line="735"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; Changing the static model has a risk of causing &lt;b&gt;database corruption&lt;/b&gt;. This is beta functionality and very likely has errors. You should always &lt;b&gt;backup your database&lt;/b&gt; before changing the static model. Not doing so may lead to &lt;b&gt;data loss&lt;/b&gt;.%1</source>
         <translation>&lt;b&gt;WARNING:&lt;/b&gt; Changing the static model has a risk of causing &lt;b&gt;database corruption&lt;/b&gt;. This is beta functionality and very likely has errors. You should always &lt;b&gt;backup your database&lt;/b&gt; before changing the static model. Not doing so may lead to &lt;b&gt;data loss&lt;/b&gt;.%1</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/System.cpp" line="750"/>
+        <source>First Steps</source>
+        <translation>First Steps</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/System.cpp" line="750"/>
+        <source>FirstRunDialogText</source>
+        <translation>&lt;html&gt;&lt;body&gt;It looks like ElectronicsDB is starting for the first time.&lt;br/&gt;&lt;br/&gt;
+
+You should start by adding a database in the &lt;i&gt;Settings / Settings&lt;/i&gt; menu. SQLite is the easiest option, as it requires no prior setup or external tools. If you decide to create a fresh database, you then have to setup a static model using the entries in the &lt;i&gt;Settings / Static Model&lt;/i&gt; menu. It may be easiest to download an existing database file instead, e.g. from the ElectronicsDB releases page.&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 </TS>

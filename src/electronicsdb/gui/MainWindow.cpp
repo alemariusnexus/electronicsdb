@@ -42,7 +42,9 @@
 #include "container/ContainerWidget.h"
 #include "part/FilterWidget.h"
 #include "part/PartCategoryWidget.h"
+#include "settings/BackupDialog.h"
 #include "settings/ConnectDialog.h"
+#include "settings/DatabaseMigrationDialog.h"
 #include "settings/SettingsDialog.h"
 
 using std::fstream;
@@ -153,8 +155,10 @@ MainWindow::MainWindow()
     connect(ui.settingsAction, &QAction::triggered, this, &MainWindow::settingsRequested);
     connect(ui.editPcatsAction, &QAction::triggered, this, &MainWindow::editPcatsRequested);
     connect(ui.editLtypesAction, &QAction::triggered, this, &MainWindow::editLtypesRequested);
+    connect(ui.dbMigrationAction, &QAction::triggered, this, &MainWindow::dbMigrationRequested);
     connect(ui.quitAction, &QAction::triggered, sys, &System::quit);
     connect(ui.saveAction, &QAction::triggered, this, &MainWindow::saveRequested);
+    connect(ui.backupAction, &QAction::triggered, this, &MainWindow::backupRequested);
 
     connect(ui.prevPartAction, &QAction::triggered, this, &MainWindow::previousPartRequested);
     connect(ui.nextPartAction, &QAction::triggered, this, &MainWindow::nextPartRequested);
@@ -243,8 +247,15 @@ void MainWindow::loadWindowState()
 {
     QSettings s;
     s.beginGroup("gui/main_window");
+
     restoreState(s.value("state").toByteArray());
+    if (!s.contains("num_container_widgets")) {
+        addContainerWidget();
+    }
+
     s.endGroup();
+
+    System::getInstance()->showFirstRunDialog(this);
 }
 
 void MainWindow::appModelAboutToBeReset()
@@ -386,6 +397,12 @@ void MainWindow::disconnectRequested()
     }
 }
 
+void MainWindow::backupRequested()
+{
+    BackupDialog dlg(this);
+    dlg.exec();
+}
+
 void MainWindow::settingsRequested()
 {
     SettingsDialog dlg;
@@ -412,6 +429,12 @@ void MainWindow::editLtypesRequested()
     updateStaticModelMenu();
 }
 
+void MainWindow::dbMigrationRequested()
+{
+    DatabaseMigrationDialog dlg;
+    dlg.exec();
+}
+
 void MainWindow::databaseConnectionChanged(DatabaseConnection* oldConn, DatabaseConnection* newConn)
 {
     System* sys = System::getInstance();
@@ -420,9 +443,13 @@ void MainWindow::databaseConnectionChanged(DatabaseConnection* oldConn, Database
         QString serverDesc = newConn->getDescription();
         connectionStatusLabel->setText(QString(tr("Connected to %1")).arg(serverDesc));
         ui.disconnectAction->setEnabled(true);
+
+        ui.backupAction->setEnabled(true);
     } else if (!newConn  &&  oldConn) {
         connectionStatusLabel->setText(tr("Not Connected"));
         ui.disconnectAction->setEnabled(false);
+
+        ui.backupAction->setEnabled(false);
     }
 
     updateStaticModelMenu();

@@ -26,20 +26,30 @@ namespace electronicsdb
 {
 
 
-SQLCommand::SQLCommand()
-        : committed(false), reverted(false)
+SQLCommand::SQLCommand(const QString& connName)
+        : connName(connName), committed(false), reverted(false)
 {
 }
 
 QSqlDatabase SQLCommand::getSQLConnection()
 {
-    System* sys = System::getInstance();
+    QString actualConnName = connName;
 
-    if (!sys->hasValidDatabaseConnection()) {
-        throw NoDatabaseConnectionException("Database connection needed to use SQL command", __FILE__, __LINE__);
+    if (connName.isNull()) {
+        System* sys = System::getInstance();
+
+        if (!sys->hasValidDatabaseConnection()) {
+            throw NoDatabaseConnectionException("Database connection needed to use SQL command", __FILE__, __LINE__);
+        }
+
+        actualConnName = QSqlDatabase::defaultConnection;
     }
 
-    QSqlDatabase sql = QSqlDatabase::database();
+    QSqlDatabase sql = QSqlDatabase::database(actualConnName);
+
+    if (!sql.isValid()  ||  !sql.isOpen()) {
+        throw NoDatabaseConnectionException("Database connection needed to use SQL command", __FILE__, __LINE__);
+    }
 
     return sql;
 }

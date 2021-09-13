@@ -112,7 +112,8 @@ bool AbstractSharedItemFactory<DerivedT, ItemT>::applyAssocChanges (
                 QList<QVariant> whereBindParamValues;
                 QString delWhereExpr = buildWhereExpressionFromList(assocIDData, "OR", whereBindParamValues);
 
-                SQLDeleteCommand* delCmd = new SQLDeleteCommand(tableName, delWhereExpr, whereBindParamValues);
+                SQLDeleteCommand* delCmd = new SQLDeleteCommand(tableName, delWhereExpr, whereBindParamValues,
+                                                                getSQLDatabase().connectionName());
                 editCmd->addSQLCommand(delCmd);
 
                 anyChanges = true;
@@ -127,7 +128,8 @@ bool AbstractSharedItemFactory<DerivedT, ItemT>::applyAssocChanges (
             auto& assocData = tit.value();
 
             if (!assocData.empty()) {
-                SQLInsertCommand* insCmd = new SQLInsertCommand(tableName, "id", assocData);
+                SQLInsertCommand* insCmd = new SQLInsertCommand(tableName, "id",
+                                                                assocData, getSQLDatabase().connectionName());
                 editCmd->addSQLCommand(insCmd);
 
                 anyChanges = true;
@@ -141,7 +143,7 @@ bool AbstractSharedItemFactory<DerivedT, ItemT>::applyAssocChanges (
 template <class DerivedT, typename ItemT>
 void AbstractSharedItemFactory<DerivedT, ItemT>::checkDatabaseConnection() const
 {
-    if (!System::getInstance()->hasValidDatabaseConnection()) {
+    if (!getSQLDatabase().isValid()) {
         throw NoDatabaseConnectionException("No database connection for items", __FILE__, __LINE__);
     }
 }
@@ -162,7 +164,7 @@ QString AbstractSharedItemFactory<DerivedT, ItemT>::buildWhereExpressionFromList
 ) const {
     QString expr;
 
-    QSqlDatabase db = QSqlDatabase::database();
+    QSqlDatabase db = getSQLDatabase();
     std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
 
     for (const auto& d : data) {
@@ -205,7 +207,9 @@ void AbstractSharedItemFactory<DerivedT, ItemT>::addIDInsertListener(SQLInsertCo
         auto it = items.begin();
         for (dbid_t id : cmd->getInsertIDs()) {
             ItemType& item = *it;
-            item.setID(id);
+            if (!item.hasID()) {
+                item.setID(id);
+            }
             it++;
         }
         listener(items.begin(), items.end());

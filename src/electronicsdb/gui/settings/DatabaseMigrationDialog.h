@@ -21,38 +21,30 @@
 
 #include "../../global.h"
 
-#include <QMap>
-#include <QString>
-#include <QVariant>
-#include "SQLCommand.h"
+#include <QDialog>
+#include <ui_DatabaseMigrationDialog.h>
 
 namespace electronicsdb
 {
 
 
-class SQLUpdateCommand : public SQLCommand
+class DatabaseMigrationDialog : public QDialog
 {
-public:
-    using DataMap = QMap<QString, QVariant>;
+    Q_OBJECT
 
 public:
-    SQLUpdateCommand(const QString& tableName, const QString& idField, dbid_t id, const QString& connName = QString());
-    void setValues(const DataMap& data);
-    void addFieldValue(const QString& fieldName, const QVariant& newValue);
+    DatabaseMigrationDialog(QWidget* parent = nullptr);
 
-protected:
-    void doCommit() override;
-    void doRevert() override;
+private slots:
+    void buttonBoxClicked(QAbstractButton* button);
+
+    void progressChanged(const QString& statusMsg, int progressCur, int progressMax);
 
 private:
-    QString tableName;
-    QString idField;
-    dbid_t id;
-    DataMap values;
+    bool apply();
 
-    QString revertQuery;
-    QList<QVariant> revertBindParamValues;
-    DataMap revertListenData;
+private:
+    Ui_DatabaseMigrationDialog ui;
 };
 
 

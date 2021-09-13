@@ -40,16 +40,19 @@ namespace electronicsdb
 SQLDeleteCommand::SQLDeleteCommand (
         const QString& tableName,
         const QString& whereClause,
-        const QList<QVariant>& bindParamVals
-)       : tableName(tableName), whereClause(whereClause), whereClauseBindParamValues(bindParamVals)
+        const QList<QVariant>& bindParamVals,
+        const QString& connName
+)       : SQLCommand(connName), tableName(tableName), whereClause(whereClause),
+          whereClauseBindParamValues(bindParamVals)
 {
 }
 
 SQLDeleteCommand::SQLDeleteCommand (
         const QString& tableName,
         const QString& idField,
-        const QList<dbid_t>& ids
-)       : tableName(tableName)
+        const QList<dbid_t>& ids,
+        const QString& connName
+)       : SQLCommand(connName), tableName(tableName)
 {
     setWhereClauseFromIDs(idField, ids);
 }

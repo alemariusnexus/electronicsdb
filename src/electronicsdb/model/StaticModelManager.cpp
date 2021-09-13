@@ -578,7 +578,8 @@ QList<PartLinkType*> StaticModelManager::buildPartLinkTypes()
 QStringList StaticModelManager::generatePartLinkTypeDeltaCode (
         const QList<PartLinkType*>& added,
         const QList<PartLinkType*>& removed,
-        const QMap<PartLinkType*, PartLinkType*>& edited
+        const QMap<PartLinkType*, PartLinkType*>& edited,
+        const QSqlDatabase& targetDb
 ) {
     System* sys = System::getInstance();
     if (!sys->hasValidDatabaseConnection()) {
@@ -589,12 +590,11 @@ QStringList StaticModelManager::generatePartLinkTypeDeltaCode (
 
     QStringList schemaStmts;
 
-    QSqlDatabase db = QSqlDatabase::database();
-    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
+    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(targetDb));
 
     // Process added types
     for (PartLinkType* ltype : added) {
-        schemaStmts << generatePartLinkTypeAddCode(ltype);
+        schemaStmts << generatePartLinkTypeAddCode(dbw.get(), ltype);
     }
 
     // Process edited types
@@ -602,23 +602,21 @@ QStringList StaticModelManager::generatePartLinkTypeDeltaCode (
         PartLinkType* oldLtype = it.key();
         PartLinkType* ltype = it.value();
 
-        schemaStmts << generatePartLinkTypeEditCode(oldLtype, ltype);
+        schemaStmts << generatePartLinkTypeEditCode(dbw.get(), oldLtype, ltype);
     }
 
     // Process removed types
     for (PartLinkType* ltype : removed) {
-        schemaStmts << generatePartLinkTypeRemoveCode(ltype);
+        schemaStmts << generatePartLinkTypeRemoveCode(dbw.get(), ltype);
     }
 
     return schemaStmts;
 }
 
-QStringList StaticModelManager::generatePartLinkTypeAddCode(PartLinkType* ltype, const QString& overrideID)
-{
+QStringList StaticModelManager::generatePartLinkTypeAddCode (
+        SQLDatabaseWrapper* dbw, PartLinkType* ltype, const QString& overrideID
+) {
     QStringList schemaStmts;
-
-    QSqlDatabase db = QSqlDatabase::database();
-    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
 
     QString id = overrideID.isNull() ? ltype->getID() : overrideID;
 
@@ -699,12 +697,10 @@ QStringList StaticModelManager::generatePartLinkTypeAddCode(PartLinkType* ltype,
     return schemaStmts;
 }
 
-QStringList StaticModelManager::generatePartLinkTypeRemoveCode(PartLinkType* ltype, const QString& overrideID)
-{
+QStringList StaticModelManager::generatePartLinkTypeRemoveCode (
+        SQLDatabaseWrapper* dbw, PartLinkType* ltype, const QString& overrideID
+) {
     QStringList schemaStmts;
-
-    QSqlDatabase db = QSqlDatabase::database();
-    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
 
     QString id = overrideID.isNull() ? ltype->getID() : overrideID;
 
@@ -716,16 +712,14 @@ QStringList StaticModelManager::generatePartLinkTypeRemoveCode(PartLinkType* lty
     return schemaStmts;
 }
 
-QStringList StaticModelManager::generatePartLinkTypeEditCode(PartLinkType* oldLtype, PartLinkType* ltype)
-{
+QStringList StaticModelManager::generatePartLinkTypeEditCode (
+        SQLDatabaseWrapper* dbw, PartLinkType* oldLtype, PartLinkType* ltype
+) {
     QStringList schemaStmts;
-
-    QSqlDatabase db = QSqlDatabase::database();
-    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
 
     auto editDifferentID = [&](PartLinkType* from, const QString& fromID, PartLinkType* to, const QString& toID) {
         // Add new type
-        schemaStmts << generatePartLinkTypeAddCode(to, toID);
+        schemaStmts << generatePartLinkTypeAddCode(dbw, to, toID);
 
         // Change references from old type to new type
         schemaStmts << QString(
@@ -733,7 +727,7 @@ QStringList StaticModelManager::generatePartLinkTypeEditCode(PartLinkType* oldLt
                 ).arg(dbw->escapeString(toID), dbw->escapeString(fromID));
 
         // Delete old type
-        schemaStmts << generatePartLinkTypeRemoveCode(from, fromID);
+        schemaStmts << generatePartLinkTypeRemoveCode(dbw, from, fromID);
     };
 
     if (oldLtype->getID() == ltype->getID()) {
@@ -761,7 +755,8 @@ QStringList StaticModelManager::generateCategorySchemaDeltaCode (
         const QList<PartCategory*>& added,
         const QList<PartCategory*>& removed,
         const QMap<PartCategory*, PartCategory*>& edited,
-        const QMap<PartProperty*, PartProperty*>& editedProps
+        const QMap<PartProperty*, PartProperty*>& editedProps,
+        const QSqlDatabase& targetDb
 ) {
     System* sys = System::getInstance();
     if (!sys->hasValidDatabaseConnection()) {
@@ -769,8 +764,7 @@ QStringList StaticModelManager::generateCategorySchemaDeltaCode (
                                             __FILE__, __LINE__);
     }
 
-    QSqlDatabase db = QSqlDatabase::database();
-    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
+    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(targetDb));
 
     QStringList schemaStmts;
 
@@ -788,24 +782,22 @@ QStringList StaticModelManager::generateCategorySchemaDeltaCode (
     }
 
     for (PartCategory* pcat : added) {
-        schemaStmts << generateCategoryAddCode(pcat);
+        schemaStmts << generateCategoryAddCode(dbw.get(), pcat);
     }
     for (auto it = edited.begin() ; it != edited.end() ; ++it) {
-        schemaStmts << generateCategoryEditCode(it.key(), it.value(), editedProps);
+        schemaStmts << generateCategoryEditCode(dbw.get(), it.key(), it.value(), editedProps);
     }
     for (PartCategory* pcat : removed) {
-        schemaStmts << generateCategoryRemoveCode(pcat);
+        schemaStmts << generateCategoryRemoveCode(dbw.get(), pcat);
     }
 
     return schemaStmts;
 }
 
-QStringList StaticModelManager::generateCategoryAddCode(PartCategory* pcat, const QString& overrideID)
-{
+QStringList StaticModelManager::generateCategoryAddCode (
+        SQLDatabaseWrapper* dbw, PartCategory* pcat, const QString& overrideID
+) {
     QStringList schemaStmts;
-
-    QSqlDatabase db = QSqlDatabase::database();
-    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
 
     QString pcatID = overrideID.isNull() ? pcat->getID() : overrideID;
 
@@ -835,20 +827,18 @@ QStringList StaticModelManager::generateCategoryAddCode(PartCategory* pcat, cons
     }
 
     // Properties
-    schemaStmts << generateCategorySchemaPropertiesDeltaCode(pcat, pcat->getProperties(), {}, {}, overrideID);
+    schemaStmts << generateCategorySchemaPropertiesDeltaCode(dbw, pcat, pcat->getProperties(), {}, {}, overrideID);
 
     // Registry entry
-    schemaStmts << generateCategoryRegEntryAddCode(pcat, overrideID);
+    schemaStmts << generateCategoryRegEntryAddCode(dbw, pcat, overrideID);
 
     return schemaStmts;
 }
 
-QStringList StaticModelManager::generateCategoryRemoveCode(PartCategory* pcat, const QString& overrideID)
-{
+QStringList StaticModelManager::generateCategoryRemoveCode (
+        SQLDatabaseWrapper* dbw, PartCategory* pcat, const QString& overrideID
+) {
     QStringList schemaStmts;
-
-    QSqlDatabase db = QSqlDatabase::database();
-    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
 
     QString pcatID = overrideID.isNull() ? pcat->getID() : overrideID;
 
@@ -867,10 +857,10 @@ QStringList StaticModelManager::generateCategoryRemoveCode(PartCategory* pcat, c
     }
 
     // Part link types
-    schemaStmts << PartLinkType::generatePatternSQLUpdateCode(dbw.get(), {pcatID}, {});
+    schemaStmts << PartLinkType::generatePatternSQLUpdateCode(dbw, {pcatID}, {});
 
     // Registry entry
-    schemaStmts << generateCategoryRegEntryRemoveCode(pcat, overrideID);
+    schemaStmts << generateCategoryRegEntryRemoveCode(dbw, pcat, overrideID);
 
     // Property entries + meta table
     {
@@ -901,12 +891,10 @@ QStringList StaticModelManager::generateCategoryRemoveCode(PartCategory* pcat, c
 }
 
 QStringList StaticModelManager::generateCategoryEditCode (
-        PartCategory* oldPcat, PartCategory* pcat, const QMap<PartProperty*, PartProperty*>& editedProps
+        SQLDatabaseWrapper* dbw, PartCategory* oldPcat, PartCategory* pcat, const QMap<PartProperty*,
+        PartProperty*>& editedProps
 ) {
     QStringList schemaStmts;
-
-    QSqlDatabase db = QSqlDatabase::database();
-    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
 
     QMap<PartProperty*, PartProperty*> fullEditedProps = editedProps;
     for (PartProperty* oldProp : oldPcat->getProperties()) {
@@ -926,7 +914,7 @@ QStringList StaticModelManager::generateCategoryEditCode (
 
     auto editDifferentID = [&](PartCategory* from, const QString& fromID, PartCategory* to, const QString& toID) {
         // Insert new entry
-        schemaStmts << generateCategoryRegEntryAddCode(to, toID);
+        schemaStmts << generateCategoryRegEntryAddCode(dbw, to, toID);
 
         // Update foreign key references
         schemaStmts << QString(
@@ -958,11 +946,11 @@ QStringList StaticModelManager::generateCategoryEditCode (
         }
 
         // Part link types
-        schemaStmts << PartLinkType::generatePatternSQLUpdateCode(dbw.get(), {},
+        schemaStmts << PartLinkType::generatePatternSQLUpdateCode(dbw, {},
                                                                   {std::pair<QString, QString>(fromID, toID)});
 
         // Remove old entry
-        schemaStmts << generateCategoryRegEntryRemoveCode(from, fromID);
+        schemaStmts << generateCategoryRegEntryRemoveCode(dbw, from, fromID);
     };
 
     if (oldPcat->getID() == pcat->getID()) {
@@ -998,17 +986,15 @@ QStringList StaticModelManager::generateCategoryEditCode (
         }
     }
 
-    schemaStmts << generateCategorySchemaPropertiesDeltaCode(pcat, propsAdded, propsRemoved, propsEdited);
+    schemaStmts << generateCategorySchemaPropertiesDeltaCode(dbw, pcat, propsAdded, propsRemoved, propsEdited);
 
     return schemaStmts;
 }
 
-QStringList StaticModelManager::generateCategoryRegEntryAddCode(PartCategory* pcat, const QString& overrideID)
-{
+QStringList StaticModelManager::generateCategoryRegEntryAddCode (
+        SQLDatabaseWrapper* dbw, PartCategory* pcat, const QString& overrideID
+) {
     QStringList schemaStmts;
-
-    QSqlDatabase db = QSqlDatabase::database();
-    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
 
     QString pcatID = overrideID.isNull() ? pcat->getID() : overrideID;
 
@@ -1022,12 +1008,10 @@ QStringList StaticModelManager::generateCategoryRegEntryAddCode(PartCategory* pc
     return schemaStmts;
 }
 
-QStringList StaticModelManager::generateCategoryRegEntryRemoveCode(PartCategory* pcat, const QString& overrideID)
-{
+QStringList StaticModelManager::generateCategoryRegEntryRemoveCode (
+        SQLDatabaseWrapper* dbw, PartCategory* pcat, const QString& overrideID
+) {
     QStringList schemaStmts;
-
-    QSqlDatabase db = QSqlDatabase::database();
-    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
 
     QString pcatID = overrideID.isNull() ? pcat->getID() : overrideID;
 
@@ -1052,6 +1036,7 @@ QStringList StaticModelManager::generateCategoryRegEntryRemoveCode(PartCategory*
 // **********************************************************
 
 QStringList StaticModelManager::generateCategorySchemaPropertiesDeltaCode (
+        SQLDatabaseWrapper* dbw,
         PartCategory* pcat,
         const QList<PartProperty*>& added,
         const QList<PartProperty*>& removed,
@@ -1063,25 +1048,22 @@ QStringList StaticModelManager::generateCategorySchemaPropertiesDeltaCode (
     QString pcatID = pcatOverrideID.isNull() ? pcat->getID() : pcatOverrideID;
 
     for (PartProperty* prop : added) {
-        schemaStmts << generatePartPropertyAddCode(prop, QString(), pcatID);
+        schemaStmts << generatePartPropertyAddCode(dbw, prop, QString(), pcatID);
     }
     for (auto it = edited.begin() ; it != edited.end() ; ++it) {
-        schemaStmts << generatePartPropertyEditCode(it.key(), it.value(), pcatID);
+        schemaStmts << generatePartPropertyEditCode(dbw, it.key(), it.value(), pcatID);
     }
     for (PartProperty* prop : removed) {
-        schemaStmts << generatePartPropertyRemoveCode(prop, QString(), pcatID);
+        schemaStmts << generatePartPropertyRemoveCode(dbw, prop, QString(), pcatID);
     }
 
     return schemaStmts;
 }
 
 QStringList StaticModelManager::generatePartPropertyAddCode (
-        PartProperty* prop, const QString& overrideID, const QString& pcatOverrideID
+        SQLDatabaseWrapper* dbw, PartProperty* prop, const QString& overrideID, const QString& pcatOverrideID
 ) {
     QStringList schemaStmts;
-
-    QSqlDatabase db = QSqlDatabase::database();
-    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
 
     PartCategory* pcat = prop->getPartCategory();
 
@@ -1122,7 +1104,7 @@ QStringList StaticModelManager::generatePartPropertyAddCode (
         QString fieldsCode;
         QString valsCode;
         QString updateCode;
-        generateMetaTypeUpsertParts(prop->getMetaType(), fieldsCode, valsCode, updateCode);
+        generateMetaTypeUpsertParts(dbw, prop->getMetaType(), fieldsCode, valsCode, updateCode);
 
         schemaStmts << QString(
                 "INSERT INTO %1 (\n"
@@ -1145,12 +1127,9 @@ QStringList StaticModelManager::generatePartPropertyAddCode (
 }
 
 QStringList StaticModelManager::generatePartPropertyRemoveCode (
-        PartProperty* prop, const QString& overrideID, const QString& pcatOverrideID
+        SQLDatabaseWrapper* dbw, PartProperty* prop, const QString& overrideID, const QString& pcatOverrideID
 ) {
     QStringList schemaStmts;
-
-    QSqlDatabase db = QSqlDatabase::database();
-    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
 
     PartCategory* pcat = prop->getPartCategory();
 
@@ -1182,12 +1161,9 @@ QStringList StaticModelManager::generatePartPropertyRemoveCode (
 }
 
 QStringList StaticModelManager::generatePartPropertyEditCode (
-        PartProperty* oldProp, PartProperty* prop, const QString& pcatOverrideID
+        SQLDatabaseWrapper* dbw, PartProperty* oldProp, PartProperty* prop, const QString& pcatOverrideID
 ) {
     QStringList schemaStmts;
-
-    QSqlDatabase db = QSqlDatabase::database();
-    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
 
     if ((oldProp->getFlags() & PartProperty::MultiValue) != (prop->getFlags() & PartProperty::MultiValue)) {
         throw InvalidStateException("Can't change multi-value flag of properties!", __FILE__, __LINE__);
@@ -1199,7 +1175,7 @@ QStringList StaticModelManager::generatePartPropertyEditCode (
 
     auto editDifferentID = [&](PartProperty* from, const QString& fromID, PartProperty* to, const QString& toID) {
         // Add new property
-        schemaStmts << generatePartPropertyAddCode(to, toID, pcatID);
+        schemaStmts << generatePartPropertyAddCode(dbw, to, toID, pcatID);
 
         if ((to->getFlags() & PartProperty::MultiValue) != 0) {
             // Move multi-value data to new table
@@ -1217,7 +1193,7 @@ QStringList StaticModelManager::generatePartPropertyEditCode (
         }
 
         // Remove old property
-        schemaStmts << generatePartPropertyRemoveCode(from, fromID, pcatID);
+        schemaStmts << generatePartPropertyRemoveCode(dbw, from, fromID, pcatID);
     };
 
     if (oldProp->getFieldName() == prop->getFieldName()) {
@@ -1243,17 +1219,16 @@ QStringList StaticModelManager::generatePartPropertyEditCode (
 // *                                                        *
 // **********************************************************
 
-QStringList StaticModelManager::generateMetaTypeCode(PartPropertyMetaType* mtype)
+QStringList StaticModelManager::generateMetaTypeCode(PartPropertyMetaType* mtype, const QSqlDatabase& targetDb)
 {
     QStringList stmts;
 
-    QSqlDatabase db = QSqlDatabase::database();
-    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
+    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(targetDb));
 
     QString fieldsCode;
     QString valsCode;
     QString updateCode;
-    generateMetaTypeUpsertParts(mtype, fieldsCode, valsCode, updateCode);
+    generateMetaTypeUpsertParts(dbw.get(), mtype, fieldsCode, valsCode, updateCode);
 
     stmts << QString(
             "INSERT INTO meta_type (\n"
@@ -1274,13 +1249,9 @@ QStringList StaticModelManager::generateMetaTypeCode(PartPropertyMetaType* mtype
 }
 
 void StaticModelManager::generateMetaTypeUpsertParts (
-        PartPropertyMetaType* mtype,
+        SQLDatabaseWrapper* dbw, PartPropertyMetaType* mtype,
         QString& fieldsCode, QString& valsCode, QString& updateCode
 ) {
-    QSqlDatabase db = QSqlDatabase::database();
-    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
-
-    //QString typeStr = mtype->metaTypeID;
     QString typeStr;
     if (mtype->parent) {
         typeStr = mtype->parent->metaTypeID;
@@ -1464,17 +1435,18 @@ void StaticModelManager::generateMetaTypeUpsertParts (
 // *                                                        *
 // **********************************************************
 
-void StaticModelManager::executeSchemaStatements(const QStringList& schemaStmts)
-{
+void StaticModelManager::executeSchemaStatements (
+        const QStringList& schemaStmts, bool transaction, const QSqlDatabase& targetDb
+) {
     System* sys = System::getInstance();
 
-    QSqlDatabase db = QSqlDatabase::database();
-    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
+    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(targetDb));
 
+    bool changelogProcessingWasInhibited = sys->isChangelogProcessingInhibited();
     sys->setChangelogProcessingInhibited(true);
 
     try {
-        auto trans = dbw->beginDDLTransaction();
+        auto trans = transaction ? dbw->beginDDLTransaction() : SQLTransaction();
 
         int stmtIdx = 0;
         for (const QString& stmt : schemaStmts) {
@@ -1485,23 +1457,23 @@ void StaticModelManager::executeSchemaStatements(const QStringList& schemaStmts)
         trans.commit();
     } catch (std::exception&) {
         //LogInfo("Executed the following:\n\n\n%s\n\n\n", dumpSchemaCode(schemaStmts).toUtf8().constData());
-        sys->setChangelogProcessingInhibited(false);
+        sys->setChangelogProcessingInhibited(changelogProcessingWasInhibited);
         throw;
     }
-    sys->setChangelogProcessingInhibited(false);
+    sys->setChangelogProcessingInhibited(changelogProcessingWasInhibited);
     dbw->createLogSchema();
 }
 
-QString StaticModelManager::dumpSchemaCode(const QStringList& schemaStmts, bool dumpTransactionCode)
-{
+QString StaticModelManager::dumpSchemaCode (
+        const QStringList& schemaStmts, bool dumpTransactionCode, const QSqlDatabase& targetDb
+) {
     if (schemaStmts.empty()) {
         return QString();
     }
 
     QString code;
 
-    QSqlDatabase db = QSqlDatabase::database();
-    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
+    std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(targetDb));
 
     if (dumpTransactionCode) {
         if (dbw->supportsTransactionalDDL()) {

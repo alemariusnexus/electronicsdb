@@ -110,7 +110,7 @@ void PartContainerFactory::processChangelog()
         return;
     }
 
-    QSqlDatabase db = QSqlDatabase::database();
+    QSqlDatabase db = getSQLDatabase();
     std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
 
     QSqlQuery query(db);
@@ -165,7 +165,7 @@ void PartContainerFactory::processChangelog()
 
 void PartContainerFactory::truncateChangelog()
 {
-    QSqlDatabase db = QSqlDatabase::database();
+    QSqlDatabase db = getSQLDatabase();
     std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
 
     dbw->truncateTable("clog_container");

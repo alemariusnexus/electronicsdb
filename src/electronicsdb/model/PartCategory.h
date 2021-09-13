@@ -58,7 +58,7 @@ public:
     PartCategory(const QString& id, const QString& userReadableName, const QString& idField = "id");
     ~PartCategory();
 
-    PartCategory* clone() const;
+    PartCategory* clone(const QMap<PartPropertyMetaType*, PartPropertyMetaType*>& mtypeMap = {}) const;
 
     void addProperty(PartProperty* prop);
     bool removeProperty(PartProperty* prop);
@@ -98,7 +98,7 @@ public:
     QList<AbstractPartProperty*> getAbstractProperties(const QList<PartLinkType*>& allLtypes) const;
 
 private:
-    PartCategory(const PartCategory& other);
+    PartCategory(const PartCategory& other, const QMap<PartPropertyMetaType*, PartPropertyMetaType*>& mtypeMap);
 
     void rebuildFullTextIndex(bool fullRebuild, const PartList& parts);
     PartList findInternal(Filter* filter, size_t offset, size_t numResults, size_t* countOnlyOut = nullptr);

@@ -43,9 +43,11 @@ public:
     using DataMapList = QList<DataMap>;
 
 public:
-    SQLInsertCommand(const QString& tableName, const QString& idField);
-    SQLInsertCommand(const QString& tableName, const QString& idField, const DataMapList& data);
-    SQLInsertCommand(const QString& tableName, const QString& idField, const DataMap& data);
+    SQLInsertCommand(const QString& tableName, const QString& idField, const QString& connName = QString());
+    SQLInsertCommand(const QString& tableName, const QString& idField, const DataMapList& data,
+            const QString& connName = QString());
+    SQLInsertCommand(const QString& tableName, const QString& idField, const DataMap& data,
+            const QString& connName = QString());
     const QList<dbid_t>& getInsertIDs() { return insIDs; }
 
     void setData(const DataMapList& data);

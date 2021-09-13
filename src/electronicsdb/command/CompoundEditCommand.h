@@ -36,6 +36,7 @@ public:
     virtual QString getDescription() const;
 
     bool wantsSQLTransaction() override;
+    QSqlDatabase getSQLDatabase() const override;
 
     virtual void commit();
     virtual void revert();

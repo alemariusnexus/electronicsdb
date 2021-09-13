@@ -218,7 +218,8 @@ public:
     void setSortIndexInCategory(PartCategory* pcat, int sortIdx) override;
 
 private:
-    PartProperty(const PartProperty& other, PartCategory* newCat);
+    PartProperty(const PartProperty& other, PartCategory* newCat,
+                 const QMap<PartPropertyMetaType*, PartPropertyMetaType*>& mtypeMap = {});
 
     void init();
 

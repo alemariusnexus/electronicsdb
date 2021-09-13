@@ -190,8 +190,10 @@ void EditStack::notifyChanges()
 
 void EditStack::commitCommand(EditCommand* cmd)
 {
-    if (cmd->wantsSQLTransaction()) {
-        std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create());
+    QSqlDatabase db = cmd->getSQLDatabase();
+
+    if (db.isValid()  &&  cmd->wantsSQLTransaction()) {
+        std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
         auto trans = dbw->beginTransaction();
 
         cmd->commit();
@@ -206,8 +208,10 @@ void EditStack::commitCommand(EditCommand* cmd)
 
 void EditStack::revertCommand(EditCommand* cmd)
 {
-    if (cmd->wantsSQLTransaction()) {
-        std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create());
+    QSqlDatabase db = cmd->getSQLDatabase();
+
+    if (db.isValid()  &&  cmd->wantsSQLTransaction()) {
+        std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
         auto trans = dbw->beginTransaction();
 
         cmd->revert();

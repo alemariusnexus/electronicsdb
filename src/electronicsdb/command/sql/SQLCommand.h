@@ -47,7 +47,7 @@ public:
     using Listener = std::function<void (SQLCommand*, Operation)>;
 
 public:
-    SQLCommand();
+    SQLCommand(const QString& connName = QString());
     virtual ~SQLCommand() {}
     void commit();
     void revert();
@@ -57,13 +57,14 @@ public:
     bool hasBeenCommitted() const { return committed; }
     bool hasBeenReverted() const { return reverted; }
 
-protected:
     virtual QSqlDatabase getSQLConnection();
 
+protected:
     virtual void doCommit() = 0;
     virtual void doRevert() = 0;
 
 private:
+    QString connName;
     Listener listener;
     bool committed;
     bool reverted;

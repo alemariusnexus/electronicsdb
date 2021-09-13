@@ -21,6 +21,7 @@
 
 #include "../global.h"
 
+#include <QList>
 #include <QString>
 #include <QVariant>
 #include "PartProperty.h"
@@ -31,6 +32,8 @@ namespace electronicsdb
 
 struct PartPropertyMetaType
 {
+    static QList<PartPropertyMetaType*> cloneDeep(const QList<PartPropertyMetaType*>& mtypes);
+
     PartPropertyMetaType (
             const QString& metaTypeID,
             PartProperty::Type coreType = PartProperty::InvalidType,

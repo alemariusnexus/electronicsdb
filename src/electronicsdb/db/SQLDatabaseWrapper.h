@@ -74,7 +74,8 @@ public:
     virtual void createDatabaseIfNotExists(DatabaseConnection* conn, const QString& pw) = 0;
 
     virtual void initSession();
-    void createSchema();
+    void createSchema(bool transaction = true);
+    void destroySchema(bool transaction = true);
     void createLogSchema();
     void createAppModelDependentSchema();
     virtual QString generateMetaTypeFieldDefCode();

@@ -58,11 +58,11 @@ void SQLDatabaseWrapper::initSession()
 {
 }
 
-void SQLDatabaseWrapper::createSchema()
+void SQLDatabaseWrapper::createSchema(bool transaction)
 {
     QSqlQuery query(db);
 
-    auto trans = beginDDLTransaction();
+    auto trans = transaction ? beginDDLTransaction() : SQLTransaction();
 
 
     // **********************************************
@@ -193,6 +193,40 @@ void SQLDatabaseWrapper::createSchema()
     createLogSchema();
 
     createAppModelDependentSchema();
+
+    trans.commit();
+}
+
+void SQLDatabaseWrapper::destroySchema(bool transaction)
+{
+    QStringList tables = listTables();
+
+    auto trans = transaction ? beginDDLTransaction() : SQLTransaction();
+
+    auto dropTablesStartingWith = [&](const QString& prefix) {
+        for (QString table : tables) {
+            if (table.startsWith(prefix)) {
+                dropTableIfExists(table);
+            }
+        }
+    };
+
+    for (auto trigger : listTriggers()) {
+        dropTriggerIfExists(trigger["name"].toString(), trigger["table"].toString());
+    }
+
+    dropTablesStartingWith("clog_");
+    dropTableIfExists("container_part");
+    dropTableIfExists("partlink");
+    dropTableIfExists("container");
+    dropTablesStartingWith("pcatmv_");
+    dropTablesStartingWith("pcatmeta_");
+    dropTablesStartingWith("pcat_");
+    dropTablesStartingWith("partlink_type_");
+    dropTableIfExists("partlink_type");
+    dropTableIfExists("part_category");
+    dropTableIfExists("meta_type");
+    dropTableIfExists("electronicsdb_settings");
 
     trans.commit();
 }

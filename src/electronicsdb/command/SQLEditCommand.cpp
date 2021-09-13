@@ -19,6 +19,8 @@
 
 #include "SQLEditCommand.h"
 
+#include <nxcommon/exception/InvalidValueException.h>
+
 namespace electronicsdb
 {
 
@@ -32,6 +34,20 @@ SQLEditCommand::~SQLEditCommand()
     for (SQLCommand* cmd : cmds) {
         delete cmd;
     }
+}
+
+void SQLEditCommand::addSQLCommand(SQLCommand* cmd)
+{
+    if (!cmds.empty()  &&  cmd->getSQLConnection().connectionName() != cmds[0]->getSQLConnection().connectionName()) {
+        throw InvalidValueException("All components of SQLEditCommand must share the same database connection",
+                                    __FILE__, __LINE__);
+    }
+    cmds << cmd;
+}
+
+QSqlDatabase SQLEditCommand::getSQLDatabase() const
+{
+    return cmds.empty() ? QSqlDatabase() : cmds[0]->getSQLConnection();
 }
 
 void SQLEditCommand::commit()

@@ -36,12 +36,13 @@ public:
     SQLEditCommand();
     ~SQLEditCommand();
 
-    void addSQLCommand(SQLCommand* cmd) { cmds << cmd; }
+    void addSQLCommand(SQLCommand* cmd);
 
     void setDescription(const QString& desc) { this->desc = desc; }
     QString getDescription() const override { return desc; }
 
     bool wantsSQLTransaction() override { return true; }
+    QSqlDatabase getSQLDatabase() const override;
 
     void commit() override;
     void revert() override;

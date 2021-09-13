@@ -82,13 +82,13 @@ PartCategory::PartCategory(const QString& id, const QString& userReadableName, c
     }
 }
 
-PartCategory::PartCategory(const PartCategory& other)
+PartCategory::PartCategory(const PartCategory& other, const QMap<PartPropertyMetaType*, PartPropertyMetaType*>& mtypeMap)
         : id(other.id), userReadableName(other.userReadableName), idField(other.idField),
           descPattern(other.descPattern), sortIdx(other.sortIdx), xapianDb("", Xapian::DB_BACKEND_INMEMORY),
           descPropsDirty(other.descPropsDirty)
 {
     for (PartProperty* otherProp : other.props) {
-        props << new PartProperty(*otherProp, this);
+        props << new PartProperty(*otherProp, this, mtypeMap);
     }
     for (PartProperty* otherDescProp : other.descProps) {
         for (PartProperty* prop : props) {
@@ -107,9 +107,9 @@ PartCategory::~PartCategory()
     }
 }
 
-PartCategory* PartCategory::clone() const
+PartCategory* PartCategory::clone(const QMap<PartPropertyMetaType*, PartPropertyMetaType*>& mtypeMap) const
 {
-    return new PartCategory(*this);
+    return new PartCategory(*this, mtypeMap);
 }
 
 void PartCategory::addProperty(PartProperty* prop)

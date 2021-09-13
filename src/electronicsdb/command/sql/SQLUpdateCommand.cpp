@@ -32,8 +32,8 @@ namespace electronicsdb
 {
 
 
-SQLUpdateCommand::SQLUpdateCommand(const QString& tableName, const QString& idField, dbid_t id)
-        : tableName(tableName), idField(idField), id(id)
+SQLUpdateCommand::SQLUpdateCommand(const QString& tableName, const QString& idField, dbid_t id, const QString& connName)
+        : SQLCommand(connName), tableName(tableName), idField(idField), id(id)
 {
 }
 

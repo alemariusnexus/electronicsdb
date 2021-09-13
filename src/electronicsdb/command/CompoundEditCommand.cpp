@@ -19,6 +19,8 @@
 
 #include "CompoundEditCommand.h"
 
+#include <nxcommon/exception/InvalidValueException.h>
+
 namespace electronicsdb
 {
 
@@ -47,6 +49,11 @@ bool CompoundEditCommand::wantsSQLTransaction()
     return transaction;
 }
 
+QSqlDatabase CompoundEditCommand::getSQLDatabase() const
+{
+    return cmds.empty() ? QSqlDatabase() : cmds[0]->getSQLDatabase();
+}
+
 void CompoundEditCommand::commit()
 {
     for (int i = 0 ; i < cmds.size() ; i++) {
@@ -72,6 +79,10 @@ void CompoundEditCommand::setDescription(const QString& desc)
 
 void CompoundEditCommand::addCommand(EditCommand* cmd)
 {
+    if (!cmds.empty()  &&  cmd->getSQLDatabase().connectionName() != cmds[0]->getSQLDatabase().connectionName()) {
+        throw InvalidValueException("All components of CompoundEditCommand must share the same database connection",
+                                    __FILE__, __LINE__);
+    }
     cmds << cmd;
 }
 

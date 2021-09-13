@@ -111,14 +111,24 @@ PartProperty::PartProperty (
     }
 }
 
-PartProperty::PartProperty(const PartProperty& other, PartCategory* newCat)
-        : cat(newCat), fieldName(other.fieldName), metaType(new PartPropertyMetaType(*other.metaType)),
+PartProperty::PartProperty (
+        const PartProperty& other,
+        PartCategory* newCat,
+        const QMap<PartPropertyMetaType*, PartPropertyMetaType*>& mtypeMap
+)       : cat(newCat), fieldName(other.fieldName), metaType(new PartPropertyMetaType(*other.metaType)),
           sqlAscendingOrderCodeDefault(other.sqlAscendingOrderCodeDefault),
           sqlDescendingOrderCodeDefault(other.sqlDescendingOrderCodeDefault),
           stringStorageMaxLen(other.stringStorageMaxLen),
           intStorageRangeMin(other.intStorageRangeMin), intStorageRangeMax(other.intStorageRangeMax)
 {
     assert(newCat->getID() == other.cat->getID());
+
+    if (metaType->parent) {
+        PartPropertyMetaType* newMtype = mtypeMap[metaType->parent];
+        if (newMtype) {
+            metaType->parent = newMtype;
+        }
+    }
 }
 
 PartProperty::~PartProperty()

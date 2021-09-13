@@ -127,6 +127,7 @@ ADD_SUBDIRECTORY(electronicsdb electronicsdb)
 ADD_SUBDIRECTORY(libhydrogen EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(qsourcehighlite)
 ADD_SUBDIRECTORY(qtplugins)
+ADD_SUBDIRECTORY(zip)
 
 
 CONFIGURE_FILE(electronicsdb/edb_config.cmake.h "${CMAKE_CURRENT_BINARY_DIR}/edb_config.h")

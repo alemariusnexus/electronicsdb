@@ -46,7 +46,7 @@ void PartFactory::loadItemsSingleCategory(Iterator beg, Iterator end, int flags,
         return;
     }
 
-    QSqlDatabase db = QSqlDatabase::database();
+    QSqlDatabase db = getSQLDatabase();
     std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
 
     Part& firstPart = *beg;
@@ -170,7 +170,7 @@ void PartFactory::loadItemsSingleCategory (
     System* sys = System::getInstance();
     PartContainerFactory& contFactory = PartContainerFactory::getInstance();
 
-    QSqlDatabase db = QSqlDatabase::database();
+    QSqlDatabase db = getSQLDatabase();
     std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
 
     QSqlQuery query(db);
@@ -459,6 +459,8 @@ EditCommand* PartFactory::insertItemsCmd(Iterator beg, Iterator end)
     }
     checkDatabaseConnection();
 
+    QSqlDatabase db = getSQLDatabase();
+
     SQLEditCommand* editCmd = new SQLEditCommand;
 
     QMap<PartCategory*, QList<std::reference_wrapper<Part>>> partsByCat;
@@ -495,7 +497,8 @@ EditCommand* PartFactory::insertItemsCmd(Iterator beg, Iterator end)
         auto& data = it.value();
         auto& parts = partsByCat[pcat];
 
-        SQLInsertCommand* baseCmd = new SQLInsertCommand(pcat->getTableName(), pcat->getIDField(), data);
+        SQLInsertCommand* baseCmd = new SQLInsertCommand(pcat->getTableName(), pcat->getIDField(), data,
+                                                         db.connectionName());
 
         addIDInsertListener(baseCmd, parts.begin(), parts.end(), [this, editCmd, pcat](auto beg, auto end) {
             applyMultiValueProps(editCmd, pcat, beg, end);
@@ -516,6 +519,8 @@ EditCommand* PartFactory::updateItemsCmd(Iterator beg, Iterator end)
     }
     checkDatabaseConnection();
 
+    QSqlDatabase db = getSQLDatabase();
+
     SQLEditCommand* editCmd = new SQLEditCommand;
 
     QMap<PartCategory*, PartList> dirtyPartsByCat;
@@ -529,7 +534,8 @@ EditCommand* PartFactory::updateItemsCmd(Iterator beg, Iterator end)
         PartCategory* pcat = const_cast<PartCategory*>(part.getPartCategory());
 
         if (part.isDirty()) {
-            SQLUpdateCommand* updCmd = new SQLUpdateCommand(pcat->getTableName(), pcat->getIDField(), part.getID());
+            SQLUpdateCommand* updCmd = new SQLUpdateCommand(pcat->getTableName(), pcat->getIDField(), part.getID(),
+                                                            db.connectionName());
 
             for (PartProperty* prop : pcat->getProperties()) {
                 if (!part.isDataLoaded(prop)) {
@@ -570,6 +576,8 @@ EditCommand* PartFactory::deleteItemsCmd(Iterator beg, Iterator end)
     }
     checkDatabaseConnection();
 
+    QSqlDatabase db = getSQLDatabase();
+
     SQLEditCommand* editCmd = new SQLEditCommand;
 
     QMap<PartCategory*, QList<dbid_t>> partIDsByCat;
@@ -597,12 +605,14 @@ EditCommand* PartFactory::deleteItemsCmd(Iterator beg, Iterator end)
             if ((prop->getFlags() & PartProperty::MultiValue) != 0) {
                 SQLDeleteCommand* mvDelCmd = new SQLDeleteCommand(prop->getMultiValueForeignTableName(),
                                                                   prop->getMultiValueIDFieldName(),
-                                                                  ids);
+                                                                  ids,
+                                                                  db.connectionName());
                 editCmd->addSQLCommand(mvDelCmd);
             }
         }
 
-        SQLDeleteCommand* delCmd = new SQLDeleteCommand(pcat->getTableName(), pcat->getIDField(), ids);
+        SQLDeleteCommand* delCmd = new SQLDeleteCommand(pcat->getTableName(), pcat->getIDField(), ids,
+                                                        db.connectionName());
         editCmd->addSQLCommand(delCmd);
     }
 
@@ -615,6 +625,8 @@ void PartFactory::applyMultiValueProps (
         PartCategory* pcat,
         Iterator beg, Iterator end
 ) {
+    QSqlDatabase db = getSQLDatabase();
+
     for (PartProperty* prop : pcat->getProperties()) {
         if ((prop->getFlags() & PartProperty::MultiValue) == 0) {
             continue;
@@ -646,12 +658,14 @@ void PartFactory::applyMultiValueProps (
 
         SQLDeleteCommand* delCmd = new SQLDeleteCommand(prop->getMultiValueForeignTableName(),
                                                         prop->getMultiValueIDFieldName(),
-                                                        mvIDs);
+                                                        mvIDs,
+                                                        db.connectionName());
         editCmd->addSQLCommand(delCmd);
 
         SQLInsertCommand* insCmd = new SQLInsertCommand(prop->getMultiValueForeignTableName(),
                                                         "id",
-                                                        mvData);
+                                                        mvData,
+                                                        db.connectionName());
         editCmd->addSQLCommand(insCmd);
     }
 }

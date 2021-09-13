@@ -21,42 +21,46 @@
 
 #include "../global.h"
 
-#include <functional>
 #include <QSqlDatabase>
-#include <QString>
+#include "../db/DatabaseConnection.h"
 
 namespace electronicsdb
 {
 
 
-class EditCommand
+class DatabaseMigrator : public QObject
 {
-public:
-    enum Event
-    {
-        EventInvalid,
+    Q_OBJECT
 
-        EventCommit,
-        EventRevert
+public:
+    enum MigrationFlags
+    {
+        MigrateStaticModel      = 0x01,
+        MigrateDynamicModel     = 0x02,
+
+        MigrateAll              = MigrateStaticModel | MigrateDynamicModel
     };
 
-    using EventListener = std::function<void (Event)>;
+    enum BackupFlags
+    {
+        BackupDatabase          = 0x01,
+        BackupFiles             = 0x02,
+
+        BackupAll               = BackupDatabase | BackupFiles
+    };
 
 public:
-    virtual ~EditCommand() {}
+    void migrateTo(DatabaseConnection* srcConn, DatabaseConnection* destConn, int flags);
 
-    virtual QString getDescription() const = 0;
-
-    virtual bool wantsSQLTransaction() { return false; }
-    virtual QSqlDatabase getSQLDatabase() const { return QSqlDatabase(); }
-
-    virtual void commit();
-    virtual void revert();
-
-    void setListener(const EventListener& l) { evtListener = l; }
+    void backupCurrentDatabase(const QString& destFile, int flags);
 
 private:
-    EventListener evtListener;
+    void doMigrateTo(DatabaseConnection* srcConn, DatabaseConnection* destConn, int flags,
+            int& progressCur, int& progressMax);
+
+
+signals:
+    void progressChanged(const QString& statusMsg, int progressCur, int progressMax);
 };
 
 

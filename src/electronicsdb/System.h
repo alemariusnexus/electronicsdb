@@ -143,6 +143,7 @@ public:
     QColor getAppPaletteColor(int type) const;
 
     void showDatabaseCorruptionWarningDialog(QWidget* parent = nullptr);
+    void showFirstRunDialog(QWidget* parent = nullptr);
 
 public slots:
     void quit();

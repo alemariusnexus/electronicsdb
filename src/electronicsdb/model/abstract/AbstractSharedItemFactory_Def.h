@@ -22,6 +22,7 @@
 #include "../../global.h"
 
 #include <QObject>
+#include <QSqlDatabase>
 #include "../../command/sql/SQLInsertCommand.h"
 #include "../../command/EditCommand.h"
 #include "../../command/SQLEditCommand.h"
@@ -46,6 +47,13 @@ protected:
     };
 
 public:
+    void setDatabaseConnectionName(const QString& connName) { dbConnName = connName; }
+
+    QSqlDatabase getSQLDatabase() const
+    {
+        return QSqlDatabase::database(dbConnName.isNull() ? QSqlDatabase::defaultConnection : dbConnName);
+    }
+
     template <typename Iterator>
     void insertItems(Iterator beg, Iterator end)
             { applyCommand(static_cast<Derived*>(this)->insertItemsCmd(beg, end)); }
@@ -90,6 +98,9 @@ protected:
 
     template <typename Iterator, typename FuncT>
     void addIDInsertListener(SQLInsertCommand* cmd, Iterator beg, Iterator end, const FuncT& listener) const;
+
+private:
+    QString dbConnName;
 };
 
 

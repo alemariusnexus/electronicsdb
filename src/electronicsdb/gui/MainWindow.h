@@ -105,6 +105,7 @@ private slots:
     void connectRequested();
     void connectProfileRequested();
     void disconnectRequested();
+    void backupRequested();
 
     void addContainerWidgetRequested();
     void nextContainerRequested();
@@ -114,6 +115,7 @@ private slots:
     void settingsRequested();
     void editPcatsRequested();
     void editLtypesRequested();
+    void dbMigrationRequested();
 
     void langChangeRequested();
     void aboutRequested();

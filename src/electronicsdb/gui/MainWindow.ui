@@ -25,7 +25,7 @@
      <x>0</x>
      <y>0</y>
      <width>1150</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuDatabase">
@@ -43,6 +43,7 @@
     <addaction name="disconnectAction"/>
     <addaction name="separator"/>
     <addaction name="saveAction"/>
+    <addaction name="backupAction"/>
     <addaction name="separator"/>
     <addaction name="quitAction"/>
    </widget>
@@ -59,6 +60,7 @@
     </widget>
     <addaction name="settingsAction"/>
     <addaction name="menuStatic_Model"/>
+    <addaction name="dbMigrationAction"/>
    </widget>
    <widget class="QMenu" name="menuEdit">
     <property name="title">
@@ -210,6 +212,27 @@
    </property>
    <property name="shortcut">
     <string notr="true">Ctrl+C</string>
+   </property>
+  </action>
+  <action name="dbMigrationAction">
+   <property name="text">
+    <string>Database Migration...</string>
+   </property>
+   <property name="shortcut">
+    <string notr="true">Ctrl+M</string>
+   </property>
+  </action>
+  <action name="actionBackup">
+   <property name="text">
+    <string>Backup...</string>
+   </property>
+  </action>
+  <action name="backupAction">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Backup...</string>
    </property>
   </action>
  </widget>

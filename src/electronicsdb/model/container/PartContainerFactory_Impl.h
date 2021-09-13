@@ -102,7 +102,7 @@ void PartContainerFactory::loadItems (
     System* sys = System::getInstance();
     PartFactory& partFactory = PartFactory::getInstance();
 
-    QSqlDatabase db = QSqlDatabase::database();
+    QSqlDatabase db = getSQLDatabase();
     std::unique_ptr<SQLDatabaseWrapper> dbw(SQLDatabaseWrapperFactory::getInstance().create(db));
 
     QString moreFields;
@@ -170,6 +170,8 @@ EditCommand* PartContainerFactory::insertItemsCmd(Iterator beg, Iterator end)
     }
     checkDatabaseConnection();
 
+    QSqlDatabase db = getSQLDatabase();
+
     SQLEditCommand* editCmd = new SQLEditCommand;
 
     QList<QMap<QString, QVariant>> insData;
@@ -189,7 +191,7 @@ EditCommand* PartContainerFactory::insertItemsCmd(Iterator beg, Iterator end)
         insData << d;
     }
 
-    SQLInsertCommand* insCmd = new SQLInsertCommand("container", "id", insData);
+    SQLInsertCommand* insCmd = new SQLInsertCommand("container", "id", insData, db.connectionName());
     addIDInsertListener(insCmd, beg, end, [this, editCmd](auto beg, auto end) {
         // Insert assocs
         applyAssocChanges(beg, end, editCmd, ApplyAssocTypeInsert);
@@ -207,6 +209,8 @@ EditCommand* PartContainerFactory::updateItemsCmd(Iterator beg, Iterator end)
     }
     checkDatabaseConnection();
 
+    QSqlDatabase db = getSQLDatabase();
+
     SQLEditCommand* editCmd = new SQLEditCommand;
 
     for (auto it = beg ; it != end ; ++it) {
@@ -216,7 +220,8 @@ EditCommand* PartContainerFactory::updateItemsCmd(Iterator beg, Iterator end)
         assert(cont.hasID());
 
         if (cont.isDirty()) {
-            SQLUpdateCommand* updCmd = new SQLUpdateCommand("container", "id", cont.getID());
+            SQLUpdateCommand* updCmd = new SQLUpdateCommand("container", "id", cont.getID(),
+                                                            db.connectionName());
 
             if (cont.isNameLoaded()) {
                 updCmd->addFieldValue("name", cont.getName());
@@ -240,6 +245,8 @@ EditCommand* PartContainerFactory::deleteItemsCmd(Iterator beg, Iterator end)
     }
     checkDatabaseConnection();
 
+    QSqlDatabase db = getSQLDatabase();
+
     SQLEditCommand* editCmd = new SQLEditCommand;
 
     QList<dbid_t> ids;
@@ -255,7 +262,7 @@ EditCommand* PartContainerFactory::deleteItemsCmd(Iterator beg, Iterator end)
 
     applyAssocChanges(beg, end, editCmd, ApplyAssocTypeDelete);
 
-    SQLDeleteCommand* delCmd = new SQLDeleteCommand("container", "id", ids);
+    SQLDeleteCommand* delCmd = new SQLDeleteCommand("container", "id", ids, db.connectionName());
     editCmd->addSQLCommand(delCmd);
 
     return editCmd;

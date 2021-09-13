@@ -185,7 +185,7 @@ void PartCategoryWidget::aboutToQuit()
 {
     QSettings s;
 
-    s.beginGroup(QString("ggui/part_category_widget/%1").arg(partCat->getTableName()));
+    s.beginGroup(QString("gui/part_category_widget/%1").arg(partCat->getTableName()));
 
     s.setValue("main_splitter_state", mainSplitter->saveState());
     s.setValue("display_splitter_state", displaySplitter->saveState());

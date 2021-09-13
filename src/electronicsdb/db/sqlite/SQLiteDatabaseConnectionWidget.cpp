@@ -44,8 +44,8 @@ SQLiteDatabaseConnectionWidget::SQLiteDatabaseConnectionWidget (
 
 void SQLiteDatabaseConnectionWidget::onDbFileChoose()
 {
-    QString fpath = QFileDialog::getOpenFileName(this, tr("Choose a database file"), ui.dbFileEdit->text(),
-            tr("SQLite Databases (*.db *.sqlite)"));
+    QString fpath = QFileDialog::getSaveFileName(this, tr("Choose a database file"), ui.dbFileEdit->text(),
+            tr("SQLite Databases (*.db *.sqlite)"), nullptr, QFileDialog::DontConfirmOverwrite);
     if (fpath.isNull())
         return;
     setDatabaseFile(fpath);

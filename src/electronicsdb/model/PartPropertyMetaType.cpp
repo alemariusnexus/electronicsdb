@@ -25,6 +25,22 @@ namespace electronicsdb
 {
 
 
+QList<PartPropertyMetaType*> PartPropertyMetaType::cloneDeep(const QList<PartPropertyMetaType*>& mtypes)
+{
+    QList<PartPropertyMetaType*> clones;
+
+    for (PartPropertyMetaType* mtype : mtypes) {
+        clones << new PartPropertyMetaType(*mtype);
+    }
+
+    for (PartPropertyMetaType* cloned : clones) {
+        cloned->parent = cloned->parent ? clones[mtypes.indexOf(cloned->parent)] : nullptr;
+    }
+
+    return clones;
+}
+
+
 PartPropertyMetaType::PartPropertyMetaType (
         const QString& metaTypeID,
         PartProperty::Type coreType,
