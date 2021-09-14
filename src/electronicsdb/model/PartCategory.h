@@ -100,10 +100,15 @@ public:
 private:
     PartCategory(const PartCategory& other, const QMap<PartPropertyMetaType*, PartPropertyMetaType*>& mtypeMap);
 
+    void init();
+
     void rebuildFullTextIndex(bool fullRebuild, const PartList& parts);
     PartList findInternal(Filter* filter, size_t offset, size_t numResults, size_t* countOnlyOut = nullptr);
 
     void notifyPropertyOrderChanged();
+
+private slots:
+    void partsChanged(const PartList& inserted, const PartList& updated, const PartList& deleted);
 
 private:
     QString id;

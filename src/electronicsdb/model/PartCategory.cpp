@@ -80,6 +80,8 @@ PartCategory::PartCategory(const QString& id, const QString& userReadableName, c
         throw InvalidValueException(QString("Invalid part category ID: %1").arg(id).toUtf8().constData(),
                                     __FILE__, __LINE__);
     }
+
+    init();
 }
 
 PartCategory::PartCategory(const PartCategory& other, const QMap<PartPropertyMetaType*, PartPropertyMetaType*>& mtypeMap)
@@ -98,6 +100,8 @@ PartCategory::PartCategory(const PartCategory& other, const QMap<PartPropertyMet
             }
         }
     }
+
+    init();
 }
 
 PartCategory::~PartCategory()
@@ -105,6 +109,11 @@ PartCategory::~PartCategory()
     for (PartProperty* prop : props) {
         delete prop;
     }
+}
+
+void PartCategory::init()
+{
+    connect(&PartFactory::getInstance(), &PartFactory::partsChanged, this, &PartCategory::partsChanged);
 }
 
 PartCategory* PartCategory::clone(const QMap<PartPropertyMetaType*, PartPropertyMetaType*>& mtypeMap) const
@@ -183,7 +192,7 @@ void PartCategory::rebuildFullTextIndex(bool fullRebuild, const PartList& argPar
                 partsEnd = parts.end();
             } else {
                 partsBeg = parts.begin() + offset;
-                partsEnd = partsBeg + limit;
+                partsEnd = partsBeg + std::min(limit, static_cast<size_t>(parts.end()-partsBeg));
                 PartFactory::getInstance().loadItemsSingleCategory(partsBeg, partsEnd, 0, ftProps);
             }
 
@@ -611,6 +620,26 @@ void PartCategory::notifyPropertyOrderChanged()
         return a->getSortIndex() < b->getSortIndex();
     });
     props = newProps;
+}
+
+void PartCategory::partsChanged(const PartList& inserted, const PartList& updated, const PartList& deleted)
+{
+    // TODO: Maybe remove deleted ones from the index
+
+    PartList ftiRebuildParts;
+
+    for (const Part& part : inserted) {
+        if (part.getPartCategory() == this) {
+            ftiRebuildParts << part;
+        }
+    }
+    for (const Part& part : updated) {
+        if (part.getPartCategory() == this) {
+            ftiRebuildParts << part;
+        }
+    }
+
+    updateFullTextIndex(ftiRebuildParts);
 }
 
 
