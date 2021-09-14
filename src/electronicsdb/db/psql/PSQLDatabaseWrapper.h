@@ -61,6 +61,7 @@ public:
             SQLEvent triggerEvt,
             const QString& body
             ) override;
+    void adjustAutoIncrementColumn(const QString& tableName, const QString& colName) override;
 
     QList<DatabaseType> getSupportedDatabaseTypes() override;
     QString generateIntPrimaryKeyCode(const QString& fieldName) override;

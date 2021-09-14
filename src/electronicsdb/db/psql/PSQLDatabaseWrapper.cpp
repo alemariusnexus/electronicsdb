@@ -257,6 +257,16 @@ void PSQLDatabaseWrapper::createRowTrigger (
             QString("Error creating trigger '%1'").arg(triggerName));
 }
 
+void PSQLDatabaseWrapper::adjustAutoIncrementColumn(const QString& tableName, const QString& colName)
+{
+    execAndCheckQuery(QString(
+            "SELECT setval(%1, (SELECT MAX(%3) FROM %2))"
+            ).arg(escapeString(QString("%1_%2_seq").arg(tableName, colName)),
+                  escapeIdentifier(tableName),
+                  escapeIdentifier(colName)),
+            "Error adjusting sequence value");
+}
+
 void PSQLDatabaseWrapper::createIndexIfNotExists(const QString& table, const QString& column)
 {
     checkDatabaseValid();

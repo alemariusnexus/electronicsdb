@@ -117,6 +117,7 @@ public:
             SQLEvent triggerEvt,
             const QString& body
             );
+    virtual void adjustAutoIncrementColumn(const QString& tableName, const QString& colName) {}
 
     virtual void execAndCheckQuery(QSqlQuery& query, const QString& queryStr, const QString& errmsg = QString());
     virtual void execAndCheckPreparedQuery(QSqlQuery& query, const QString& errmsg = QString());

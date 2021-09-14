@@ -190,6 +190,8 @@ void DatabaseMigrator::doMigrateTo (
             insCmd->commit();
             delete insCmd;
 
+            destDbw->adjustAutoIncrementColumn("container", "id");
+
             contFact.setDatabaseConnectionName(QString());
         } catch (std::exception&) {
             contFact.setDatabaseConnectionName(QString());
@@ -212,6 +214,8 @@ void DatabaseMigrator::doMigrateTo (
                 EditCommand* insCmd = partFact.insertItemsCmd(parts.begin(), parts.end());
                 insCmd->commit();
                 delete insCmd;
+
+                destDbw->adjustAutoIncrementColumn(pcat->getTableName(), pcat->getIDField());
 
                 partFact.setDatabaseConnectionName(QString());
             } catch (std::exception& ex) {
