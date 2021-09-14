@@ -128,6 +128,8 @@ public:
     );
     ~PartProperty();
 
+    QString getConfigID() const override { return fieldName; }
+
     PartCategory* getPartCategory() { return cat; }
 
     void setFieldName(const QString& fieldName);

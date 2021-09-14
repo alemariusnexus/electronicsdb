@@ -954,8 +954,8 @@ QStringList StaticModelManager::generateCategoryEditCode (
     };
 
     if (oldPcat->getID() == pcat->getID()) {
-        editDifferentID(oldPcat, oldPcat->getID(), pcat, "__temp_id");
-        editDifferentID(pcat, "__temp_id", pcat, pcat->getID());
+        editDifferentID(oldPcat, oldPcat->getID(), oldPcat, "__temp_id");
+        editDifferentID(oldPcat, "__temp_id", pcat, pcat->getID());
     } else {
         editDifferentID(oldPcat, oldPcat->getID(), pcat, pcat->getID());
     }

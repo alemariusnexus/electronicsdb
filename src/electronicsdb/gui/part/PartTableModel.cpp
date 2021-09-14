@@ -227,8 +227,12 @@ QVariant PartTableModel::headerData(int section, Qt::Orientation orient, int rol
 {
     if (orient != Qt::Horizontal)
         return QVariant();
-    if (role != Qt::DisplayRole)
+    if (role != Qt::DisplayRole  &&  role != Qt::TextAlignmentRole)
         return QVariant();
+
+    if (role == Qt::TextAlignmentRole) {
+        return Qt::AlignLeft;
+    }
 
     if (section == 0) {
         return tr("ID");

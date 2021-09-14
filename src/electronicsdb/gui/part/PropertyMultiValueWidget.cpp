@@ -26,6 +26,7 @@
 #include <QVBoxLayout>
 #include <nxcommon/exception/InvalidValueException.h>
 #include "../../System.h"
+#include "../GUIStatePersister.h"
 #include "ChoosePartDialog.h"
 
 namespace electronicsdb
@@ -41,9 +42,11 @@ PropertyMultiValueWidget::PropertyMultiValueWidget (
 
 
     QVBoxLayout* topLayout = new QVBoxLayout(this);
+    topLayout->setContentsMargins(0, 0, 0, 0);
     setLayout(topLayout);
 
     QSplitter* splitter = new QSplitter(Qt::Horizontal, this);
+    splitter->setObjectName("mainSplitter");
     topLayout->addWidget(splitter);
 
     QWidget* listContWidget = new QWidget(splitter);
@@ -144,6 +147,9 @@ PropertyMultiValueWidget::PropertyMultiValueWidget (
     } else {
         assert(false);
     }
+
+    QString cfgGroup = QString("gui/property_mv_widget/%1/%2").arg(pcat->getID(), aprop->getConfigID());
+    GUIStatePersister::getInstance().registerSplitter(cfgGroup, splitter);
 
     applyState();
 }

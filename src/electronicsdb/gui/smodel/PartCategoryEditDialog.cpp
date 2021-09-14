@@ -571,6 +571,8 @@ void PartCategoryEditDialog::addProp(PartProperty* prop)
 
     ui.propList->setCurrentItem(item);
 
+    propListOrderChanged();
+
     PCatEntry* entry = editPcat(prop->getPartCategory());
     if (entry) {
         entry->update();
@@ -585,6 +587,8 @@ void PartCategoryEditDialog::removeProp(PartProperty* prop)
 
     removePropListEntry(prop);
     curPcat->removeProperty(prop);
+
+    propListOrderChanged();
 
     PCatEntry* entry = editPcat(pcat);
     if (entry) {
@@ -958,6 +962,9 @@ void PartCategoryEditDialog::applyPcatChanges()
         } else {
             prop->setSQLDescendingOrderCode(ui.propSQLOrderCodeDescEdit->text());
         }
+
+        QListWidgetItem* item = ui.propList->item(getPropListRow(prop));
+        updatePropListItem(prop, item);
     }
 
     QSet<QString> takenPropIDs;

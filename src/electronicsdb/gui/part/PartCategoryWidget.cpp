@@ -30,6 +30,7 @@
 #include "../../exception/SQLException.h"
 #include "../../model/part/PartFactory.h"
 #include "../../System.h"
+#include "../GUIStatePersister.h"
 
 namespace electronicsdb
 {
@@ -47,6 +48,7 @@ PartCategoryWidget::PartCategoryWidget(PartCategory* partCat, QWidget* parent)
     setLayout(topLayout);
 
     mainSplitter = new QSplitter(Qt::Vertical, this);
+    mainSplitter->setObjectName("mainSplitter");
     topLayout->addWidget(mainSplitter);
 
 
@@ -68,10 +70,12 @@ PartCategoryWidget::PartCategoryWidget(PartCategory* partCat, QWidget* parent)
     QHBoxLayout* displayContLayout = new QHBoxLayout(displayContWidget);
     cm = displayContLayout->contentsMargins();
     displayContLayout->setContentsMargins(cm.left(), cm.top(), cm.right(), 0);
+    displayContLayout->setContentsMargins(0, 0, 0, 0);
     displayContWidget->setLayout(displayContLayout);
 
 
     displaySplitter = new QSplitter(Qt::Horizontal, displayContWidget);
+    displaySplitter->setObjectName("displaySplitter");
     displayContLayout->addWidget(displaySplitter);
 
     QWidget* listingWidget = new QWidget(displaySplitter);
@@ -123,7 +127,8 @@ PartCategoryWidget::PartCategoryWidget(PartCategory* partCat, QWidget* parent)
     listingButtonLayout->addStretch(1);
 
 
-    QGroupBox* detailWidget = new QGroupBox(tr("Part Details"), displaySplitter);
+    //QGroupBox* detailWidget = new QGroupBox(tr("Part Details"), displaySplitter);
+    QWidget* detailWidget = new QWidget(displaySplitter);
     displaySplitter->addWidget(detailWidget);
 
     QVBoxLayout* detailLayout = new QVBoxLayout(detailWidget);
@@ -147,17 +152,10 @@ PartCategoryWidget::PartCategoryWidget(PartCategory* partCat, QWidget* parent)
     mainSplitter->setStretchFactor(1, 1);
 
 
-    QSettings s;
+    QString cfgGroup = QString("gui/part_category_widget/%1").arg(partCat->getID());
 
-    s.beginGroup(QString("gui/part_category_widget/%1").arg(partCat->getTableName()));
-
-    mainSplitter->restoreState(s.value("main_splitter_state").toByteArray());
-    displaySplitter->restoreState(s.value("display_splitter_state").toByteArray());
-
-    s.endGroup();
-
-
-    connect(qApp, &QApplication::aboutToQuit, this, &PartCategoryWidget::aboutToQuit);
+    GUIStatePersister::getInstance().registerSplitter(cfgGroup, mainSplitter);
+    GUIStatePersister::getInstance().registerSplitter(cfgGroup, displaySplitter);
 
     populateDatabaseDependentUI();
 }
@@ -178,19 +176,6 @@ void PartCategoryWidget::setDisplayFlags(flags_t flags)
         recordRemoveButton->show();
         recordDuplicateButton->show();
     }
-}
-
-
-void PartCategoryWidget::aboutToQuit()
-{
-    QSettings s;
-
-    s.beginGroup(QString("gui/part_category_widget/%1").arg(partCat->getTableName()));
-
-    s.setValue("main_splitter_state", mainSplitter->saveState());
-    s.setValue("display_splitter_state", displaySplitter->saveState());
-
-    s.endGroup();
 }
 
 

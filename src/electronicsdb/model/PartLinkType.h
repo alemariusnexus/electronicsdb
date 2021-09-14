@@ -84,6 +84,8 @@ public:
     PartLinkType* clone() const;
     PartLinkType* cloneWithMappedCategories(const QMap<PartCategory*, PartCategory*>& pcatMap) const;
 
+    QString getConfigID() const override { return QString("ltype_%1").arg(id); }
+
     QString getID() const { return id; }
     void setID(const QString& id);
 

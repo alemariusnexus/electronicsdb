@@ -54,7 +54,6 @@ private:
     void updateButtonStates();
 
 private slots:
-    void aboutToQuit();
     void listingCurrentPartChanged(const Part& part);
     void listingPartActivated(const Part& part);
     void listingAddPartRequested();

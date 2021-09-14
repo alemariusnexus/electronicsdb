@@ -37,6 +37,8 @@ public:
     AbstractPartProperty(const AbstractPartProperty& other);
     virtual ~AbstractPartProperty();
 
+    virtual QString getConfigID() const = 0;
+
     virtual int getSortIndexInCategory(PartCategory* pcat) const = 0;
     virtual void setSortIndexInCategory(PartCategory* pcat, int sortIdx) = 0;
 };
