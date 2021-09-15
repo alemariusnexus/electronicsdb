@@ -136,7 +136,8 @@ public:
     const QVariant& getData(PartProperty* prop) const;
     const DataMap& getData() const { checkValid(); return d->data; }
     void setData(PartProperty* prop, const QVariant& value);
-    void setData(const DataMap& data) { checkValid(); d->data = data; d->flags |= FlagDirty; }
+    void setData(const DataMap& data)
+            { checkValid(); d->data = data; d->description = QString(); d->flags |= FlagDirty; }
 
     void clearDirty() const { checkValid(); const_cast<Part*>(this)->d->flags &= ~FlagDirty; }
     bool isDirty() const { checkValid(); return (d->flags & FlagDirty) != 0; }

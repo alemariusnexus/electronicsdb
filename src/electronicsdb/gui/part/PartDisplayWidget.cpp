@@ -121,6 +121,7 @@ PartDisplayWidget::PartDisplayWidget(PartCategory* partCat, QWidget* parent)
     formLayout->addRow(tr("Part ID"), partIdLabel);
 
     partContainersLabel = new QLabel(tr("-"));
+    partContainersLabel->setWordWrap(true);
     connect(partContainersLabel, &QLabel::linkActivated, this, &PartDisplayWidget::containerLinkActivated);
     formLayout->addRow(tr("Associated Containers"), partContainersLabel);
 
@@ -327,6 +328,9 @@ void PartDisplayWidget::setDisplayedPart(const Part& part)
 
         QString contStr("");
         for (const PartContainer& cont : conts) {
+            if (!contStr.isEmpty()) {
+                contStr += ", ";
+            }
             contStr += QString("<a href=\"%1\">%2</a>").arg(cont.getID()).arg(cont.getName());
         }
         if (contStr.isEmpty()) {
@@ -650,7 +654,7 @@ QString PartDisplayWidget::handleFile(PartProperty* prop, const QString& fpath)
 
     QString relPath = rootDir.relativeFilePath(fpath);
 
-    if (relPath.startsWith("../")) {
+    if (relPath.startsWith("../")  ||  QFileInfo(relPath).isAbsolute()) {
         if (fpathInfo.exists()  &&  fpathInfo.isFile()) {
             QMessageBox::StandardButton b = QMessageBox::question(this, tr("Copy File?"),
                     tr(	"The file you specified for property '%1' does not seem to be inside the current file root directory. "
