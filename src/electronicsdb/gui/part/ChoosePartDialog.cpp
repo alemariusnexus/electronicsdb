@@ -38,10 +38,10 @@ ChoosePartDialog::ChoosePartDialog(PartCategory* partCat, QWidget* parent)
     QVBoxLayout* chooseLayout = new QVBoxLayout(this);
     setLayout(chooseLayout);
 
-    PartCategoryWidget* chooseWidget = new PartCategoryWidget(partCat, this);
-    chooseWidget->setDisplayFlags(ChoosePart);
-    connect(chooseWidget, &PartCategoryWidget::partChosen, this, &ChoosePartDialog::partChosen);
-    chooseLayout->addWidget(chooseWidget);
+    pcatWidget = new PartCategoryWidget(partCat, this);
+    pcatWidget->setDisplayFlags(ChoosePart);
+    connect(pcatWidget, &PartCategoryWidget::partChosen, this, &ChoosePartDialog::partChosen);
+    chooseLayout->addWidget(pcatWidget);
 
 
     QSettings s;
@@ -50,7 +50,6 @@ ChoosePartDialog::ChoosePartDialog(PartCategory* partCat, QWidget* parent)
     restoreGeometry(s.value("geometry").toByteArray());
     s.endGroup();
 }
-
 
 ChoosePartDialog::~ChoosePartDialog()
 {
@@ -61,6 +60,10 @@ ChoosePartDialog::~ChoosePartDialog()
     s.endGroup();
 }
 
+PartList ChoosePartDialog::getSelectedParts() const
+{
+    return pcatWidget->getSelectedParts();
+}
 
 void ChoosePartDialog::partChosen(const Part& part)
 {

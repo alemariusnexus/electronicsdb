@@ -27,6 +27,8 @@
 namespace electronicsdb
 {
 
+class PartCategoryWidget;
+
 
 class ChoosePartDialog : public QDialog
 {
@@ -36,11 +38,14 @@ public:
     ChoosePartDialog(PartCategory* partCat, QWidget* parent = nullptr);
     ~ChoosePartDialog();
     Part getChosenPart() const { return chosenPart; }
+    PartList getSelectedParts() const;
 
 private slots:
     void partChosen(const Part& part);
 
 private:
+    PartCategoryWidget* pcatWidget;
+
     PartCategory* partCat;
     Part chosenPart;
 };

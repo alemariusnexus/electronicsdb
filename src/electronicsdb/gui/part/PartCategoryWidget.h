@@ -45,6 +45,7 @@ public:
     PartDisplayWidget* getPartDisplayWidget() { return displayWidget; }
     void jumpToPart(const Part& part);
     void setDisplayFlags(flags_t flags);
+    PartList getSelectedParts() const;
 
 public slots:
     void gotoPreviousPart();

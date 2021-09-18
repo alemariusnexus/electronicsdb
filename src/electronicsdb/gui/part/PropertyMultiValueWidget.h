@@ -59,6 +59,7 @@ public:
 
 private:
     void applyState();
+    void updateLinkListItem(QListWidgetItem* item);
 
 private slots:
     void currentItemChanged(QListWidgetItem* newItem, QListWidgetItem* oldItem);

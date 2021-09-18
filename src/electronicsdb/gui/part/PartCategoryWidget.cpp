@@ -179,6 +179,12 @@ void PartCategoryWidget::setDisplayFlags(flags_t flags)
 }
 
 
+PartList PartCategoryWidget::getSelectedParts() const
+{
+    return listingTable->getSelectedParts();
+}
+
+
 void PartCategoryWidget::filterApplied()
 {
     filterWidget->readFilter(filter);

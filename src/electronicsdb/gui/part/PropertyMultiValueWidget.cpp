@@ -25,6 +25,7 @@
 #include <QSplitter>
 #include <QVBoxLayout>
 #include <nxcommon/exception/InvalidValueException.h>
+#include "../../model/part/PartFactory.h"
 #include "../../System.h"
 #include "../GUIStatePersister.h"
 #include "ChoosePartDialog.h"
@@ -332,6 +333,26 @@ void PropertyMultiValueWidget::applyState()
 }
 
 
+void PropertyMultiValueWidget::updateLinkListItem(QListWidgetItem* item)
+{
+    QString displayStr = tr("(Invalid)");
+
+    QVariant vdata = item->data(Qt::UserRole);
+    Part lpart;
+    if (!vdata.isNull()) {
+        lpart = vdata.value<Part>();
+    }
+
+    if (    lpart.isValid()  &&  lpart.hasID()
+        &&  lpart.isDataLoaded(lpart.getPartCategory()->getDescriptionProperties())
+    ) {
+        displayStr = lpart.getDescription();
+    }
+
+    item->setText(displayStr);
+}
+
+
 void PropertyMultiValueWidget::currentItemChanged(QListWidgetItem* newItem, QListWidgetItem* oldItem)
 {
     PartProperty* prop = dynamic_cast<PartProperty*>(aprop);
@@ -436,11 +457,21 @@ void PropertyMultiValueWidget::addRequested()
         if (candPcats.size() == 1) {
             ChoosePartDialog dlg(candPcats[0], this);
             if (dlg.exec() == ChoosePartDialog::Accepted) {
-                QListWidgetItem* item = new QListWidgetItem(tr("(Invalid)"), listWidget);
-                QVariant udata;
-                udata.setValue(dlg.getChosenPart());
-                item->setData(Qt::UserRole, udata);
-                listWidget->setCurrentItem(item);
+                PartList parts = dlg.getSelectedParts();
+
+                QListWidgetItem* lastItem = nullptr;
+                for (const Part& part : parts) {
+                    QListWidgetItem* item = new QListWidgetItem(tr("(Invalid)"), listWidget);
+                    lastItem = item;
+                    QVariant udata;
+                    udata.setValue(part);
+                    item->setData(Qt::UserRole, udata);
+                    updateLinkListItem(item);
+                }
+
+                if (lastItem) {
+                    listWidget->setCurrentItem(lastItem);
+                }
             }
         } else {
             QListWidgetItem* item = new QListWidgetItem(tr("(Invalid)"), listWidget);
@@ -539,22 +570,13 @@ void PropertyMultiValueWidget::linkWidgetChangedByUser()
     }
 
     Part lpart = linkWidget->getLinkedPart();
-
-    QString displayStr = tr("(Invalid)");
-
-    if (    lpart.isValid()  &&  lpart.hasID()
-        &&  lpart.isDataLoaded(lpart.getPartCategory()->getDescriptionProperties())
-    ) {
-        displayStr = lpart.getDescription();
-    }
-
     QVariant udata;
     if (lpart.isValid()) {
         udata.setValue(lpart);
     }
-
-    item->setText(displayStr);
     item->setData(Qt::UserRole, udata);
+
+    updateLinkListItem(item);
 
     emit changedByUser();
 }
