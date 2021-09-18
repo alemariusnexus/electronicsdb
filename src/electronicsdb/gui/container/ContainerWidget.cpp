@@ -63,6 +63,8 @@ ContainerWidget::ContainerWidget(QWidget* parent)
     ui.contTableView->horizontalHeader()->resizeSection(0, 100);
     ui.contTableView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
+    ui.contTableView->verticalHeader()->hide();
+
 
     partTableModel = new ContainerPartTableModel(ui.partTableView);
 

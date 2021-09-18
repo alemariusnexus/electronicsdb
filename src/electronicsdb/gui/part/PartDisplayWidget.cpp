@@ -81,6 +81,7 @@ PartDisplayWidget::PartDisplayWidget(PartCategory* partCat, QWidget* parent)
 
 
     QVBoxLayout* topLayout = new QVBoxLayout(this);
+    topLayout->setContentsMargins(0, 0, 0, 0);
     setLayout(topLayout);
 
     headerLabel = new QLabel(tr("(No part selected)"));

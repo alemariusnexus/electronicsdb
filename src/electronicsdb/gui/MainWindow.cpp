@@ -127,7 +127,7 @@ MainWindow::MainWindow()
 
     mainTabber = new QTabWidget(this);
     mainTabber->setContentsMargins(0, 0, 0, 0);
-    ui.centralWidget->layout()->addWidget(mainTabber);
+    ui.centralContentWidget->layout()->addWidget(mainTabber);
 
 
     s.beginGroup("gui/main_window");
@@ -207,6 +207,8 @@ MainWindow::MainWindow()
     }
 
 
+    ui.centralStacker->setCurrentWidget(ui.centralDegradedWidget);
+
     updateStaticModelMenu();
 
     // Must be executed before restoreGeometry(), because some stupid X11 window managers don't restore the maximized
@@ -219,9 +221,6 @@ MainWindow::MainWindow()
 
 
     QTimer::singleShot(0, this, &MainWindow::startup);
-
-    int loadStateDelay = s.value("gui/load_window_state_delay", 500).toInt();
-    QTimer::singleShot(loadStateDelay, this, &MainWindow::loadWindowState);
 }
 
 MainWindow::~MainWindow()
@@ -231,6 +230,7 @@ MainWindow::~MainWindow()
 void MainWindow::startup()
 {
     System* sys = System::getInstance();
+    QSettings s;
 
     DatabaseConnection* conn = sys->getStartupDatabaseConnection();
 
@@ -241,6 +241,9 @@ void MainWindow::startup()
             sys->connectDatabase(conn, pw);
         }
     }
+
+    int loadStateDelay = s.value("gui/load_window_state_delay", 250).toInt();
+    QTimer::singleShot(loadStateDelay, this, &MainWindow::loadWindowState);
 }
 
 void MainWindow::loadWindowState()
@@ -445,11 +448,15 @@ void MainWindow::databaseConnectionChanged(DatabaseConnection* oldConn, Database
         ui.disconnectAction->setEnabled(true);
 
         ui.backupAction->setEnabled(true);
+
+        ui.centralStacker->setCurrentWidget(ui.centralContentWidget);
     } else if (!newConn  &&  oldConn) {
         connectionStatusLabel->setText(tr("Not Connected"));
         ui.disconnectAction->setEnabled(false);
 
         ui.backupAction->setEnabled(false);
+
+        ui.centralStacker->setCurrentWidget(ui.centralDegradedWidget);
     }
 
     updateStaticModelMenu();

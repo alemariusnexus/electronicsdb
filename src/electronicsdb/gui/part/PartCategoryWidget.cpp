@@ -52,10 +52,12 @@ PartCategoryWidget::PartCategoryWidget(PartCategory* partCat, QWidget* parent)
     topLayout->addWidget(mainSplitter);
 
 
-    QGroupBox* filterContWidget = new QGroupBox(tr("Filter"), mainSplitter);
+    //QGroupBox* filterContWidget = new QGroupBox(tr("Filter"), mainSplitter);
+    QWidget* filterContWidget = new QWidget(mainSplitter);
     mainSplitter->addWidget(filterContWidget);
 
     QVBoxLayout* filterContLayout = new QVBoxLayout(filterContWidget);
+    filterContLayout->setContentsMargins(0, 0, 0, 0);
     filterContWidget->setLayout(filterContLayout);
 
     filterWidget = new FilterWidget(mainSplitter, partCat);
@@ -63,14 +65,14 @@ PartCategoryWidget::PartCategoryWidget(PartCategory* partCat, QWidget* parent)
     filterContLayout->addWidget(filterWidget);
 
 
-    //QWidget* displayContWidget = new QWidget(mainSplitter);
-    QGroupBox* displayContWidget = new QGroupBox(tr("Parts"), mainSplitter);
+    QWidget* displayContWidget = new QWidget(mainSplitter);
+    //QGroupBox* displayContWidget = new QGroupBox(tr("Parts"), mainSplitter);
     mainSplitter->addWidget(displayContWidget);
 
     QHBoxLayout* displayContLayout = new QHBoxLayout(displayContWidget);
     cm = displayContLayout->contentsMargins();
-    displayContLayout->setContentsMargins(cm.left(), cm.top(), cm.right(), 0);
-    displayContLayout->setContentsMargins(0, 0, 0, 0);
+    displayContLayout->setContentsMargins(0, cm.top(), 0, cm.bottom());
+    //displayContLayout->setContentsMargins(0, 0, 0, 0);
     displayContWidget->setLayout(displayContLayout);
 
 
@@ -79,9 +81,12 @@ PartCategoryWidget::PartCategoryWidget(PartCategory* partCat, QWidget* parent)
     displayContLayout->addWidget(displaySplitter);
 
     QWidget* listingWidget = new QWidget(displaySplitter);
+    listingWidget->setContentsMargins(0, 0, 3, 0);
     displaySplitter->addWidget(listingWidget);
 
     QVBoxLayout* listingLayout = new QVBoxLayout(listingWidget);
+    cm = listingLayout->contentsMargins();
+    listingLayout->setContentsMargins(0, 0, 0, 0);
     listingWidget->setLayout(listingLayout);
 
     listingTable = new ListingTable(partCat, filter, listingWidget);

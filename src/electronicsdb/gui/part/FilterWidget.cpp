@@ -65,6 +65,7 @@ FilterWidget::FilterWidget(QWidget* parent, PartCategory* partCat)
 
     QWidget* listWidget = new QWidget(listScroller);
     QGridLayout* listLayout = new QGridLayout(listWidget);
+    listLayout->setContentsMargins(0, 0, 0, 0);
     listLayout->setSizeConstraint(QLayout::SetMinimumSize);
     listWidget->setLayout(listLayout);
     listScroller->setWidget(listWidget);
@@ -165,7 +166,7 @@ FilterWidget::FilterWidget(QWidget* parent, PartCategory* partCat)
     sqlCombFuncBoxChanged(0);
 
 
-    topLayout->addSpacing(20);
+    topLayout->addSpacing(5);
 
 
     QWidget* buttonWidget = new QWidget(this);
@@ -174,7 +175,7 @@ FilterWidget::FilterWidget(QWidget* parent, PartCategory* partCat)
     QHBoxLayout* buttonLayout = new QHBoxLayout(buttonWidget);
     int blcmL, blcmT, blcmR, blcmB;
     buttonLayout->getContentsMargins(&blcmL, &blcmT, &blcmR, &blcmB);
-    buttonLayout->setContentsMargins(blcmL, 0, blcmR, blcmB);
+    buttonLayout->setContentsMargins(0, 0, 0, blcmB);
     buttonWidget->setLayout(buttonLayout);
 
     resetButton = new QPushButton(tr("Reset All"), this);
