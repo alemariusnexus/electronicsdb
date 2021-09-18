@@ -1309,6 +1309,22 @@ TEST_F(DynamicModelTest, Part)
         EXPECT_EQ(micros[1].getData(pcatMicro->getProperty("numstock")).toLongLong(), 3);
     }
 
+    // Test single-category loading, ordering by multi-value property
+    {
+        // This special case often leads to errors when the query also contains a GROUP BY clause, so it's important
+        // to check it.
+        PartList micros = partFact.loadItemsSingleCategory(pcatMicro, QString(), "ORDER BY peripherals ASC",
+                                                           QString());
+        EXPECT_EQ(micros.size(), 4);
+
+        EXPECT_TRUE(micros[0].isDataFullyLoaded());
+        EXPECT_TRUE(micros[1].isDataFullyLoaded());
+        EXPECT_TRUE(micros[2].isDataFullyLoaded());
+        EXPECT_TRUE(micros[3].isDataFullyLoaded());
+
+        EXPECT_EQ(micros[0].getData(pcatMicro->getProperty("model")).toString(), QString("ESP32-WROOM-32"));
+    }
+
     // Test single-category loading from DB into pre-existing objects
     {
         Part r3 = partFact.findPartByID(pcatRes, commonPartIDs["r3"]);
@@ -2661,6 +2677,8 @@ TEST_F(DynamicModelTest, Search)
             f.setSQLWhereCode("WHERE vmin < 3.0");
             f.setSQLOrderCode("ORDER BY numstock DESC");
 
+            EXPECT_EQ(pcatMicro->countMatches(&f), 3);
+
             PartList res = pcatMicro->find(&f, 0, 100);
 
             ASSERT_EQ(res.size(), 3);
@@ -2672,6 +2690,8 @@ TEST_F(DynamicModelTest, Search)
         {
             Filter f;
             f.setSQLWhereCode("WHERE model LIKE 'AT%'");
+
+            EXPECT_EQ(pcatMicro->countMatches(&f), 2);
 
             PartList res = pcatMicro->find(&f, 0, 100);
 
@@ -2687,6 +2707,8 @@ TEST_F(DynamicModelTest, Search)
         f.setSQLWhereCode("WHERE model NOT LIKE 'AT%' AND (vmin<3.0 OR peripherals='Bluetooth')");
         f.setSQLOrderCode("ORDER BY model ASC");
 
+        EXPECT_EQ(pcatMicro->countMatches(&f), 2);
+
         PartList res = pcatMicro->find(&f, 0, 100);
 
         ASSERT_EQ(res.size(), 2);
@@ -2694,11 +2716,28 @@ TEST_F(DynamicModelTest, Search)
         EXPECT_EQ(res[1], partFact.findPartByID(pcatMicro, commonPartIDs["m3"]));
     }
 
+    // Do SQL search with ordering by multi-value properties
+    {
+        // This special case often leads to errors when the query also contains a GROUP BY clause, so it's important
+        // to check it.
+        Filter f;
+        f.setSQLOrderCode("ORDER BY peripherals ASC");
+
+        EXPECT_EQ(pcatMicro->countMatches(&f), 4);
+
+        PartList res = pcatMicro->find(&f, 0, 100);
+
+        ASSERT_EQ(res.size(), 4);
+        EXPECT_EQ(res[0], partFact.findPartByID(pcatMicro, commonPartIDs["m4"]));
+    }
+
     // Do plain fulltext search
     {
         {
             Filter f;
             f.setFullTextQuery("leds");
+
+            EXPECT_EQ(pcatRes->countMatches(&f), 2);
 
             PartList res = pcatRes->find(&f, 0, 100);
 
@@ -2711,12 +2750,31 @@ TEST_F(DynamicModelTest, Search)
             Filter f;
             f.setFullTextQuery("AT*");
 
+            EXPECT_EQ(pcatMicro->countMatches(&f), 2);
+
             PartList res = pcatMicro->find(&f, 0, 100);
 
             ASSERT_EQ(res.size(), 2);
             EXPECT_TRUE(res.contains(partFact.findPartByID(pcatMicro, commonPartIDs["m1"])));
             EXPECT_TRUE(res.contains(partFact.findPartByID(pcatMicro, commonPartIDs["m2"])));
         }
+    }
+
+    // Do combined SQL and full-text search
+    {
+        // This special case often leads to errors when the query also contains a GROUP BY clause, so it's important
+        // to check it.
+        Filter f;
+        f.setSQLOrderCode("ORDER BY peripherals ASC");
+        f.setFullTextQuery("SDIO");
+
+        EXPECT_EQ(pcatMicro->countMatches(&f), 2);
+
+        PartList res = pcatMicro->find(&f, 0, 100);
+
+        ASSERT_EQ(res.size(), 2);
+        EXPECT_EQ(res[0], partFact.findPartByID(pcatMicro, commonPartIDs["m4"]));
+        EXPECT_EQ(res[1], partFact.findPartByID(pcatMicro, commonPartIDs["m3"]));
     }
 }
 

@@ -200,12 +200,17 @@ void PartFactory::loadItemsSingleCategory (
         }
     }
 
+    // NOTE: Do NOT use GROUP BY here. Some DBMSes (e.g. PostgreSQL) refuse to execute mixed ORDER BY and GROUP BY
+    // clauses unless the order fields also appear in the group clause. This has to do with the order in which these
+    // filters are applied, and the fact that ordering would otherwise be undefined (even if we don't care about those
+    // cases). Instead, we'll just have the query keep duplicate IDs and remove them ourselves. See:
+    //
+    //      https://stackoverflow.com/q/19601948
     dbw->execAndCheckQuery(query, QString(
             "SELECT _p.%1\n"
             "FROM %2 _p"
             "%3"
-            "%4\n"
-            "GROUP BY _p.%1"
+            "%4"
             "%5"
             "%6"
             ).arg(dbw->escapeIdentifier(pcat->getIDField()),
@@ -214,15 +219,23 @@ void PartFactory::loadItemsSingleCategory (
                   whereClause.isEmpty() ? "" : ("\n" + whereClause),
                   orderClause.isEmpty() ? "" : ("\n" + orderClause),
                   limitClause.isEmpty() ? "" : ("\n" + limitClause)
-                  ));
+            ));
 
     QList<dbid_t> pids;
+    QSet<dbid_t> pidSet;
     QStringList pidStrs;
 
     while (query.next()) {
         dbid_t pid = VariantToDBID(query.value(0));
-        pids << pid;
-        pidStrs << QString::number(pid);
+
+        auto oldSetSize = pidSet.size();
+        pidSet.insert(pid);
+
+        // Skip duplicates
+        if (pidSet.size() > oldSetSize) {
+            pids << pid;
+            pidStrs << QString::number(pid);
+        }
     }
 
     if (pids.empty()) {

@@ -49,9 +49,12 @@ using Xapian::MSetIterator;
 using Xapian::Utf8Iterator;
 
 
-#define MAX_INDEX_REBUILD_FETCH_ROWS 1000
-#define FILTER_SEARCH_BLOCK_SIZE 50000
-#define FILTER_SEARCH_SQL_BLOCK_SIZE 50000
+// TODO: Both index (re-)building and searching has never really been tested with more than one block, so for now we'll
+//       make these values high enough that it should (TM) always result in a single block.
+//       Actually test this at some point...
+#define MAX_INDEX_REBUILD_FETCH_ROWS 1000000
+#define FILTER_SEARCH_BLOCK_SIZE 50000000
+#define FILTER_SEARCH_SQL_BLOCK_SIZE 50000000
 
 
 namespace electronicsdb
@@ -276,6 +279,10 @@ PartList PartCategory::findInternal(Filter* filter, size_t offset, size_t numRes
 
     QSqlQuery query(db);
 
+    // This currently needs to be "global" (i.e. retain values across multiple search blocks), because duplicate IDs
+    // can appear between blocks. See the TODO below for more details.
+    QSet<dbid_t> resultPIDSet;
+
     try {
         PartList results;
 
@@ -310,7 +317,8 @@ PartList PartCategory::findInternal(Filter* filter, size_t offset, size_t numRes
                              joinCode,
                              filter->getSQLWhereCode());
             } else {
-                queryStr = QString("SELECT %2.%1 FROM %2 %3 %4 GROUP BY %2.%1 %5 LIMIT %6 OFFSET %7")
+                // Do NOT use GROUP BY here. See comment above first query in PartFactory::loadItemsSingleCategory().
+                queryStr = QString("SELECT %2.%1 FROM %2 %3 %4 %5 LIMIT %6 OFFSET %7")
                         .arg(dbw->escapeIdentifier(getIDField()),
                              dbw->escapeIdentifier(getTableName()),
                              joinCode,
@@ -334,7 +342,15 @@ PartList PartCategory::findInternal(Filter* filter, size_t offset, size_t numRes
                 *countOnlyOut = static_cast<size_t>(query.value(0).toLongLong());
             } else {
                 while (query.next()) {
-                    results << PartFactory::getInstance().findPartByID(this, VariantToDBID(query.value(0)));
+                    dbid_t pid = VariantToDBID(query.value(0));
+
+                    auto oldSetSize = resultPIDSet.size();
+                    resultPIDSet.insert(pid);
+
+                    // Skip duplicates
+                    if (resultPIDSet.size() > oldSetSize) {
+                        results << PartFactory::getInstance().findPartByID(this, pid);
+                    }
                 }
             }
         } else {
@@ -451,7 +467,11 @@ PartList PartCategory::findInternal(Filter* filter, size_t offset, size_t numRes
                     size_t i = 0;
 
                     while (numResults != 0) {
-                        queryStr = QString("SELECT %2.%1 FROM %2 %3 %4 GROUP BY %2.%1 %5 LIMIT %6 OFFSET %7")
+                        // Do NOT use GROUP BY here. See comment above first query in
+                        // PartFactory::loadItemsSingleCategory().
+                        // TODO: This will return duplicates without GROUP BY, which the LIMIT clauses behave a bit
+                        //       whacky. Maybe find a way to fix this.
+                        queryStr = QString("SELECT %2.%1 FROM %2 %3 %4 %5 LIMIT %6 OFFSET %7")
                                 .arg(dbw->escapeIdentifier(getIDField()),
                                      dbw->escapeIdentifier(getTableName()),
                                      joinCode,
@@ -470,8 +490,14 @@ PartList PartCategory::findInternal(Filter* filter, size_t offset, size_t numRes
                             dbid_t id = VariantToDBID(query.value(0));
 
                             if (ftMatchingIds.contains(id)) {
-                                results << PartFactory::getInstance().findPartByID(this, id);
-                                numResults--;
+                                auto oldSetSize = resultPIDSet.size();
+                                resultPIDSet.insert(id);
+
+                                // Skip duplicates
+                                if (resultPIDSet.size() > oldSetSize) {
+                                    results << PartFactory::getInstance().findPartByID(this, id);
+                                    numResults--;
+                                }
                             }
                         }
 

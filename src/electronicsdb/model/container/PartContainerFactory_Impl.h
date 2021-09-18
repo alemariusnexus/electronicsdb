@@ -115,6 +115,8 @@ void PartContainerFactory::loadItems (
         groupCode = QString("GROUP BY c.id");
     }
 
+    // NOTE: This query seems fine as long as we don't order any fields from a joined table. Otherwise, we might run
+    // into the problems described in PartFactory::loadItemsSingleCategory() for the first query.
     QSqlQuery query(db);
     dbw->execAndCheckQuery(query, QString(
             "SELECT c.id, c.name%1\n"
