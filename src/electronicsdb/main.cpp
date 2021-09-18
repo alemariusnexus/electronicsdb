@@ -241,6 +241,8 @@ int main(int argc, char** argv)
 
             app.installTranslator(&trans);
 
+            sys->initFonts();
+
 
             MainWindow* w = new MainWindow;
 

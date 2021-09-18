@@ -49,6 +49,8 @@ SettingsDialog::SettingsDialog(QWidget* parent)
     }
 
 
+    connect(ui.fontDefaultBox, &QCheckBox::stateChanged, this, &SettingsDialog::fontDefaultBoxStateChanged);
+
     connect(ui.connList, &QListWidget::currentRowChanged, this, &SettingsDialog::connListRowChanged);
     connect(ui.connAddButton, &QPushButton::clicked, this, &SettingsDialog::connAddRequested);
     connect(ui.connRemoveButton, &QPushButton::clicked, this, &SettingsDialog::connRemoveRequested);
@@ -96,6 +98,16 @@ SettingsDialog::SettingsDialog(QWidget* parent)
         }
     }
 
+
+    QFont sysDefaultFont = sys->getSystemDefaultFont();
+    QFont appFont = qApp->font();
+
+    ui.fontFamilyCb->setCurrentFont(appFont);
+    ui.fontSizeSpinner->setValue(appFont.pointSize());
+
+    ui.fontDefaultBox->setChecked(appFont == sysDefaultFont);
+
+
     ui.siBinPrefixDefaultBox->setChecked(s.value("main/si_binary_prefixes_default", true).toBool());
 
     s.beginGroup("gui/settings_dialog");
@@ -132,6 +144,11 @@ void SettingsDialog::applyCurrentConnectionChanges()
 
         rebuildStartupConnectionBox();
     }
+}
+
+void SettingsDialog::fontDefaultBoxStateChanged()
+{
+    ui.fontPropsWidget->setEnabled(!ui.fontDefaultBox->isChecked());
 }
 
 void SettingsDialog::connListRowChanged(int row)
@@ -219,6 +236,7 @@ void SettingsDialog::buttonBoxClicked(QAbstractButton* b)
 
 void SettingsDialog::apply()
 {
+    System* sys = System::getInstance();
     QSettings s;
 
     auto kvApplyState = ui.keyVaultWidget->apply();
@@ -232,6 +250,19 @@ void SettingsDialog::apply()
 
     s.setValue("gui/theme", ui.themeCb->currentData(Qt::UserRole).toString());
     s.setValue("main/si_binary_prefixes_default", ui.siBinPrefixDefaultBox->isChecked());
+
+    QFont appFont = qApp->font();
+
+    if (ui.fontDefaultBox->isChecked()) {
+        appFont = sys->getSystemDefaultFont();
+    } else {
+        appFont.setFamily(ui.fontFamilyCb->currentFont().family());
+        appFont.setPointSize(ui.fontSizeSpinner->value());
+    }
+
+    qApp->setFont(appFont);
+
+    sys->saveFonts();
 
     accept();
 }

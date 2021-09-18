@@ -751,5 +751,46 @@ void System::showFirstRunDialog(QWidget* parent)
     }
 }
 
+void System::initFonts()
+{
+    systemDefaultFont = qApp->font();
+
+    QFont appFont = systemDefaultFont;
+
+    QSettings s;
+
+    s.beginGroup("gui/font_main");
+
+    QString fontFamily = s.value("family", appFont.family()).toString();
+    int fontSize = s.value("size", appFont.pointSize()).toInt();
+
+    s.endGroup();
+
+    appFont.setFamily(fontFamily);
+    appFont.setPointSize(fontSize);
+
+    qApp->setFont(appFont);
+}
+
+void System::saveFonts()
+{
+    QSettings s;
+
+    QFont appFont = qApp->font();
+
+    s.beginGroup("gui/font_main");
+
+    if (appFont == systemDefaultFont) {
+        s.remove("");
+    } else {
+        s.setValue("family", appFont.family());
+        s.setValue("size", appFont.pointSize());
+    }
+
+    s.endGroup();
+
+    s.sync();
+}
+
 
 }

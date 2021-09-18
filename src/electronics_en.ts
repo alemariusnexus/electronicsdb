@@ -749,32 +749,47 @@
         <translation>Theme (requires restart)</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="58"/>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="55"/>
+        <source>Font</source>
+        <translation>Font</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="62"/>
+        <source>Use System Default</source>
+        <translation>Use System Default</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="100"/>
+        <source>Size:</source>
+        <translation>Size:</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="129"/>
         <source>Editing</source>
         <translation>Editing</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="64"/>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="135"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When enabled, for properties that are typically expressed using binary SI prefixes (e.g. &apos;1KiB&apos; for 1024 Bytes), whenever the user enters a value with a non-binary SI prefix, it is instead interpreted as if the user entered the binary prefix (e.g. 1KB = 1024 Bytes and not 1000 Bytes).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When enabled, for properties that are typically expressed using binary SI prefixes (e.g. &apos;1KiB&apos; for 1024 Bytes), whenever the user enters a value with a non-binary SI prefix, it is instead interpreted as if the user entered the binary prefix (e.g. 1KB = 1024 Bytes and not 1000 Bytes).&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="67"/>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="138"/>
         <source>Interpret SI prefixes as binary for binary properties</source>
         <translation>Interpret SI prefixes as binary for binary properties</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="77"/>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="148"/>
         <source>Key Vault</source>
         <translation>Key Vault</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="103"/>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="174"/>
         <source>Databases</source>
         <translation>Databases</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="115"/>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.ui" line="186"/>
         <source>Startup Connection</source>
         <translation>Startup Connection</translation>
     </message>
@@ -1795,17 +1810,17 @@ Do you want to copy the file to the file root directory?</translation>
 <context>
     <name>electronicsdb::SettingsDialog</name>
     <message>
-        <location filename="electronicsdb/gui/settings/SettingsDialog.cpp" line="89"/>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.cpp" line="91"/>
         <source>Default</source>
         <translation>Default</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/settings/SettingsDialog.cpp" line="90"/>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.cpp" line="92"/>
         <source>Dark (experimental)</source>
         <translation>Dark (experimental)</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/settings/SettingsDialog.cpp" line="338"/>
+        <location filename="electronicsdb/gui/settings/SettingsDialog.cpp" line="369"/>
         <source>(None)</source>
         <translation>(None)</translation>
     </message>

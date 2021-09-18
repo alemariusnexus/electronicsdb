@@ -59,6 +59,8 @@ private:
     bool applyDatabaseSettings();
 
 private slots:
+    void fontDefaultBoxStateChanged();
+
     void connListRowChanged(int row);
     void buttonBoxClicked(QAbstractButton* b);
     void connAddRequested();

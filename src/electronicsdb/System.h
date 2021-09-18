@@ -145,6 +145,10 @@ public:
     void showDatabaseCorruptionWarningDialog(QWidget* parent = nullptr);
     void showFirstRunDialog(QWidget* parent = nullptr);
 
+    void initFonts();
+    void saveFonts();
+    QFont getSystemDefaultFont() const { return systemDefaultFont; }
+
 public slots:
     void quit();
     void forceQuit();
@@ -192,6 +196,7 @@ private:
     bool clogProcessingInhibited;
 
     std::unordered_map<int, QColor> appPalette;
+    QFont systemDefaultFont;
 };
 
 
