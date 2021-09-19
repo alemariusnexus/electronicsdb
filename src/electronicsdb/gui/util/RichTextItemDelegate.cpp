@@ -35,6 +35,11 @@ namespace electronicsdb
 //
 //      https://stackoverflow.com/a/2039745/1566841
 
+RichTextItemDelegate::RichTextItemDelegate(QObject* parent)
+        : QStyledItemDelegate(parent)
+{
+}
+
 void RichTextItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
     QStyleOptionViewItem optionV4 = option;

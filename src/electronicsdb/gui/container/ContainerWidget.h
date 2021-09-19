@@ -57,6 +57,7 @@ private slots:
     void searchRequested();
     void currentContainerChanged(const QModelIndex& newIdx, const QModelIndex& oldIdx);
     void aboutToQuit();
+    void containerActivated(const QModelIndex& idx);
     void partActivated(const QModelIndex& idx);
     void containerAddRequested();
     void containerRemoveRequested();

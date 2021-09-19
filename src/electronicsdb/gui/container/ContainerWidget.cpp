@@ -107,6 +107,7 @@ ContainerWidget::ContainerWidget(QWidget* parent)
 
     connect(ui.contSearchButton, &QPushButton::clicked, this, &ContainerWidget::searchRequested);
     connect(ui.contIdField, &QLineEdit::returnPressed, this, &ContainerWidget::searchRequested);
+    connect(ui.contTableView, &QTableView::doubleClicked, this, &ContainerWidget::containerActivated);
     connect(ui.contTableView->selectionModel(), &QItemSelectionModel::currentRowChanged,
             this, &ContainerWidget::currentContainerChanged);
     connect(ui.contTableView->selectionModel(), &QItemSelectionModel::selectionChanged,
@@ -244,10 +245,25 @@ void ContainerWidget::currentContainerChanged(const QModelIndex& newIdx, const Q
     displayContainer(cont);
 }
 
+void ContainerWidget::containerActivated(const QModelIndex& idx)
+{
+    if (!idx.isValid()) {
+        return;
+    }
+
+    PartContainer cont = contTableModel->getIndexContainer(idx);
+    PartList parts = cont.getParts();
+
+    if (parts.size() == 1) {
+        System::getInstance()->jumpToPart(parts[0]);
+    }
+}
+
 void ContainerWidget::partActivated(const QModelIndex& idx)
 {
-    if (!idx.isValid())
+    if (!idx.isValid()) {
         return;
+    }
 
     Part part = partTableModel->getIndexPart(idx);
     System::getInstance()->jumpToPart(part);

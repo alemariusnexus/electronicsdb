@@ -19,6 +19,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.20)
 PROJECT(electronicsdb C CXX)
 
 SET(EDB_BUILD_TESTS ON CACHE BOOL "Whether the automatic tests should be built")
+SET(EDB_BUILD_DOCS ON CACHE BOOL "Whether to build the documentation (manual)")
 
 IF(EDB_BUILD_TESTS)
     SET(EDB_BUILD_GOOGLETEST ON CACHE BOOL "Whether to build the embedded GoogleTest")
@@ -30,7 +31,7 @@ SET(EDB_VERSION_PATCH 0)
 
 SET(EDB_PROJECT_NAME electronicsdb)
 SET(EDB_COPYRIGHT "Copyright 2010-2021 David 'Alemarius Nexus' Lerch")
-SET(EDB_WIN_ICON_FILE "${CMAKE_CURRENT_SOURCE_DIR}/icons/appicon.ico")
+SET(EDB_WIN_ICON_FILE "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/appicon.ico")
 
 SET(CPACK_PACKAGE_NAME "ElectronicsDB")
 SET(CPACK_PACKAGE_DESCRIPTION_SUMMARY "${CPACK_PACKAGE_NAME} - An electronic component management program")
@@ -41,14 +42,14 @@ SET(CPACK_PACKAGE_VERSION_MINOR "${EDB_VERSION_MINOR}")
 SET(CPACK_PACKAGE_VERSION_PATCH "${EDB_VERSION_PATCH}")
 SET(CPACK_PACKAGE_EXECUTABLES "electronicsdb;${CPACK_PACKAGE_NAME}")
 SET(CPACK_CREATE_DESKTOP_LINKS "electronicsdb;${CPACK_PACKAGE_NAME}")
-SET(CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/icons\\\\appicon.png") # Yes, it must be backward slashes for NSIS...
+SET(CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons\\\\appicon.png") # Yes, it must be backward slashes for NSIS...
 SET(CPACK_NSIS_MUI_ICON "${EDB_WIN_ICON_FILE}")
 
 SET(CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}" "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-FIND_PACKAGE(Qt6 COMPONENTS Core Gui Widgets Sql LinguistTools QUIET)
+FIND_PACKAGE(Qt6 COMPONENTS Core Gui Widgets Sql LinguistTools ${QT_EXTRA_COMPONENTS} QUIET)
 IF(NOT Qt6_FOUND)
-    FIND_PACKAGE(Qt5 COMPONENTS Core Gui Widgets Sql LinguistTools REQUIRED)
+    FIND_PACKAGE(Qt5 COMPONENTS Core Gui Widgets Sql LinguistTools ${QT_EXTRA_COMPONENTS} REQUIRED)
     SET(QT_VERSION_MAJOR 5)
     MESSAGE(STATUS "Using Qt5. If you want to use Qt6, make sure CMake finds it (e.g. by setting CMAKE_PREFIX_PATH).")
 ELSE()
@@ -75,6 +76,14 @@ IF(NOT TARGET nxcommon)
 ENDIF()
 
 INCLUDE(NxUtilities)
+
+IF(EDB_BUILD_DOCS)
+    FIND_PACKAGE(Doxygen)
+
+    IF(NOT DOXYGEN_FOUND)
+        MESSAGE(SEND_ERROR "Doxygen was not found. It can be skipped by setting EDB_BUILD_DOCS=OFF.")
+    ENDIF()
+ENDIF()
 
 
 # For Xapian...
@@ -137,15 +146,35 @@ IF(WIN32)
     ADD_SOURCES("${CMAKE_CURRENT_BINARY_DIR}/electronicsdb-winrc.rc")
 ENDIF()
 
+IF(DOXYGEN_FOUND)
+    SET(DOXYGEN_PROJECT_NAME "${CPACK_PACKAGE_NAME}")
+    SET(DOXYGEN_PROJECT_NUMBER "${EDB_VERSION_MAJOR}.${EDB_VERSION_MINOR}.${EDB_VERSION_PATCH}")
+    SET(DOXYGEN_PROJECT_BRIEF "${CPACK_PACKAGE_DESCRIPTION_SUMMARY}")
+    SET(DOXYGEN_USE_MDFILE_AS_MAINPAGE "main.md")
+    SET(DOXYGEN_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/doc/manual")
+    SET(DOXYGEN_IMAGE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/resources/doc/images")
+
+    # Generate HTML
+    DOXYGEN_ADD_DOCS(manual resources/doc ALL)
+ENDIF()
+
 
 SET_SOURCE_FILES_PROPERTIES(electronics_en.ts electronics_de.ts PROPERTIES
-    OUTPUT_LOCATION "${CMAKE_SOURCE_DIR}")
+    OUTPUT_LOCATION "${CMAKE_CURRENT_BINARY_DIR}/resources")
 
 QT_WRAP_CPP(MOC_COMPILED_SRCS "${MOC_SRCS}")
 QT_WRAP_UI(UIC_COMPILED_SRCS "${UIC_SRCS}")
 QT_ADD_TRANSLATION(QM_FILES electronics_en.ts electronics_de.ts)
 
-QT_ADD_RESOURCES(QT_RESOURCE_FILES resources.qrc)
+
+QT_ADD_RESOURCES(QT_RESOURCE_FILES resources/resources.qrc)
+
+# Generate dynamic Qt resources file
+STRING(APPEND EDB_QT_RESOURCES_DYNAMIC_XML "<file>electronics_de.qm</file>")
+STRING(APPEND EDB_QT_RESOURCES_DYNAMIC_XML "<file>electronics_en.qm</file>")
+CONFIGURE_FILE(resources/resources_dynamic.cmake.qrc "${CMAKE_CURRENT_BINARY_DIR}/resources/resources_dynamic.qrc")
+QT_ADD_RESOURCES(QT_RESOURCE_FILES "${CMAKE_CURRENT_BINARY_DIR}/resources/resources_dynamic.qrc")
+
 
 INCLUDE_DIRECTORIES("${INCDIRS}")
 
@@ -155,6 +184,9 @@ TARGET_LINK_LIBRARIES(electronicsdb "${LIBRARIES}" hydrogen)
 
 IF(EDB_QT_EXTRA_PLUGIN_TARGETS)
     ADD_DEPENDENCIES(electronicsdb ${EDB_QT_EXTRA_PLUGIN_TARGETS})
+ENDIF()
+IF(EDB_BUILD_DOCS)
+    ADD_DEPENDENCIES(electronicsdb manual)
 ENDIF()
 
 # I don't like this, but it's necessary: Because our main source directory has the same name as the generated
@@ -170,7 +202,7 @@ SET(EDB_INSTALL_SKELETON_DIR "" CACHE STRING "Directory containing the basic fil
 INSTALL(TARGETS electronicsdb DESTINATION bin)
 
 INSTALL(FILES electronicsdb.desktop DESTINATION share/applications/)
-INSTALL(FILES icons/appicon.png DESTINATION share/icons/hicolor/64x64/apps)
+INSTALL(FILES resources/icons/appicon.png DESTINATION share/icons/hicolor/64x64/apps)
 
 #IF(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.21.0")
 #    INSTALL(IMPORTED_RUNTIME_ARTIFACTS electronicsdb)
@@ -181,6 +213,10 @@ INSTALL(FILES icons/appicon.png DESTINATION share/icons/hicolor/64x64/apps)
 #            Qt${QT_VERSION_MAJOR}::Sql
 #            )
 #ENDIF()
+
+IF(EDB_BUILD_DOCS)
+    INSTALL(DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/doc/manual/" DESTINATION share/doc)
+ENDIF()
 
 IF(EDB_INSTALL_SKELETON_DIR)
     INSTALL(DIRECTORY "${EDB_INSTALL_SKELETON_DIR}/" DESTINATION .)

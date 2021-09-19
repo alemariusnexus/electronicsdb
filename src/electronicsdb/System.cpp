@@ -95,6 +95,7 @@ System* System::getInstance()
         QStringList sqlDriverNames = QSqlDatabase::drivers();
         LogDebug("Supported SQL drivers (Qt): %s", sqlDriverNames.join(", ").toUtf8().constData());
 
+        instance->findPaths();
         instance->initTheme();
     }
 
@@ -790,6 +791,32 @@ void System::saveFonts()
     s.endGroup();
 
     s.sync();
+}
+
+void System::findPaths()
+{
+    QStringList docPathCands = {
+            QString("%1/../doc/manual").arg(qApp->applicationDirPath()),
+            QString("%1/../share/doc").arg(qApp->applicationDirPath())
+    };
+
+    for (const QString& docPathCand : docPathCands) {
+        QDir docDir(docPathCand);
+
+        if (docDir.exists()) {
+            QFileInfo indexFinfo(docDir, "html/index.html");
+
+            if (indexFinfo.exists()) {
+                docPath = docDir.absolutePath();
+                break;
+            }
+        }
+    }
+}
+
+QString System::getDocumentationPath() const
+{
+    return docPath;
 }
 
 

@@ -117,6 +117,7 @@ private slots:
     void editLtypesRequested();
     void dbMigrationRequested();
 
+    void openManualRequested();
     void langChangeRequested();
     void aboutRequested();
     void aboutQtRequested();

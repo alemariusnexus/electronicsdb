@@ -72,7 +72,9 @@
           <property name="text">
            <string>&lt;h1&gt;No Database Connection&lt;/h1&gt;&lt;br/&gt;
 
-Use &lt;b&gt;File / Connect&lt;/b&gt;, or create a connection in &lt;b&gt;Settings / Settings&lt;/b&gt;.</string>
+Use &lt;b&gt;File / Connect&lt;/b&gt;, or create a connection in &lt;b&gt;Settings / Settings&lt;/b&gt;.&lt;br/&gt;&lt;br/&gt;
+
+You can view the manual at &lt;b&gt;Help / Open Manual&lt;/b&gt;.</string>
           </property>
           <property name="alignment">
            <set>Qt::AlignCenter</set>
@@ -94,7 +96,7 @@ Use &lt;b&gt;File / Connect&lt;/b&gt;, or create a connection in &lt;b&gt;Settin
      <x>0</x>
      <y>0</y>
      <width>1150</width>
-     <height>32</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuDatabase">
@@ -158,6 +160,7 @@ Use &lt;b&gt;File / Connect&lt;/b&gt;, or create a connection in &lt;b&gt;Settin
       <string>Language</string>
      </property>
     </widget>
+    <addaction name="openManualAction"/>
     <addaction name="menuLanguage"/>
     <addaction name="separator"/>
     <addaction name="aboutAction"/>
@@ -302,6 +305,11 @@ Use &lt;b&gt;File / Connect&lt;/b&gt;, or create a connection in &lt;b&gt;Settin
    </property>
    <property name="text">
     <string>Backup...</string>
+   </property>
+  </action>
+  <action name="openManualAction">
+   <property name="text">
+    <string>Open Manual</string>
    </property>
   </action>
  </widget>

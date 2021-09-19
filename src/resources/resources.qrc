@@ -1,8 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>electronics_de.qm</file>
-        <file>electronics_en.qm</file>
-
         <file>icons/appicon.png</file>
         <file>icons/document-new.png</file>
         <file>icons/document-open.png</file>
@@ -13,6 +10,6 @@
         <file>icons/list-add.png</file>
         <file>icons/list-remove.png</file>
 
-        <file>resources/README.BACKUP</file>
+        <file>backup/README.txt</file>
     </qresource>
 </RCC>

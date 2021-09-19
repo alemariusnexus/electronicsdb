@@ -131,10 +131,10 @@ QVariant ContainerTableModel::data(const QModelIndex& index, int role) const
             for (const Part& part : cont.getParts()) {
                 if (!desc.isEmpty())
                     desc += "\n";
-                desc += part.getDescription();
+                desc += QString("%1").arg(part.getDescription());
             }
 
-            return desc;
+            return QString("%1").arg(desc);
         }
     }
 

@@ -325,7 +325,7 @@ void DatabaseMigrator::backupCurrentDatabase(const QString& destFile, int flags)
             throw IOException("Error opening backup ZIP entry", __FILE__, __LINE__);
         }
 
-        QFile readmeFile(":/resources/README.BACKUP");
+        QFile readmeFile(":/backup/README.txt");
         if (!readmeFile.open(QIODevice::ReadOnly)) {
             throw IOException("Error opening backup README file", __FILE__, __LINE__);
         }

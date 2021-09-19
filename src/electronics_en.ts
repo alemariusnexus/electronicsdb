@@ -83,17 +83,17 @@
 <context>
     <name>ContainerWidget</name>
     <message>
-        <location filename="electronicsdb/gui/container/ContainerWidget.ui" line="56"/>
+        <location filename="electronicsdb/gui/container/ContainerWidget.ui" line="68"/>
         <source>Container ID</source>
         <translation>Container ID</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/container/ContainerWidget.ui" line="81"/>
+        <location filename="electronicsdb/gui/container/ContainerWidget.ui" line="93"/>
         <source>Search</source>
         <translation>Search</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/container/ContainerWidget.ui" line="203"/>
+        <location filename="electronicsdb/gui/container/ContainerWidget.ui" line="215"/>
         <source>Parts In Container</source>
         <translation>Parts in Container</translation>
     </message>
@@ -173,7 +173,7 @@
 <context>
     <name>Global</name>
     <message>
-        <location filename="electronicsdb/System.cpp" line="677"/>
+        <location filename="electronicsdb/System.cpp" line="678"/>
         <source>ThisLanguage</source>
         <translation>English</translation>
     </message>
@@ -243,145 +243,163 @@
         <translation>Electronic Database</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="33"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="73"/>
+        <source>&lt;h1&gt;No Database Connection&lt;/h1&gt;&lt;br/&gt;
+
+Use &lt;b&gt;File / Connect&lt;/b&gt;, or create a connection in &lt;b&gt;Settings / Settings&lt;/b&gt;.&lt;br/&gt;&lt;br/&gt;
+
+You can view the manual at &lt;b&gt;Help / Open Manual&lt;/b&gt;.</source>
+        <translation>&lt;h1&gt;No Database Connection&lt;/h1&gt;&lt;br/&gt;
+
+Use &lt;b&gt;File / Connect&lt;/b&gt;, or create a connection in &lt;b&gt;Settings / Settings&lt;/b&gt;.&lt;br/&gt;&lt;br/&gt;
+
+You can view the manual at &lt;b&gt;Help / Open Manual&lt;/b&gt;.</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="104"/>
         <source>File</source>
         <translation>File</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="37"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="108"/>
         <source>&amp;Connect</source>
         <translation>&amp;Connect</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="52"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="123"/>
         <source>Settings</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="56"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="127"/>
         <source>Static Model</source>
         <translation>Static Model</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="67"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="138"/>
         <source>Edit</source>
         <translation>Edit</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="79"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="150"/>
         <source>Windows</source>
         <translation>Windows</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="85"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="156"/>
         <source>Help</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="89"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="160"/>
         <source>Language</source>
         <translation>Language</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="106"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="178"/>
         <source>Disconnect</source>
         <translation>Disconnect</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="111"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="183"/>
         <source>Settings...</source>
         <translation>Settings...</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="116"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="188"/>
         <source>New Connection...</source>
         <translation>New Connection...</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="125"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="197"/>
         <source>Quit</source>
         <translation>Quit</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="137"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="209"/>
         <source>Save All</source>
         <translation>Save All</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="145"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="217"/>
         <source>Undo</source>
         <translation>Undo</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="153"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="225"/>
         <source>Redo</source>
         <translation>Redo</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="158"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="230"/>
         <source>Create Backup...</source>
         <translation>Create Backup...</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="163"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="235"/>
         <source>Restore From Backup...</source>
         <translation>Restore from Backup...</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="168"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="240"/>
         <source>Add Container Widget</source>
         <translation>Add Container Widget</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="173"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="245"/>
         <source>Next Container</source>
         <translation>Next Container</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="178"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="250"/>
         <source>Next Part</source>
         <translation>Next Part</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="183"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="255"/>
         <source>Previous Part</source>
         <translation>Previous Part</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="188"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="260"/>
         <source>About</source>
         <translation>About</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="193"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="265"/>
         <source>About Qt</source>
         <translation>About Qt</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="198"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="270"/>
         <source>SQL Generator</source>
         <translation>SQL Generator</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="203"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="275"/>
         <source>Edit Part Link Types...</source>
         <translation>Edit Part Link Types (beta)...</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="211"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="283"/>
         <source>Edit Part Categories...</source>
         <translation>Edit Part Categories (beta)...</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="219"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="291"/>
         <source>Database Migration...</source>
         <translation>Database Migration (beta)...</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="227"/>
-        <location filename="electronicsdb/gui/MainWindow.ui" line="235"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="299"/>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="307"/>
         <source>Backup...</source>
         <translation>Backup (beta)...</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/MainWindow.ui" line="312"/>
+        <source>Open Manual</source>
+        <translation>Open Manual</translation>
     </message>
 </context>
 <context>
@@ -871,7 +889,7 @@
 <context>
     <name>electronicsdb::ContainerWidget</name>
     <message>
-        <location filename="electronicsdb/gui/container/ContainerWidget.cpp" line="101"/>
+        <location filename="electronicsdb/gui/container/ContainerWidget.cpp" line="103"/>
         <source>Remove</source>
         <translation>Remove</translation>
     </message>
@@ -1020,62 +1038,62 @@
 <context>
     <name>electronicsdb::FilterWidget</name>
     <message>
-        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="108"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="109"/>
         <source>Full Text Filter</source>
         <translation>Full Text Filter</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="114"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="115"/>
         <source>Query:</source>
         <translation>Query:</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="124"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="125"/>
         <source>- Insert Prefix -</source>
         <translation>- Insert Prefix -</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="137"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="138"/>
         <source>Additional SQL Filter</source>
         <translation>Additional SQL Filter</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="144"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="145"/>
         <source>(Disabled)</source>
         <translation>(Disabled)</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="145"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="146"/>
         <source>AND</source>
         <translation>AND</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="146"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="147"/>
         <source>OR</source>
         <translation>OR</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="156"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="157"/>
         <source>- Insert Column -</source>
         <translation>- Insert Column -</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="180"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="181"/>
         <source>Reset All</source>
         <translation>Reset All</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="184"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="185"/>
         <source>Apply Filters</source>
         <translation>Apply Filters</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="413"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="414"/>
         <source>SQL Error</source>
         <translation>SQL Error</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="414"/>
+        <location filename="electronicsdb/gui/part/FilterWidget.cpp" line="415"/>
         <source>An SQL error was caught while building the filter widget:
 
 %1</source>
@@ -1162,38 +1180,38 @@
 <context>
     <name>electronicsdb::MainWindow</name>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="97"/>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="449"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="98"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="456"/>
         <source>Not Connected</source>
         <translation>Not Connected</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="444"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="449"/>
         <source>Connected to %1</source>
         <translation>Connected to %1</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="544"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="553"/>
         <source>Containers</source>
         <translation>Containers</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="620"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="629"/>
         <source>Version</source>
         <translation>Version</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="621"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="630"/>
         <source>SQL Drivers (Qt)</source>
         <translation>SQL Drivers (Qt)</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="627"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="636"/>
         <source>Database</source>
         <translation>Database</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="639"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="648"/>
         <source>AboutText (infoTable: %1)</source>
         <translation>&lt;html&gt;&lt;body&gt;
 &lt;h1&gt;ElectronicsDB&lt;/h1&gt;
@@ -1211,22 +1229,22 @@ You should have received a copy of the GNU General Public License along with thi
 &lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="643"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="652"/>
         <source>About %1</source>
         <translation>About %1</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="648"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="657"/>
         <source>About Qt</source>
         <translation>About Qt</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="661"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="681"/>
         <source>Restart Needed</source>
         <translation>Restart Needed</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/MainWindow.cpp" line="661"/>
+        <location filename="electronicsdb/gui/MainWindow.cpp" line="681"/>
         <source>You need to restart the program for the new language to become active!</source>
         <translation>You need to restart the program for the new language to become active!</translation>
     </message>
@@ -1425,22 +1443,12 @@ You should have received a copy of the GNU General Public License along with thi
 <context>
     <name>electronicsdb::PartCategoryWidget</name>
     <message>
-        <location filename="electronicsdb/gui/part/PartCategoryWidget.cpp" line="55"/>
-        <source>Filter</source>
-        <translation>Filter</translation>
-    </message>
-    <message>
-        <location filename="electronicsdb/gui/part/PartCategoryWidget.cpp" line="67"/>
-        <source>Parts</source>
-        <translation>Parts</translation>
-    </message>
-    <message>
-        <location filename="electronicsdb/gui/part/PartCategoryWidget.cpp" line="195"/>
+        <location filename="electronicsdb/gui/part/PartCategoryWidget.cpp" line="200"/>
         <source>SQL Error</source>
         <translation>SQL Error</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartCategoryWidget.cpp" line="196"/>
+        <location filename="electronicsdb/gui/part/PartCategoryWidget.cpp" line="201"/>
         <source>SQL Error caught while rebuilding part listing table:
 
 %1</source>
@@ -1449,12 +1457,12 @@ You should have received a copy of the GNU General Public License along with thi
 %1</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartCategoryWidget.cpp" line="271"/>
+        <location filename="electronicsdb/gui/part/PartCategoryWidget.cpp" line="276"/>
         <source>Error During Filtering</source>
         <translation>Error During Filtering</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartCategoryWidget.cpp" line="272"/>
+        <location filename="electronicsdb/gui/part/PartCategoryWidget.cpp" line="277"/>
         <source>SQL Error caught during filter execution. Check your user-defined SQL filtering code for errors.
 
 %1</source>
@@ -1466,54 +1474,54 @@ You should have received a copy of the GNU General Public License along with thi
 <context>
     <name>electronicsdb::PartDisplayWidget</name>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="86"/>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="251"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="87"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="252"/>
         <source>(No part selected)</source>
         <translation>(No part selected)</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="101"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="102"/>
         <source>General</source>
         <translation>General</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="120"/>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="123"/>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="253"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="121"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="124"/>
         <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="254"/>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="337"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="255"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="338"/>
         <source>-</source>
         <translation>-</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="121"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="122"/>
         <source>Part ID</source>
         <translation>Part ID</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="126"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="127"/>
         <source>Associated Containers</source>
         <translation>Associated Containers</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="648"/>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="692"/>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="709"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="649"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="693"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="710"/>
         <source>Invalid File</source>
         <translation>Invalid File</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="649"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="650"/>
         <source>The file path you specified for property &apos;%1&apos; is not relative or tried to reference the parent directory, and the current file root directory is invalid. This file can&apos;t be saved!</source>
         <translation>The file path you specified for property &apos;%1&apos; is not relative or tried to reference the parent directory, and the current file root directory is invalid. This file can&apos;t be saved!</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="659"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="660"/>
         <source>Copy File?</source>
         <translation>Copy File?</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="660"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="661"/>
         <source>The file you specified for property &apos;%1&apos; does not seem to be inside the current file root directory. It must be copied there to be handled correctly by this program.
 
 Do you want to copy the file to the file root directory?</source>
@@ -1522,27 +1530,27 @@ Do you want to copy the file to the file root directory?</source>
 Do you want to copy the file to the file root directory?</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="682"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="683"/>
         <source>Select Destination File</source>
         <translation>Select Destination File</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="693"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="694"/>
         <source>The selected file does not seem to be inside the current file root directory &apos;%1&apos;!</source>
         <translation>The selected file does not seem to be inside the current file root directory &apos;%1&apos;!</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="700"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="701"/>
         <source>Unable To Copy File</source>
         <translation>Unable To Copy File</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="701"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="702"/>
         <source>Failed to copy file &apos;%1&apos; to &apos;%2/%3&apos;!</source>
         <translation>Failed to copy file &apos;%1&apos; to &apos;%2/%3&apos;!</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="710"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="711"/>
         <source>The file path you specified for property &apos;%1&apos; does not seem to point inside the current file root directory, nor does a regular file exist under that path. This file can&apos;t be saved!</source>
         <translation>The file path you specified for property &apos;%1&apos; does not seem to point inside the current file root directory, nor does a regular file exist under that path. This file can&apos;t be saved!</translation>
     </message>
@@ -1828,42 +1836,42 @@ Do you want to copy the file to the file root directory?</translation>
 <context>
     <name>electronicsdb::System</name>
     <message>
-        <location filename="electronicsdb/System.cpp" line="266"/>
+        <location filename="electronicsdb/System.cpp" line="267"/>
         <source>Failed To Open Connection</source>
         <translation>Failed To Open Connection</translation>
     </message>
     <message>
-        <location filename="electronicsdb/System.cpp" line="286"/>
+        <location filename="electronicsdb/System.cpp" line="287"/>
         <source>File Root Not Found</source>
         <translation>File Root Not Found</translation>
     </message>
     <message>
-        <location filename="electronicsdb/System.cpp" line="287"/>
+        <location filename="electronicsdb/System.cpp" line="288"/>
         <source>The file root directory &apos;%1&apos; could not be found! The program will continue to work, but opening or writing of the embedded files will be disabled.</source>
         <translation>The file root directory &apos;%1&apos; could not be found! The program will continue to work, but opening or writing of the embedded files will be disabled.</translation>
     </message>
     <message>
-        <location filename="electronicsdb/System.cpp" line="291"/>
+        <location filename="electronicsdb/System.cpp" line="292"/>
         <source>Invalid File Root</source>
         <translation>Invalid file root directory</translation>
     </message>
     <message>
-        <location filename="electronicsdb/System.cpp" line="292"/>
+        <location filename="electronicsdb/System.cpp" line="293"/>
         <source>The file root directory &apos;%1&apos; exists but is not a directory! The program will continue to work, but opening or writing of the embedded files will be disabled.</source>
         <translation>The file root directory &apos;%1&apos; exists but is not a directory! The program will continue to work, but opening or writing of the embedded files will be disabled.</translation>
     </message>
     <message>
-        <location filename="electronicsdb/System.cpp" line="323"/>
+        <location filename="electronicsdb/System.cpp" line="324"/>
         <source>Connection Established!</source>
         <translation>Connection Established!</translation>
     </message>
     <message>
-        <location filename="electronicsdb/System.cpp" line="338"/>
+        <location filename="electronicsdb/System.cpp" line="339"/>
         <source>Close Connection?</source>
         <translation>Close Connection?</translation>
     </message>
     <message>
-        <location filename="electronicsdb/System.cpp" line="339"/>
+        <location filename="electronicsdb/System.cpp" line="340"/>
         <source>There is already an open connection. If you continue, the current connection will be closed.
 
 Are you sure you want to continue?</source>
@@ -1872,58 +1880,58 @@ Are you sure you want to continue?</source>
 Are you sure you want to continue?</translation>
     </message>
     <message>
-        <location filename="electronicsdb/System.cpp" line="366"/>
+        <location filename="electronicsdb/System.cpp" line="367"/>
         <source>Connection Closed!</source>
         <translation>Connection CLosed!</translation>
     </message>
     <message>
-        <location filename="electronicsdb/System.cpp" line="402"/>
+        <location filename="electronicsdb/System.cpp" line="403"/>
         <source>Enter Password</source>
         <translation>Enter Password</translation>
     </message>
     <message>
-        <location filename="electronicsdb/System.cpp" line="403"/>
+        <location filename="electronicsdb/System.cpp" line="404"/>
         <source>Enter password for connection &apos;%1&apos;:</source>
         <translation>Enter password for connection &apos;%1&apos;:</translation>
     </message>
     <message>
-        <location filename="electronicsdb/System.cpp" line="626"/>
-        <location filename="electronicsdb/System.cpp" line="642"/>
+        <location filename="electronicsdb/System.cpp" line="627"/>
+        <location filename="electronicsdb/System.cpp" line="643"/>
         <source>File Not Found</source>
         <translation>File Not Found</translation>
     </message>
     <message>
-        <location filename="electronicsdb/System.cpp" line="627"/>
+        <location filename="electronicsdb/System.cpp" line="628"/>
         <source>The path &apos;%1&apos; is not absolute and there is no current database connection to read the file root path from.</source>
         <translation>The path &apos;%1&apos; is not absolute and there is no current database connection to read the file root path from.</translation>
     </message>
     <message>
-        <location filename="electronicsdb/System.cpp" line="643"/>
+        <location filename="electronicsdb/System.cpp" line="644"/>
         <source>The file &apos;%1&apos; does not exist!</source>
         <translation>The file &apos;%1&apos; does not exist!</translation>
     </message>
     <message>
-        <location filename="electronicsdb/System.cpp" line="727"/>
+        <location filename="electronicsdb/System.cpp" line="728"/>
         <source>&lt;br/&gt;&lt;br/&gt;You are using a database which doesn&apos;t support transactional DDL. That means that if any single step of this fails, it &lt;b&gt;&lt;u&gt;will definitely lead to data corruption&lt;/u&gt;&lt;/b&gt;, as the previous steps can&apos;t be rolled back. Consider using a database with support for transactional DDL (e.g. PostgreSQL or SQLite), or be absolutely certain that you have a valid, up-to-date database backup.</source>
         <translation>&lt;br/&gt;&lt;br/&gt;You are using a database which doesn&apos;t support transactional DDL. That means that if any single step of this fails, it &lt;b&gt;&lt;u&gt;will definitely lead to data corruption&lt;/u&gt;&lt;/b&gt;, as the previous steps can&apos;t be rolled back. Consider using a database with support for transactional DDL (e.g. PostgreSQL or SQLite), or be absolutely certain that you have a valid, up-to-date database backup.</translation>
     </message>
     <message>
-        <location filename="electronicsdb/System.cpp" line="734"/>
+        <location filename="electronicsdb/System.cpp" line="735"/>
         <source>Dangerous Operation</source>
         <translation>Dangerous Operation</translation>
     </message>
     <message>
-        <location filename="electronicsdb/System.cpp" line="735"/>
+        <location filename="electronicsdb/System.cpp" line="736"/>
         <source>&lt;b&gt;WARNING:&lt;/b&gt; Changing the static model has a risk of causing &lt;b&gt;database corruption&lt;/b&gt;. This is beta functionality and very likely has errors. You should always &lt;b&gt;backup your database&lt;/b&gt; before changing the static model. Not doing so may lead to &lt;b&gt;data loss&lt;/b&gt;.%1</source>
         <translation>&lt;b&gt;WARNING:&lt;/b&gt; Changing the static model has a risk of causing &lt;b&gt;database corruption&lt;/b&gt;. This is beta functionality and very likely has errors. You should always &lt;b&gt;backup your database&lt;/b&gt; before changing the static model. Not doing so may lead to &lt;b&gt;data loss&lt;/b&gt;.%1</translation>
     </message>
     <message>
-        <location filename="electronicsdb/System.cpp" line="750"/>
+        <location filename="electronicsdb/System.cpp" line="751"/>
         <source>First Steps</source>
         <translation>First Steps</translation>
     </message>
     <message>
-        <location filename="electronicsdb/System.cpp" line="750"/>
+        <location filename="electronicsdb/System.cpp" line="751"/>
         <source>FirstRunDialogText</source>
         <translation>&lt;html&gt;&lt;body&gt;It looks like ElectronicsDB is starting for the first time.&lt;br/&gt;&lt;br/&gt;
 

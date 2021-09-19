@@ -23,6 +23,7 @@
 #include <fstream>
 #include <memory>
 #include <QActionGroup>
+#include <QDesktopServices>
 #include <QDir>
 #include <QDockWidget>
 #include <QInputDialog>
@@ -186,6 +187,7 @@ MainWindow::MainWindow()
     connect(ui.undoAction, &QAction::triggered, editStack, &EditStack::undo);
     connect(ui.redoAction, &QAction::triggered, editStack, &EditStack::redo);
 
+    connect(ui.openManualAction, &QAction::triggered, this, &MainWindow::openManualRequested);
     connect(ui.aboutAction, &QAction::triggered, this, &MainWindow::aboutRequested);
     connect(ui.aboutQtAction, &QAction::triggered, this, &MainWindow::aboutQtRequested);
 
@@ -653,6 +655,17 @@ void MainWindow::aboutRequested()
 void MainWindow::aboutQtRequested()
 {
     QMessageBox::aboutQt(this, tr("About Qt"));
+}
+
+void MainWindow::openManualRequested()
+{
+    System* sys = System::getInstance();
+    QString docRoot = sys->getDocumentationPath();
+    QString docMainFile = QString("%1/html/index.html").arg(docRoot);
+
+    if (QFileInfo(docMainFile).isFile()) {
+        QDesktopServices::openUrl(QUrl::fromLocalFile(docMainFile));
+    }
 }
 
 void MainWindow::langChangeRequested()

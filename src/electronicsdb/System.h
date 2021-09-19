@@ -149,6 +149,9 @@ public:
     void saveFonts();
     QFont getSystemDefaultFont() const { return systemDefaultFont; }
 
+    void findPaths();
+    QString getDocumentationPath() const;
+
 public slots:
     void quit();
     void forceQuit();
@@ -197,6 +200,8 @@ private:
 
     std::unordered_map<int, QColor> appPalette;
     QFont systemDefaultFont;
+
+    QString docPath;
 };
 
 

@@ -30,6 +30,7 @@ namespace electronicsdb
 class RichTextItemDelegate : public QStyledItemDelegate
 {
 public:
+    RichTextItemDelegate(QObject* parent = nullptr);
     void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
     QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override;
 };
