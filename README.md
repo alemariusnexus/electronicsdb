@@ -16,9 +16,11 @@ For more information, you should **consult the manual** either [directly on GitH
 
 Currently, ElectronicsDB runs on Windows and Linux. It shouldn't be too hard to get it working on macOS as well, but I've never tested it, so some minor changes are probably necessary.
 
-## Using the Binaries
+## Getting Started
 
-The easiest way to get started is by downloading the binaries for your operating system on the GitHub releases page. Binaries for Windows are provided both as an installer and as a regular ZIP file. Linux binaries are provided in the form of AppImages, which should work on most modern distributions (let me know if you run into issues).
+The easiest way to get started is by downloading the binaries for your operating system on the GitHub releases page. Just run and/or install them and start ElectronicsDB.
+
+When you first run ElectronicsDB, you will be greeted with a screen that tells you to create a new database connection. The easiest way to start is to define an SQLite database connection, and let ElectronicDB create the database file for you (just provide a path to a non-existent file). In the GitHub releases, you can also find a **skeleton SQLite database** that already has some part categories defined, so you can download and use that to get some parts in right away.
 
 ## Building from Source
 
