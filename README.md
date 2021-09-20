@@ -20,7 +20,7 @@ Currently, ElectronicsDB runs on Windows and Linux. It shouldn't be too hard to 
 
 The easiest way to get started is by downloading the binaries for your operating system on the GitHub releases page. Just run and/or install them and start ElectronicsDB.
 
-When you first run ElectronicsDB, you will be greeted with a screen that tells you to create a new database connection. The easiest way to start is to define an SQLite database connection, and let ElectronicDB create the database file for you (just provide a path to a non-existent file). In the GitHub releases, you can also find a **skeleton SQLite database** that already has some part categories defined, so you can download and use that to get some parts in right away.
+When you first run ElectronicsDB, you will be greeted with a screen that tells you to create a new database connection. The easiest way to start is to define an SQLite database connection, and let ElectronicDB create the database file for you (just provide a path to a non-existent file). In the GitHub releases, you can also find a **skeleton SQLite database** that already has some part categories defined, so you can download and use that to get some parts in right away. There's also an **example database** that also has a bunch of parts and containers in it, if you want to play around with ElectronicsDB first before adding your own parts.
 
 ## Building from Source
 
