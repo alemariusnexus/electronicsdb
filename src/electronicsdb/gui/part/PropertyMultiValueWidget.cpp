@@ -70,6 +70,22 @@ PropertyMultiValueWidget::PropertyMultiValueWidget (
 
     buttonLayout->addStretch(1);
 
+    if (ltype) {
+        QList<PartCategory*> candPcats;
+        if (ltype->isPartCategoryA(cat)) {
+            candPcats = ltype->getPartCategoriesB(System::getInstance()->getPartCategories());
+        } else {
+            candPcats = ltype->getPartCategoriesA(System::getInstance()->getPartCategories());
+        }
+
+        if (candPcats.size() == 1) {
+            listNewButton = new QPushButton("", buttonWidget);
+            listNewButton->setIcon(QIcon::fromTheme("document-new", QIcon(":/icons/document-new.png")));
+            connect(listNewButton, &QPushButton::clicked, this, &PropertyMultiValueWidget::newRequested);
+            buttonLayout->addWidget(listNewButton);
+        }
+    }
+
     listAddButton = new QPushButton("", buttonWidget);
     listAddButton->setIcon(QIcon::fromTheme("list-add", QIcon(":/icons/list-add.png")));
     connect(listAddButton, &QPushButton::clicked, this, &PropertyMultiValueWidget::addRequested);
@@ -433,6 +449,43 @@ void PropertyMultiValueWidget::currentItemChanged(QListWidgetItem* newItem, QLis
     }
 
     applyState();
+}
+
+
+void PropertyMultiValueWidget::newRequested()
+{
+    PartLinkType* ltype = dynamic_cast<PartLinkType*>(aprop);
+
+    QList<PartCategory*> candPcats;
+    if (ltype->isPartCategoryA(cat)) {
+        candPcats = ltype->getPartCategoriesB(System::getInstance()->getPartCategories());
+    } else {
+        candPcats = ltype->getPartCategoriesA(System::getInstance()->getPartCategories());
+    }
+
+    if (candPcats.size() != 1) {
+        return;
+    }
+
+    PartCategory* lpcat = candPcats[0];
+
+    Part newPart(lpcat, Part::CreateBlankTag());
+    PartFactory::getInstance().insertItem(newPart);
+    assert(newPart.hasID());
+
+    QListWidgetItem* item = new QListWidgetItem(tr("(Invalid)"), listWidget);
+    QVariant udata;
+    udata.setValue(newPart);
+    item->setData(Qt::UserRole, udata);
+    updateLinkListItem(item);
+
+    listWidget->setCurrentItem(item);
+
+    System::getInstance()->jumpToPart(newPart);
+
+    focusValueWidget();
+
+    emit changedByUser();
 }
 
 

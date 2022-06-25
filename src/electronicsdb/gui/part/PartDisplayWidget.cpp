@@ -50,8 +50,13 @@
 #include "../../model/part/PartFactory.h"
 #include "../../System.h"
 #include "../util/PlainLineEdit.h"
+#include "../util/SimpleURLDownloader.h"
 #include "ChoosePartDialog.h"
 #include "PartCategoryWidget.h"
+
+#ifdef EDB_QT_PDF_AVAILABLE
+#include <QPdfDocument>
+#endif
 
 namespace electronicsdb
 {
@@ -518,6 +523,7 @@ bool PartDisplayWidget::saveChanges()
     currentPart.unlinkPartLinkTypes(ltypesToRebuild);
 
     Part::DataMap data;
+    Part::DataMap suggestedData;
 
     for (auto it = propWidgets.begin() ; it != propWidgets.end() ; ++it) {
         AbstractPartProperty* aprop = it.key();
@@ -539,7 +545,7 @@ bool PartDisplayWidget::saveChanges()
                     } else if (type == PartProperty::File) {
                         QString fpath = pw.fileWidget->getValue();
 
-                        QString relPath = handleFile(prop, fpath);
+                        QString relPath = handleFile(prop, fpath, suggestedData);
 
                         if (relPath.isNull()) {
                             return false;
@@ -581,6 +587,15 @@ bool PartDisplayWidget::saveChanges()
             }
         } else {
             assert(false);
+        }
+    }
+
+    for (auto it = suggestedData.begin() ; it != suggestedData.end() ; ++it) {
+        QVariant dataValue = data.value(it.key());
+
+        // TODO: Support this for more types than just string-based ones!
+        if (!dataValue.isValid()  ||  dataValue.toString().isEmpty()) {
+            data[it.key()] = it.value();
         }
     }
 
@@ -633,95 +648,168 @@ void PartDisplayWidget::changedByUser(const QString&)
 }
 
 
-QString PartDisplayWidget::handleFile(PartProperty* prop, const QString& fpath)
+QString PartDisplayWidget::handleFile(PartProperty* prop, const QString& fpath, Part::DataMap& suggestedValues)
 {
     System* sys = System::getInstance();
 
     DatabaseConnection* conn = sys->getCurrentDatabaseConnection();
     assert(conn);
 
-    QFileInfo fpathInfo(fpath);
-
     QString rootPath = conn->getFileRoot();
     QDir rootDir(rootPath);
 
-    if (!rootDir.exists()  &&  (!fpathInfo.isRelative()  ||  fpath.startsWith("../"))) {
-        QMessageBox::critical(this, tr("Invalid File"),
-                tr(	"The file path you specified for property '%1' is not relative or tried to reference the parent "
-                    "directory, and the current file root directory is invalid. This file can't be saved!")
-                    .arg(prop->getUserReadableName()));
-        return QString();
-    }
+    QUrl fpathUrl(fpath);
 
-    QString relPath = rootDir.relativeFilePath(fpath);
+    QString resultPath;
 
-    if (relPath.startsWith("../")  ||  QFileInfo(relPath).isAbsolute()) {
-        if (fpathInfo.exists()  &&  fpathInfo.isFile()) {
-            QMessageBox::StandardButton b = QMessageBox::question(this, tr("Copy File?"),
-                    tr(	"The file you specified for property '%1' does not seem to be inside the current file root directory. "
-                        "It must be copied there to be handled correctly by this program.\n\n"
-                        "Do you want to copy the file to the file root directory?").arg(prop->getUserReadableName()),
-                    QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+    QList<QString> networkSchemes = {"http", "https", "ftp"};
 
-            if (b == QMessageBox::Yes) {
-                QFileInfo relPathInfo(relPath);
-                QString suggestedPath(relPathInfo.fileName());
+    if (!fpathUrl.isValid()  ||  !networkSchemes.contains(fpathUrl.scheme())) {
+        QFileInfo fpathInfo(fpath);
 
-                unsigned int i = 2;
-                while (QFileInfo(rootDir, suggestedPath).exists()) {
-                    QString sfx = relPathInfo.completeSuffix();
-                    suggestedPath = QString("%1_%2%3%4")
-                            .arg(relPathInfo.baseName())
-                            .arg(i)
-                            .arg(sfx.isEmpty() ? "" : ".",
-                                 sfx);
-                    i++;
-                }
-
-                relPath = QString();
-                while (relPath.isNull()) {
-                    QString savePath = QFileDialog::getSaveFileName(this, tr("Select Destination File"),
-                            QFileInfo(rootDir, suggestedPath).filePath());
-
-                    if (savePath.isNull()) {
-                        return QString();
-                    }
-
-                    relPath = rootDir.relativeFilePath(savePath);
-
-                    if (relPath.startsWith("../")) {
-                        QMessageBox::critical(this, tr("Invalid File"),
-                                tr("The selected file does not seem to be inside the current file root directory '%1'!")
-                                    .arg(rootPath));
-                        relPath = QString();
-                    }
-                }
-
-                if (!QFile::copy(fpath, QFileInfo(rootDir, relPath).filePath())) {
-                    QMessageBox::critical(this, tr("Unable To Copy File"),
-                            tr("Failed to copy file '%1' to '%2/%3'!").arg(fpath, rootPath, relPath));
-                    return QString();
-                }
-            } else if (b == QMessageBox::No) {
-            } else if (b == QMessageBox::Cancel) {
-                return QString();
-            }
-        } else {
+        if (!rootDir.exists()  &&  (!fpathInfo.isRelative()  ||  fpath.startsWith("../"))) {
             QMessageBox::critical(this, tr("Invalid File"),
-                    tr(	"The file path you specified for property '%1' does not seem to point inside the current file root "
-                        "directory, nor does a regular file exist under that path. This file can't be saved!")
+                    tr(	"The file path you specified for property '%1' is not relative or tried to reference the parent "
+                        "directory, and the current file root directory is invalid. This file can't be saved!")
                         .arg(prop->getUserReadableName()));
             return QString();
         }
+
+        QString relPath = rootDir.relativeFilePath(fpath);
+
+        if (relPath.startsWith("../")  ||  QFileInfo(relPath).isAbsolute()) {
+            if (fpathInfo.exists()  &&  fpathInfo.isFile()) {
+                QMessageBox::StandardButton b = QMessageBox::question(this, tr("Copy File?"),
+                        tr(	"The file you specified for property '%1' does not seem to be inside the current file root directory. "
+                            "It must be copied there to be handled correctly by this program.\n\n"
+                            "Do you want to copy the file to the file root directory?").arg(prop->getUserReadableName()),
+                        QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel);
+
+                if (b == QMessageBox::Yes) {
+                    QFileInfo relPathInfo(relPath);
+                    QString suggestedPath(relPathInfo.fileName());
+
+                    unsigned int i = 2;
+                    while (QFileInfo(rootDir, suggestedPath).exists()) {
+                        QString sfx = relPathInfo.completeSuffix();
+                        suggestedPath = QString("%1_%2%3%4")
+                                .arg(relPathInfo.baseName())
+                                .arg(i)
+                                .arg(sfx.isEmpty() ? "" : ".",
+                                     sfx);
+                        i++;
+                    }
+
+                    relPath = QString();
+                    while (relPath.isNull()) {
+                        QString savePath = QFileDialog::getSaveFileName(this, tr("Select Destination File"),
+                                QFileInfo(rootDir, suggestedPath).filePath());
+
+                        if (savePath.isNull()) {
+                            return QString();
+                        }
+
+                        relPath = rootDir.relativeFilePath(savePath);
+
+                        if (relPath.startsWith("../")) {
+                            QMessageBox::critical(this, tr("Invalid File"),
+                                    tr("The selected file does not seem to be inside the current file root directory '%1'!")
+                                        .arg(rootPath));
+                            relPath = QString();
+                        }
+                    }
+
+                    if (!QFile::copy(fpath, QFileInfo(rootDir, relPath).filePath())) {
+                        QMessageBox::critical(this, tr("Unable To Copy File"),
+                                tr("Failed to copy file '%1' to '%2/%3'!").arg(fpath, rootPath, relPath));
+                        return QString();
+                    }
+                } else if (b == QMessageBox::No) {
+                } else if (b == QMessageBox::Cancel) {
+                    return QString();
+                }
+            } else {
+                QMessageBox::critical(this, tr("Invalid File"),
+                        tr(	"The file path you specified for property '%1' does not seem to point inside the current file root "
+                            "directory, nor does a regular file exist under that path. This file can't be saved!")
+                            .arg(prop->getUserReadableName()));
+                return QString();
+            }
+        }
+
+        if (relPath.startsWith("../")) {
+            QFileInfo info(relPath);
+
+            relPath = info.fileName();
+        }
+
+        resultPath = relPath;
+    } else {
+        QString fileName = fpathUrl.fileName(QUrl::FullyDecoded);
+
+        QFileInfo relPathInfo(fileName);
+        QString suggestedPath(relPathInfo.fileName());
+
+        unsigned int i = 2;
+        while (QFileInfo(rootDir, suggestedPath).exists()) {
+            QString sfx = relPathInfo.completeSuffix();
+            suggestedPath = QString("%1_%2%3%4")
+                    .arg(relPathInfo.baseName())
+                    .arg(i)
+                    .arg(sfx.isEmpty() ? "" : ".",
+                         sfx);
+            i++;
+        }
+
+        QString relPath = QString();
+        while (relPath.isNull()) {
+            QString savePath = QFileDialog::getSaveFileName(this, tr("Select Destination File"),
+                                                            QFileInfo(rootDir, suggestedPath).filePath());
+
+            if (savePath.isNull()) {
+                return QString();
+            }
+
+            relPath = rootDir.relativeFilePath(savePath);
+
+            if (relPath.startsWith("../")) {
+                QMessageBox::critical(this, tr("Invalid File"),
+                                      tr("The selected file does not seem to be inside the current file root directory '%1'!")
+                                              .arg(rootPath));
+                relPath = QString();
+            }
+        }
+
+        SimpleURLDownloader dl;
+        QFileInfo fpathInfo(rootDir, relPath);
+
+        if (!dl.downloadToFileBlocking(fpathUrl, fpathInfo.filePath())) {
+            QMessageBox::critical(this, tr("Error Downloading File"),
+                                  tr("An error occurred while downloading the file to '%1'!")
+                                        .arg(relPath));
+            QFile(fpathInfo.filePath()).remove();
+        }
+
+        resultPath = relPath;
     }
 
-    if (relPath.startsWith("../")) {
-        QFileInfo info(relPath);
+    QFileInfo resultPathInfo(rootDir, resultPath);
 
-        relPath = info.fileName();
+#ifdef EDB_QT_PDF_AVAILABLE
+    // TODO: Think of a better way to handle this than looking for this hard-coded property ID. Maybe a generalized
+    //       "suggested value" or "autocomplete" pattern system for properties?
+    PartProperty* titleProp = partCat->getProperty("title");
+
+    if (titleProp) {
+        QPdfDocument pdf;
+        auto pdfErr = pdf.load(resultPathInfo.filePath());
+        if (pdfErr == QPdfDocument::NoError) {
+            suggestedValues[titleProp] = pdf.metaData(QPdfDocument::Title);
+        }
     }
+#endif
 
-    return relPath;
+    return resultPath;
 }
 
 

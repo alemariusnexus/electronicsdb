@@ -87,7 +87,7 @@ private:
     void applyState();
     void applyMultiListPropertyChange(AbstractPartProperty* prop);
     void setHasChanges(bool hasChanges);
-    QString handleFile(PartProperty* prop, const QString& fpath);
+    QString handleFile(PartProperty* prop, const QString& fpath, Part::DataMap& suggestedValues);
     AbstractPartProperty* getPropertyForWidget(QWidget* widget);
 
 private slots:

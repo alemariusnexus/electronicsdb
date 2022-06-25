@@ -4,6 +4,7 @@ ADD_SOURCES (
         ChangelogWidget.cpp
         PlainLineEdit.cpp
         RichTextItemDelegate.cpp
+        SimpleURLDownloader.cpp
         )
 ADD_SOURCES(OUTVAR UIC_SRCS
         ChangelogWidget.ui
@@ -14,4 +15,5 @@ ADD_SOURCES(OUTVAR MOC_SRCS
         ChangelogWidget.h
         PlainLineEdit.h
         RichTextItemDelegate.h
+        SimpleURLDownloader.h
         )

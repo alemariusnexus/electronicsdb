@@ -63,6 +63,7 @@ private:
 
 private slots:
     void currentItemChanged(QListWidgetItem* newItem, QListWidgetItem* oldItem);
+    void newRequested();
     void addRequested();
     void removeRequested();
     void boolFieldToggled(bool val);
@@ -85,6 +86,7 @@ private:
     Part currentPart;
 
     QListWidget* listWidget;
+    QPushButton* listNewButton;
     QPushButton* listAddButton;
     QPushButton* listRemoveButton;
     QCheckBox* boolBox;

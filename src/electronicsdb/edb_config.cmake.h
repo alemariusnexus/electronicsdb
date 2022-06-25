@@ -41,3 +41,5 @@
 
 
 #cmakedefine EDB_BUILD_TESTS
+
+#cmakedefine EDB_QT_PDF_AVAILABLE
