@@ -92,6 +92,7 @@ private:
 
 private slots:
     void buttonBoxClicked(QAbstractButton* b);
+    void openProductURLClicked();
     void changedByUser(const QString& = QString());
     void containerLinkActivated(const QString& link);
 
@@ -115,6 +116,7 @@ private:
 
     QTabWidget* tabber;
     QDialogButtonBox* dialogButtonBox;
+    QPushButton* openProductURLButton;
 
     QMap<AbstractPartProperty*, PropertyWidgets> propWidgets;
 };

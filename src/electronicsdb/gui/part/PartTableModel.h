@@ -42,6 +42,7 @@ private:
     {
         Part part;
         QList<QString> displayData;
+        QString contStr;
     };
 
 public:

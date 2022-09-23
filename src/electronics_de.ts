@@ -1219,7 +1219,7 @@ Das Handbuch befindet sich unter &lt;b&gt;Hilfe / Handbuch öffnen&lt;/b&gt;</tr
 
 %1&lt;br/&gt;&lt;br/&gt;&lt;br/&gt;
 
-Copyright 2010-2021 David &quot;Alemarius Nexus&quot; Lerch&lt;br/&gt;&lt;br/&gt;
+Copyright 2010-2022 David &quot;Alemarius Nexus&quot; Lerch&lt;br/&gt;&lt;br/&gt;
 
 Dieses Programm ist freie Software. Sie können es unter den Bedingungen der GNU General Public License, wie von der Free Software Foundation veröffentlicht, weitergeben und/oder modifizieren, entweder gemäß Version 3 der Lizenz oder (nach Ihrer Option) jeder späteren Version.&lt;br/&gt;&lt;br/&gt;
 
@@ -1474,54 +1474,60 @@ Sie sollten ein Exemplar der GNU General Public License zusammen mit diesem Prog
 <context>
     <name>electronicsdb::PartDisplayWidget</name>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="87"/>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="252"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="94"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="266"/>
         <source>(No part selected)</source>
         <translation>(Kein Bauteil ausgewählt)</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="102"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="109"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="121"/>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="124"/>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="254"/>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="255"/>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="338"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="128"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="131"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="268"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="269"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="354"/>
         <source>-</source>
         <translation>-</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="122"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="129"/>
         <source>Part ID</source>
         <translation>Bauteil ID</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="127"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="134"/>
         <source>Associated Containers</source>
         <translation>Verbundene Behälter</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="649"/>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="693"/>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="710"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="234"/>
+        <source>Product Page</source>
+        <translation>Produktseite</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="703"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="747"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="764"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="808"/>
         <source>Invalid File</source>
         <translation>Ungültige Datei</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="650"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="704"/>
         <source>The file path you specified for property &apos;%1&apos; is not relative or tried to reference the parent directory, and the current file root directory is invalid. This file can&apos;t be saved!</source>
         <translation>Der angegebene Dateipfad für die Eigenschaft &apos;%1&apos; ist nicht relativ oder greift auf das Elternverzeichnis zu, und das aktuelle Datei-Wurzelverzeichnis ist ungültig. Die Datei konnte nicht gespeichert werden!</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="660"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="714"/>
         <source>Copy File?</source>
         <translation>Datei kopieren?</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="661"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="715"/>
         <source>The file you specified for property &apos;%1&apos; does not seem to be inside the current file root directory. It must be copied there to be handled correctly by this program.
 
 Do you want to copy the file to the file root directory?</source>
@@ -1530,29 +1536,41 @@ Do you want to copy the file to the file root directory?</source>
 Soll die Datei in das Datei-Wurzelverzeichnis kopiert werden?</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="683"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="737"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="798"/>
         <source>Select Destination File</source>
         <translation>Zieldatei auswählen</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="694"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="748"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="809"/>
         <source>The selected file does not seem to be inside the current file root directory &apos;%1&apos;!</source>
         <translation>Die ausgewählte Datei scheint sich nicht innerhalb des aktuellen Wurzelverzeichnisses &apos;%1&apos; zu befinden!</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="701"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="755"/>
         <source>Unable To Copy File</source>
         <translation>Datei Kopieren nicht möglich</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="702"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="756"/>
         <source>Failed to copy file &apos;%1&apos; to &apos;%2/%3&apos;!</source>
         <translation>Die Datei &apos;%1&apos; konnte nicht nach &apos;%2/%3&apos; kopiert werden!</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="711"/>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="765"/>
         <source>The file path you specified for property &apos;%1&apos; does not seem to point inside the current file root directory, nor does a regular file exist under that path. This file can&apos;t be saved!</source>
         <translation>Der für die Eigenschaft &apos;%1&apos; angegebene Dateipfad scheint sich nicht innerhalb des aktuellen Datei-Wurzelverzeichnisses zu befinden, und es scheint auch keine reguläre Datei unter diesem Pfad zu existieren. Die Datei konnte nicht gespeichert werden!</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="819"/>
+        <source>Error Downloading File</source>
+        <translation>Fehler beim Dateidownload</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/part/PartDisplayWidget.cpp" line="820"/>
+        <source>An error occurred while downloading the file to &apos;%1&apos;!</source>
+        <translation>Ein Fehler ist aufgetreten beim Download der Datei nach &apos;%1&apos;!</translation>
     </message>
 </context>
 <context>
@@ -1707,9 +1725,19 @@ Soll die Datei in das Datei-Wurzelverzeichnis kopiert werden?</translation>
 <context>
     <name>electronicsdb::PartTableModel</name>
     <message>
-        <location filename="electronicsdb/gui/part/PartTableModel.cpp" line="238"/>
+        <location filename="electronicsdb/gui/part/PartTableModel.cpp" line="135"/>
+        <source>-</source>
+        <translation>-</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/part/PartTableModel.cpp" line="261"/>
         <source>ID</source>
         <translation>ID</translation>
+    </message>
+    <message>
+        <location filename="electronicsdb/gui/part/PartTableModel.cpp" line="277"/>
+        <source>Container</source>
+        <translation>Behälter</translation>
     </message>
 </context>
 <context>
@@ -1743,22 +1771,23 @@ Soll die Datei in das Datei-Wurzelverzeichnis kopiert werden?</translation>
 <context>
     <name>electronicsdb::PropertyMultiValueWidget</name>
     <message>
-        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="121"/>
-        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="126"/>
-        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="131"/>
-        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="136"/>
+        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="137"/>
+        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="142"/>
+        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="147"/>
+        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="152"/>
         <source>Value</source>
         <translation>Wert</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="220"/>
+        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="236"/>
         <source>Value #%1 is invalid!</source>
         <translation>Wert #%1 ist ungültig!</translation>
     </message>
     <message>
-        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="338"/>
-        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="464"/>
-        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="477"/>
+        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="354"/>
+        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="476"/>
+        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="517"/>
+        <location filename="electronicsdb/gui/part/PropertyMultiValueWidget.cpp" line="530"/>
         <source>(Invalid)</source>
         <translation>(Ungültig)</translation>
     </message>

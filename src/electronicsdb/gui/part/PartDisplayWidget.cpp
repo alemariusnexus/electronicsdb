@@ -19,6 +19,7 @@
 
 #include "PartDisplayWidget.h"
 
+#include <QDesktopServices>
 #include <QDialog>
 #include <QDialogButtonBox>
 #include <QDir>
@@ -48,6 +49,7 @@
 #include "../../model/container/PartContainer.h"
 #include "../../model/container/PartContainerFactory.h"
 #include "../../model/part/PartFactory.h"
+#include "../../script/ScriptManager.h"
 #include "../../System.h"
 #include "../util/PlainLineEdit.h"
 #include "../util/SimpleURLDownloader.h"
@@ -224,12 +226,19 @@ PartDisplayWidget::PartDisplayWidget(PartCategory* partCat, QWidget* parent)
     buttonWidget->setLayout(buttonLayout);
 
     buttonLayout->addStretch(1);
+
     dialogButtonBox = new QDialogButtonBox(QDialogButtonBox::Apply | QDialogButtonBox::Reset, Qt::Horizontal, buttonWidget);
     dialogButtonBox->setEnabled(false);
     buttonLayout->addWidget(dialogButtonBox);
+
+    openProductURLButton = new QPushButton(tr("Product Page"), buttonWidget);
+    openProductURLButton->setEnabled(false);
+    buttonLayout->addWidget(openProductURLButton);
+
     buttonLayout->addStretch(1);
 
     connect(dialogButtonBox, &QDialogButtonBox::clicked, this, &PartDisplayWidget::buttonBoxClicked);
+    connect(openProductURLButton, &QPushButton::clicked, this, &PartDisplayWidget::openProductURLClicked);
 
 
 
@@ -301,6 +310,8 @@ void PartDisplayWidget::setDisplayedPart(const Part& part)
                 assert(false);
             }
         }
+
+        openProductURLButton->setEnabled(false);
 
         applyState();
     } else {
@@ -404,6 +415,10 @@ void PartDisplayWidget::setDisplayedPart(const Part& part)
                 assert(false);
             }
         }
+
+        QStringList productURLs = ScriptManager::getInstance().queryPartProductURL(part);
+
+        openProductURLButton->setEnabled(!productURLs.isEmpty());
 
         applyState();
     }
@@ -626,6 +641,23 @@ void PartDisplayWidget::buttonBoxClicked(QAbstractButton* b)
 }
 
 
+void PartDisplayWidget::openProductURLClicked()
+{
+    if (!currentPart.isValid()) {
+        return;
+    }
+
+    QStringList productURLs = ScriptManager::getInstance().queryPartProductURL(currentPart);
+    if (productURLs.isEmpty()) {
+        return;
+    }
+
+    QString url = productURLs[0];
+
+    QDesktopServices::openUrl(QUrl(url));
+}
+
+
 void PartDisplayWidget::setHasChanges(bool hasChanges)
 {
     if (state != Enabled  ||  (flags & ChoosePart)  !=  0)
@@ -796,6 +828,8 @@ QString PartDisplayWidget::handleFile(PartProperty* prop, const QString& fpath, 
     QFileInfo resultPathInfo(rootDir, resultPath);
 
 #ifdef EDB_QT_PDF_AVAILABLE
+    // TODO: This can be quite slow and sometimes gets stuck for non-PDF files. We'll disable it for now.
+#if 0
     // TODO: Think of a better way to handle this than looking for this hard-coded property ID. Maybe a generalized
     //       "suggested value" or "autocomplete" pattern system for properties?
     PartProperty* titleProp = partCat->getProperty("title");
@@ -807,6 +841,7 @@ QString PartDisplayWidget::handleFile(PartProperty* prop, const QString& fpath, 
             suggestedValues[titleProp] = pdf.metaData(QPdfDocument::Title);
         }
     }
+#endif
 #endif
 
     return resultPath;

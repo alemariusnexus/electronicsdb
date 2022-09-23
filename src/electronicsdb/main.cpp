@@ -32,17 +32,18 @@
 #include <QStandardPaths>
 #include <QStyle>
 #include <QTranslator>
-#include <gtest/gtest.h>
 #include <libhydrogen/hydrogen.h>
 #include <nxcommon/exception/Exception.h>
 #include <nxcommon/file/File.h>
 #include <nxcommon/log.h>
 #include "gui/MainWindow.h"
+#include "script/ScriptManager.h"
 #include "util/metatypes.h"
 #include "MainApplication.h"
 #include "System.h"
 
 #ifdef EDB_BUILD_TESTS
+#include <gtest/gtest.h>
 #include "test/TestManager.h"
 #endif
 
@@ -192,6 +193,8 @@ int main(int argc, char** argv)
         }
 
         System* sys = System::getInstance();
+
+        ScriptManager::getInstance().load();
 
 #ifdef EDB_BUILD_TESTS
         if (cli.isSet(runTestsOpt)) {

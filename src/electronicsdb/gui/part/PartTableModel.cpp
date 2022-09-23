@@ -93,7 +93,7 @@ void PartTableModel::cacheData(int rowBegin, int size, bool fullData)
         }
 
         // Load table data
-        PartFactory::getInstance().loadItemsSingleCategory(parts.begin(), parts.end(), 0, props);
+        PartFactory::getInstance().loadItemsSingleCategory(parts.begin(), parts.end(), PartFactory::LoadContainers, props);
 
         // Load descriptions for all parts, grouped by property
         QMap<PartProperty*, QList<QString>> descsByProp;
@@ -105,6 +105,13 @@ void PartTableModel::cacheData(int rowBegin, int size, bool fullData)
             descsByProp[prop] = prop->formatValuesForDisplay(vals);
         }
 
+        // Load container strings for all parts
+        QList<PartContainer> conts;
+        for (const auto& part : parts) {
+            conts.append(part.getContainers());
+        }
+        PartContainerFactory::getInstance().loadItems(conts.begin(), conts.end(), 0);
+
         // Build PartData and populate caches
         int partIdx = 0;
         for (const Part& part : parts) {
@@ -114,6 +121,20 @@ void PartTableModel::cacheData(int rowBegin, int size, bool fullData)
             for (PartProperty* prop : props) {
                 pdata->displayData << descsByProp[prop][partIdx];
             }
+
+            QString contStr("");
+            for (const PartContainer& cont : part.getContainers()) {
+                if (!contStr.isEmpty()) {
+                    contStr += ", ";
+                }
+                // TODO: Make container links work!
+                //contStr += QString("<a href=\"%1\">%2</a>").arg(cont.getID()).arg(cont.getName());
+                contStr += QString("%2").arg(cont.getName());
+            }
+            if (contStr.isEmpty()) {
+                contStr = tr("-");
+            }
+            pdata->contStr = contStr;
 
             int row = rowBegin+partIdx;
 
@@ -177,7 +198,7 @@ int PartTableModel::columnCount(const QModelIndex& parent) const
         }
     }
 
-    return cc + 1;
+    return cc + 2; // ID, Containers
 }
 
 
@@ -195,8 +216,10 @@ QVariant PartTableModel::data(const QModelIndex& index, int role) const
     if (role == Qt::DisplayRole) {
         if (col == 0) {
             return QString::number(data->part.getID());
-        } else {
+        } else if (col-1 < data->displayData.size()) {
             return data->displayData[col-1];
+        } else {
+            return data->contStr;
         }
     } else if (role == Qt::BackgroundRole) {
         return QVariant();
@@ -251,7 +274,7 @@ QVariant PartTableModel::headerData(int section, Qt::Orientation orient, int rol
         }
     }
 
-    return QVariant();
+    return tr("Container");
 }
 
 
@@ -285,6 +308,7 @@ void PartTableModel::sort(int col, Qt::SortOrder order)
             }
         }
 
+        // TODO: Allow sorting by container?
         if (!sortProp)
             return;
 

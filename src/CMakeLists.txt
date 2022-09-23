@@ -26,11 +26,11 @@ IF(EDB_BUILD_TESTS)
 ENDIF()
 
 SET(EDB_VERSION_MAJOR 0)
-SET(EDB_VERSION_MINOR 2)
+SET(EDB_VERSION_MINOR 3)
 SET(EDB_VERSION_PATCH 0)
 
 SET(EDB_PROJECT_NAME electronicsdb)
-SET(EDB_COPYRIGHT "Copyright 2010-2021 David 'Alemarius Nexus' Lerch")
+SET(EDB_COPYRIGHT "Copyright 2010-2022 David 'Alemarius Nexus' Lerch")
 SET(EDB_WIN_ICON_FILE "${CMAKE_CURRENT_SOURCE_DIR}/resources/icons/appicon.ico")
 
 SET(CPACK_PACKAGE_NAME "ElectronicsDB")
@@ -143,6 +143,7 @@ ADD_SUBDIRECTORY(libhydrogen EXCLUDE_FROM_ALL)
 ADD_SUBDIRECTORY(qsourcehighlite)
 ADD_SUBDIRECTORY(qtplugins)
 ADD_SUBDIRECTORY(zip)
+ADD_SUBDIRECTORY(lua)
 
 
 CONFIGURE_FILE(electronicsdb/edb_config.cmake.h "${CMAKE_CURRENT_BINARY_DIR}/edb_config.h")
@@ -170,7 +171,8 @@ SET_SOURCE_FILES_PROPERTIES(electronics_en.ts electronics_de.ts PROPERTIES
 
 QT_WRAP_CPP(MOC_COMPILED_SRCS "${MOC_SRCS}")
 QT_WRAP_UI(UIC_COMPILED_SRCS "${UIC_SRCS}")
-QT_ADD_TRANSLATION(QM_FILES electronics_en.ts electronics_de.ts)
+#QT_ADD_TRANSLATION(QM_FILES electronics_en.ts electronics_de.ts)
+QT_CREATE_TRANSLATION(QM_FILES "${CMAKE_CURRENT_SOURCE_DIR}/electronicsdb" electronics_en.ts electronics_de.ts)
 
 
 QT_ADD_RESOURCES(QT_RESOURCE_FILES resources/resources.qrc)
@@ -186,7 +188,7 @@ INCLUDE_DIRECTORIES("${INCDIRS}")
 
 ADD_EXECUTABLE(electronicsdb WIN32 ${SRCS} ${MOC_COMPILED_SRCS} ${UIC_COMPILED_SRCS} ${QM_FILES} ${QT_RESOURCE_FILES})
 SET_PROPERTY(TARGET electronicsdb PROPERTY CXX_STANDARD 17)
-TARGET_LINK_LIBRARIES(electronicsdb "${LIBRARIES}" hydrogen)
+TARGET_LINK_LIBRARIES(electronicsdb "${LIBRARIES}" hydrogen lua::lib)
 
 IF(EDB_QT_EXTRA_PLUGIN_TARGETS)
     ADD_DEPENDENCIES(electronicsdb ${EDB_QT_EXTRA_PLUGIN_TARGETS})
@@ -209,6 +211,8 @@ INSTALL(TARGETS electronicsdb DESTINATION bin)
 
 INSTALL(FILES electronicsdb.desktop DESTINATION share/applications/)
 INSTALL(FILES resources/icons/appicon.png DESTINATION share/icons/hicolor/64x64/apps)
+
+INSTALL(DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/resources/lua" DESTINATION share)
 
 #IF(${CMAKE_VERSION} VERSION_GREATER_EQUAL "3.21.0")
 #    INSTALL(IMPORTED_RUNTIME_ARTIFACTS electronicsdb)
